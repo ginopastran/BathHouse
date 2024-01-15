@@ -37,8 +37,17 @@ const FormularioPage: React.FC = () => {
     e.preventDefault();
 
     try {
-      // Enviar datos al servidor
       await axios.post("/api/actualizarExcel", { perimetro, ubicacionObra });
+
+      const response = await axios.get("/api/actualizarExcel", {
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "BATHOUSE-Enero-2024.xlsx");
+      document.body.appendChild(link);
+      link.click();
     } catch (error) {
       console.log(error);
     }
@@ -80,6 +89,9 @@ const FormularioPage: React.FC = () => {
           </button>
         </div>
       </form>
+      <a href="/presupuesto" className=" bg-black px-3 py-2 text-white">
+        Presupuesto
+      </a>
     </div>
   );
 };
