@@ -1,93 +1,69 @@
+"use client";
+import axios from "axios";
 import * as React from "react";
-import { useForm } from "@beekai/react";
+import { useForm } from "react-hook-form";
 
-export function App() {
+export default function Presupuesto() {
   const {
     register,
-    onSubmit,
     handleSubmit,
     control,
-    submissionId,
-    formState: {
-      errors,
-      isSubmitting,
-    }
+    formState: { errors, isSubmitting },
   } = useForm({
-    formId: "d016dfcd-9431-44f9-8d82-a7edfdc9c2af",
     defaultValues: {
       "nombre-completo": "",
-      "ubicacion": "",
+      ubicacion: "",
       "metros-cuadrados-de-planta-baja": "",
       "metros-cuadrados-de-planta-alta": "",
       "superficie-p-rgolas-cubiertas-techado": "",
       "superficie-p-rgolas-semi-cubierta-p-rgola": "",
       "altura-de-muro-planta-baja": "",
       "altura-de-muro-planta-alta": "",
-      "churrasquera": "",
+      churrasquera: "",
       "aires-acondicionados": "",
       "pozo-filtrante": "",
       "cisterna-enterrada": "",
       "con-pluviales": "",
-      "agua": [
-        "Si"
-      ],
-      "cloaca": [
-        "Si"
-      ],
-      "gas": [
-        "Si"
-      ],
-      "pozo-filtrante-bool": [
-        "Si"
-      ],
-      "losa-radiante-de-agua": [
-        "no"
-      ],
-      "losa-radiante-electrica": [
-        "Si"
-      ],
-      "molduras-de-cumbrera": [
-        "Si"
-      ],
-      "moldura-de-ventanas": [
-        "Si"
-      ],
-      "cielorraso-de-placa-de-yeso": [
-        "Si"
-      ],
-      "cielorraso-de-yeso": [
-        "no"
-      ],
-      "porcelanato": [
-        "Si"
-      ],
-      "rayado-o-fino-de-muros": [
-        "Si"
-      ],
-      "vereda-vehiculo": [
-        "Si"
-      ],
-      "churrasquera-de-ladrillo-y-o-hogar": [
-        "Si"
-      ],
-      "cuenta-con-arquitecto": [
-        "Si"
-      ],
-      "cuenta-con-proyecto": [
-        "Si"
-      ]
-    }
+      agua: ["Si"],
+      cloaca: ["Si"],
+      gas: ["Si"],
+      "pozo-filtrante-bool": ["Si"],
+      "losa-radiante-de-agua": ["no"],
+      "losa-radiante-electrica": ["Si"],
+      "molduras-de-cumbrera": ["Si"],
+      "moldura-de-ventanas": ["Si"],
+      "cielorraso-de-placa-de-yeso": ["Si"],
+      "cielorraso-de-yeso": ["no"],
+      porcelanato: ["Si"],
+      "rayado-o-fino-de-muros": ["Si"],
+      "vereda-vehiculo": ["Si"],
+      "churrasquera-de-ladrillo-y-o-hogar": ["Si"],
+      "cuenta-con-arquitecto": ["Si"],
+      "cuenta-con-proyecto": ["Si"],
+    },
   });
+  const onSubmit = async (data: any) => {
+    try {
+      // Enviar datos al servidor
+      await axios.post("/api/actualizarExcel", data);
 
-  if (submissionId) {
-    return <p>Thank you! Submission Id: {submissionId}</p>;
-  }
+      const response = await axios.get("/api/actualizarExcel", {
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "BATHOUSE-Enero-2024.xlsx");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Formulario</h1>
-
-      {errors.root?.serverError && <p>Something went wrong, and please try again.</p>}
 
       <div>
         <label>
@@ -99,9 +75,12 @@ export function App() {
             aria-invalid={errors["nombre-completo"] ? "true" : "false"}
             placeholder="Nombre completo"
             type="text"
+            className=" text-b"
           />
         </label>
-        {errors["nombre-completo"] && <p role="alert">{errors["nombre-completo"]?.message}</p>}
+        {errors["nombre-completo"] && (
+          <p role="alert">{errors["nombre-completo"]?.message}</p>
+        )}
       </div>
 
       <div>
@@ -116,7 +95,9 @@ export function App() {
             <option value="Mendoza">Mendoza</option>
             <option value="Chaco">Chaco</option>
           </select>
-          {errors["ubicacion"] && <p role="alert">{errors["ubicacion"]?.message}</p>}
+          {errors["ubicacion"] && (
+            <p role="alert">{errors["ubicacion"]?.message}</p>
+          )}
         </label>
       </div>
 
@@ -127,12 +108,18 @@ export function App() {
             {...register("metros-cuadrados-de-planta-baja", {
               required: true,
             })}
-            aria-invalid={errors["metros-cuadrados-de-planta-baja"] ? "true" : "false"}
+            aria-invalid={
+              errors["metros-cuadrados-de-planta-baja"] ? "true" : "false"
+            }
             placeholder="m2"
             type="number"
           />
         </label>
-        {errors["metros-cuadrados-de-planta-baja"] && <p role="alert">{errors["metros-cuadrados-de-planta-baja"]?.message}</p>}
+        {errors["metros-cuadrados-de-planta-baja"] && (
+          <p role="alert">
+            {errors["metros-cuadrados-de-planta-baja"]?.message}
+          </p>
+        )}
       </div>
 
       <div>
@@ -142,12 +129,18 @@ export function App() {
             {...register("metros-cuadrados-de-planta-alta", {
               required: "Please fill in this field.",
             })}
-            aria-invalid={errors["metros-cuadrados-de-planta-alta"] ? "true" : "false"}
+            aria-invalid={
+              errors["metros-cuadrados-de-planta-alta"] ? "true" : "false"
+            }
             placeholder="m2"
             type="number"
           />
         </label>
-        {errors["metros-cuadrados-de-planta-alta"] && <p role="alert">{errors["metros-cuadrados-de-planta-alta"]?.message}</p>}
+        {errors["metros-cuadrados-de-planta-alta"] && (
+          <p role="alert">
+            {errors["metros-cuadrados-de-planta-alta"]?.message}
+          </p>
+        )}
       </div>
 
       <div>
@@ -157,12 +150,18 @@ export function App() {
             {...register("superficie-p-rgolas-cubiertas-techado", {
               required: "Please fill in this field.",
             })}
-            aria-invalid={errors["superficie-p-rgolas-cubiertas-techado"] ? "true" : "false"}
+            aria-invalid={
+              errors["superficie-p-rgolas-cubiertas-techado"] ? "true" : "false"
+            }
             placeholder="m2"
             type="number"
           />
         </label>
-        {errors["superficie-p-rgolas-cubiertas-techado"] && <p role="alert">{errors["superficie-p-rgolas-cubiertas-techado"]?.message}</p>}
+        {errors["superficie-p-rgolas-cubiertas-techado"] && (
+          <p role="alert">
+            {errors["superficie-p-rgolas-cubiertas-techado"]?.message}
+          </p>
+        )}
       </div>
 
       <div>
@@ -172,12 +171,20 @@ export function App() {
             {...register("superficie-p-rgolas-semi-cubierta-p-rgola", {
               required: "Please fill in this field.",
             })}
-            aria-invalid={errors["superficie-p-rgolas-semi-cubierta-p-rgola"] ? "true" : "false"}
+            aria-invalid={
+              errors["superficie-p-rgolas-semi-cubierta-p-rgola"]
+                ? "true"
+                : "false"
+            }
             placeholder="m2"
             type="number"
           />
         </label>
-        {errors["superficie-p-rgolas-semi-cubierta-p-rgola"] && <p role="alert">{errors["superficie-p-rgolas-semi-cubierta-p-rgola"]?.message}</p>}
+        {errors["superficie-p-rgolas-semi-cubierta-p-rgola"] && (
+          <p role="alert">
+            {errors["superficie-p-rgolas-semi-cubierta-p-rgola"]?.message}
+          </p>
+        )}
       </div>
 
       <div>
@@ -187,12 +194,16 @@ export function App() {
             {...register("altura-de-muro-planta-baja", {
               required: "Please fill in this field.",
             })}
-            aria-invalid={errors["altura-de-muro-planta-baja"] ? "true" : "false"}
+            aria-invalid={
+              errors["altura-de-muro-planta-baja"] ? "true" : "false"
+            }
             placeholder="ml"
             type="number"
           />
         </label>
-        {errors["altura-de-muro-planta-baja"] && <p role="alert">{errors["altura-de-muro-planta-baja"]?.message}</p>}
+        {errors["altura-de-muro-planta-baja"] && (
+          <p role="alert">{errors["altura-de-muro-planta-baja"]?.message}</p>
+        )}
       </div>
 
       <div>
@@ -202,12 +213,16 @@ export function App() {
             {...register("altura-de-muro-planta-alta", {
               required: "Please fill in this field.",
             })}
-            aria-invalid={errors["altura-de-muro-planta-alta"] ? "true" : "false"}
+            aria-invalid={
+              errors["altura-de-muro-planta-alta"] ? "true" : "false"
+            }
             placeholder="ml"
             type="number"
           />
         </label>
-        {errors["altura-de-muro-planta-alta"] && <p role="alert">{errors["altura-de-muro-planta-alta"]?.message}</p>}
+        {errors["altura-de-muro-planta-alta"] && (
+          <p role="alert">{errors["altura-de-muro-planta-alta"]?.message}</p>
+        )}
       </div>
 
       <div>
@@ -222,7 +237,9 @@ export function App() {
             type="number"
           />
         </label>
-        {errors["churrasquera"] && <p role="alert">{errors["churrasquera"]?.message}</p>}
+        {errors["churrasquera"] && (
+          <p role="alert">{errors["churrasquera"]?.message}</p>
+        )}
       </div>
 
       <div>
@@ -237,7 +254,9 @@ export function App() {
             type="number"
           />
         </label>
-        {errors["aires-acondicionados"] && <p role="alert">{errors["aires-acondicionados"]?.message}</p>}
+        {errors["aires-acondicionados"] && (
+          <p role="alert">{errors["aires-acondicionados"]?.message}</p>
+        )}
       </div>
 
       <div>
@@ -252,7 +271,9 @@ export function App() {
             type="number"
           />
         </label>
-        {errors["pozo-filtrante"] && <p role="alert">{errors["pozo-filtrante"]?.message}</p>}
+        {errors["pozo-filtrante"] && (
+          <p role="alert">{errors["pozo-filtrante"]?.message}</p>
+        )}
       </div>
 
       <div>
@@ -267,7 +288,9 @@ export function App() {
             type="number"
           />
         </label>
-        {errors["cisterna-enterrada"] && <p role="alert">{errors["cisterna-enterrada"]?.message}</p>}
+        {errors["cisterna-enterrada"] && (
+          <p role="alert">{errors["cisterna-enterrada"]?.message}</p>
+        )}
       </div>
 
       <div>
@@ -282,14 +305,16 @@ export function App() {
             type="number"
           />
         </label>
-        {errors["con-pluviales"] && <p role="alert">{errors["con-pluviales"]?.message}</p>}
+        {errors["con-pluviales"] && (
+          <p role="alert">{errors["con-pluviales"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Agua</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -312,7 +337,7 @@ export function App() {
         <p>Cloaca</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -335,7 +360,7 @@ export function App() {
         <p>Gas</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -358,7 +383,7 @@ export function App() {
         <p>Pozo filtrante</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -374,14 +399,16 @@ export function App() {
             </label>
           );
         })}
-        {errors["pozo-filtrante-bool"] && <p role="alert">{errors["pozo-filtrante-bool"]?.message}</p>}
+        {errors["pozo-filtrante-bool"] && (
+          <p role="alert">{errors["pozo-filtrante-bool"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Losa radiante de agua</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -390,21 +417,25 @@ export function App() {
                 {...register("losa-radiante-de-agua", {
                   required: "Please select an item in the list.",
                 })}
-                aria-invalid={errors["losa-radiante-de-agua"] ? "true" : "false"}
+                aria-invalid={
+                  errors["losa-radiante-de-agua"] ? "true" : "false"
+                }
                 value={value}
                 type="checkbox"
               />
             </label>
           );
         })}
-        {errors["losa-radiante-de-agua"] && <p role="alert">{errors["losa-radiante-de-agua"]?.message}</p>}
+        {errors["losa-radiante-de-agua"] && (
+          <p role="alert">{errors["losa-radiante-de-agua"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Losa radiante eléctrica</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -413,21 +444,25 @@ export function App() {
                 {...register("losa-radiante-electrica", {
                   required: "Please select an item in the list.",
                 })}
-                aria-invalid={errors["losa-radiante-electrica"] ? "true" : "false"}
+                aria-invalid={
+                  errors["losa-radiante-electrica"] ? "true" : "false"
+                }
                 value={value}
                 type="checkbox"
               />
             </label>
           );
         })}
-        {errors["losa-radiante-electrica"] && <p role="alert">{errors["losa-radiante-electrica"]?.message}</p>}
+        {errors["losa-radiante-electrica"] && (
+          <p role="alert">{errors["losa-radiante-electrica"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Molduras de cumbrera</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -443,14 +478,16 @@ export function App() {
             </label>
           );
         })}
-        {errors["molduras-de-cumbrera"] && <p role="alert">{errors["molduras-de-cumbrera"]?.message}</p>}
+        {errors["molduras-de-cumbrera"] && (
+          <p role="alert">{errors["molduras-de-cumbrera"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Moldura de ventanas</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -466,14 +503,16 @@ export function App() {
             </label>
           );
         })}
-        {errors["moldura-de-ventanas"] && <p role="alert">{errors["moldura-de-ventanas"]?.message}</p>}
+        {errors["moldura-de-ventanas"] && (
+          <p role="alert">{errors["moldura-de-ventanas"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Cielorraso de placa de Yeso</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -482,21 +521,25 @@ export function App() {
                 {...register("cielorraso-de-placa-de-yeso", {
                   required: "Please select an item in the list.",
                 })}
-                aria-invalid={errors["cielorraso-de-placa-de-yeso"] ? "true" : "false"}
+                aria-invalid={
+                  errors["cielorraso-de-placa-de-yeso"] ? "true" : "false"
+                }
                 value={value}
                 type="checkbox"
               />
             </label>
           );
         })}
-        {errors["cielorraso-de-placa-de-yeso"] && <p role="alert">{errors["cielorraso-de-placa-de-yeso"]?.message}</p>}
+        {errors["cielorraso-de-placa-de-yeso"] && (
+          <p role="alert">{errors["cielorraso-de-placa-de-yeso"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Cielorraso de Yeso</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -512,14 +555,16 @@ export function App() {
             </label>
           );
         })}
-        {errors["cielorraso-de-yeso"] && <p role="alert">{errors["cielorraso-de-yeso"]?.message}</p>}
+        {errors["cielorraso-de-yeso"] && (
+          <p role="alert">{errors["cielorraso-de-yeso"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Porcelanato</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -535,14 +580,16 @@ export function App() {
             </label>
           );
         })}
-        {errors["porcelanato"] && <p role="alert">{errors["porcelanato"]?.message}</p>}
+        {errors["porcelanato"] && (
+          <p role="alert">{errors["porcelanato"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Rayado o fino de muros interiores</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -551,21 +598,25 @@ export function App() {
                 {...register("rayado-o-fino-de-muros", {
                   required: "Please select an item in the list.",
                 })}
-                aria-invalid={errors["rayado-o-fino-de-muros"] ? "true" : "false"}
+                aria-invalid={
+                  errors["rayado-o-fino-de-muros"] ? "true" : "false"
+                }
                 value={value}
                 type="checkbox"
               />
             </label>
           );
         })}
-        {errors["rayado-o-fino-de-muros"] && <p role="alert">{errors["rayado-o-fino-de-muros"]?.message}</p>}
+        {errors["rayado-o-fino-de-muros"] && (
+          <p role="alert">{errors["rayado-o-fino-de-muros"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Vereda vehicular y peatonal peperndic. a la calle</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -581,14 +632,16 @@ export function App() {
             </label>
           );
         })}
-        {errors["vereda-vehiculo"] && <p role="alert">{errors["vereda-vehiculo"]?.message}</p>}
+        {errors["vereda-vehiculo"] && (
+          <p role="alert">{errors["vereda-vehiculo"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Churrasquera de ladrillo y/o Hogar</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -597,21 +650,29 @@ export function App() {
                 {...register("churrasquera-de-ladrillo-y-o-hogar", {
                   required: "Please select an item in the list.",
                 })}
-                aria-invalid={errors["churrasquera-de-ladrillo-y-o-hogar"] ? "true" : "false"}
+                aria-invalid={
+                  errors["churrasquera-de-ladrillo-y-o-hogar"]
+                    ? "true"
+                    : "false"
+                }
                 value={value}
                 type="checkbox"
               />
             </label>
           );
         })}
-        {errors["churrasquera-de-ladrillo-y-o-hogar"] && <p role="alert">{errors["churrasquera-de-ladrillo-y-o-hogar"]?.message}</p>}
+        {errors["churrasquera-de-ladrillo-y-o-hogar"] && (
+          <p role="alert">
+            {errors["churrasquera-de-ladrillo-y-o-hogar"]?.message}
+          </p>
+        )}
       </div>
 
       <div>
         <p>Cuenta con arquitecto?</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -620,21 +681,25 @@ export function App() {
                 {...register("cuenta-con-arquitecto", {
                   required: "Please select an item in the list.",
                 })}
-                aria-invalid={errors["cuenta-con-arquitecto"] ? "true" : "false"}
+                aria-invalid={
+                  errors["cuenta-con-arquitecto"] ? "true" : "false"
+                }
                 value={value}
                 type="checkbox"
               />
             </label>
           );
         })}
-        {errors["cuenta-con-arquitecto"] && <p role="alert">{errors["cuenta-con-arquitecto"]?.message}</p>}
+        {errors["cuenta-con-arquitecto"] && (
+          <p role="alert">{errors["cuenta-con-arquitecto"]?.message}</p>
+        )}
       </div>
 
       <div>
         <p>Cuenta con proyecto?</p>
         {[
           { label: "Si", value: "Si" },
-          { label: "no", value: "no" }
+          { label: "no", value: "no" },
         ].map(({ label, value }, index) => {
           return (
             <label key={value + index}>
@@ -650,7 +715,9 @@ export function App() {
             </label>
           );
         })}
-        {errors["cuenta-con-proyecto"] && <p role="alert">{errors["cuenta-con-proyecto"]?.message}</p>}
+        {errors["cuenta-con-proyecto"] && (
+          <p role="alert">{errors["cuenta-con-proyecto"]?.message}</p>
+        )}
       </div>
 
       <button disabled={isSubmitting}>Submit</button>
