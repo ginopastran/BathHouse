@@ -1,6 +1,11 @@
 import ExcelJS from 'exceljs';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
+import fs from 'fs';
+import { promisify } from 'util';
+import { Stream } from 'stream';
+
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -13,7 +18,6 @@ export async function OPTIONS() {
 }
 
 export async function POST(req: NextRequest) {
-
     try {
         const { perimetro, ubicacionObra } = await req.json();
         console.log(perimetro, ubicacionObra);
@@ -45,7 +49,21 @@ export async function POST(req: NextRequest) {
     }
 }
 
+const pipeline = promisify(Stream.pipeline);
 
+export async function GET(req: NextRequest) {
+    try {
+        const filePath = path.resolve('./public/BATHOUSE-Enero-2024.xlsx');
+
+        const buffer = await fs.promises.readFile(filePath);
+
+        const response = new NextResponse(buffer);
+
+        return response;
+    } catch (error: any) {
+        return NextResponse.json({ message: "An error ocurred", error: error.message });
+    }
+}
 
 
 
