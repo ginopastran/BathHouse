@@ -105,13 +105,14 @@ export default function ProfileForm() {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 m-4 grid grid-flow-row-dense grid-cols-3 grid-rows-3">
+      <form onSubmit={form.handleSubmit(onSubmit)} >
+        <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
         <FormField
           control={form.control}
           name="nombre-completo"
           type="text"
           render={({ field }) => (
-            <FormItem>
+            <FormItem>  
               <FormLabel>Nombre Completo</FormLabel>
               <FormControl>
                 <Input placeholder="Nombre y Apellido" {...field} />
@@ -331,6 +332,8 @@ export default function ProfileForm() {
             </FormItem>
           )}
         />
+        </div>
+        <div className="gap-4 grid mx-4   grid-flow-row-dense grid-cols-2 grid-rows-3 xl:grid-cols-3 2xl:grid-cols-3 ">
         <FormField
           control={form.control}
           name="agua"
@@ -876,9 +879,11 @@ export default function ProfileForm() {
                 </FormItem>
             )}
             />
+            </div>
 
-
-        <Button type="submit">Submit</Button>
+        <div className="flex justify-center pt-5 pb-6 ">
+        <Button type="submit" className="w-[50%]">Solicitar de Presupuesto</Button>
+        </div>
       </form>
     </Form>
   );
