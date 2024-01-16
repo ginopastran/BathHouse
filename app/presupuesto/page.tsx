@@ -1,19 +1,14 @@
+'use client'
 import * as React from "react";
-import { useForm } from "@beekai/react";
+import { useForm } from "react-hook-form";
 
-export function App() {
+export default function Presupuesto() {
   const {
     register,
-    onSubmit,
     handleSubmit,
     control,
-    submissionId,
-    formState: {
-      errors,
-      isSubmitting,
-    }
+    formState: { errors, isSubmitting }
   } = useForm({
-    formId: "d016dfcd-9431-44f9-8d82-a7edfdc9c2af",
     defaultValues: {
       "nombre-completo": "",
       "ubicacion": "",
@@ -78,16 +73,13 @@ export function App() {
       ]
     }
   });
+  const onSubmit = (data:any) => alert(JSON.stringify(data));
 
-  if (submissionId) {
-    return <p>Thank you! Submission Id: {submissionId}</p>;
-  }
+
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Formulario</h1>
-
-      {errors.root?.serverError && <p>Something went wrong, and please try again.</p>}
 
       <div>
         <label>

@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/components/**/*.tsx"
-  ],
+, "app/presupuesto/page.tsx"  ],
   "exclude": ["node_modules"]
 }
