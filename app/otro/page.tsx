@@ -25,11 +25,11 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 
-const formSchema = z.object({
+/* const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-});
+}); */
 const items = [
   {
     id: "SI",
@@ -43,8 +43,7 @@ const items = [
 
 export default function ProfileForm() {
   // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm({
     defaultValues: {
       "nombre-completo": "",
       "ubicacion": "",
@@ -52,9 +51,12 @@ export default function ProfileForm() {
       "metros-cuadrados-de-planta-alta": "",
       "superficie-p-rgolas-cubiertas-techado": "",
       "superficie-p-rgolas-semi-cubierta-p-rgola": "",
+      "superficie-cochera-semi-cubierta-p-rgola": "", 
       "altura-de-muro-planta-baja": "",
       "altura-de-muro-planta-alta": "",
+      "tabique-durlock-pb-pa": "",
       "churrasquera": "",
+      "cant-banos": "",
       "aires-acondicionados": "",
       "pozo-filtrante": "",
       "cisterna-enterrada": "",
@@ -62,6 +64,7 @@ export default function ProfileForm() {
       "agua": "",
       "cloaca": "",
       "gas": "",
+      "luz": "",
       "pozo-filtrante-bool": "",
       "losa-radiante-de-agua": "",
       "losa-radiante-electrica": "",
@@ -73,13 +76,14 @@ export default function ProfileForm() {
       "rayado-o-fino-de-muros": "",
       "vereda-vehiculo": "",
       "churrasquera-de-ladrillo-y-o-hogar": "",
+      "cierre-provisorio": "",
       "cuenta-con-arquitecto": "",
       "cuenta-con-proyecto": "",
     },
   });
 
   // 2. Define a submit handler.
-  /*     const onSubmit = async (data: any) => {
+      const onSubmit = async (data: any) => {
         try {
           // Enviar datos al servidor
           await axios.post("/api/actualizarExcel", data);
@@ -97,12 +101,7 @@ export default function ProfileForm() {
           console.log(error);
         }
       };
-      */
-  const onSubmit = async (data: any) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} >
@@ -110,7 +109,6 @@ export default function ProfileForm() {
         <FormField
           control={form.control}
           name="nombre-completo"
-          type="text"
           render={({ field }) => (
             <FormItem>  
               <FormLabel>Nombre Completo</FormLabel>
@@ -223,6 +221,24 @@ export default function ProfileForm() {
         />
         <FormField
           control={form.control}
+          name="superficie-cochera-semi-cubierta-p-rgola"
+          type="number"
+          required
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Sup cochera semi cubierta(pergola)</FormLabel>
+              <FormControl>
+                <Input placeholder="m2" {...field} />
+              </FormControl>
+              {/*          <FormDescription>
+                                This is your public display name.
+                            </FormDescription> */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="altura-de-muro-planta-baja"
           type="number"
           required
@@ -230,7 +246,7 @@ export default function ProfileForm() {
             <FormItem>
               <FormLabel>Altura de muro planta baja</FormLabel>
               <FormControl>
-                <Input placeholder="m" {...field} />
+                <Input placeholder="ml" {...field} />
               </FormControl>
               {/*          <FormDescription>
                                 This is your public display name.
@@ -248,7 +264,25 @@ export default function ProfileForm() {
             <FormItem>
               <FormLabel>Altura de muro planta alta</FormLabel>
               <FormControl>
-                <Input placeholder="m" {...field} />
+                <Input placeholder="ml" {...field} />
+              </FormControl>
+              {/*          <FormDescription>
+                                This is your public display name.
+                            </FormDescription> */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="tabique-durlock-pb-pa"
+          type="number"
+          required
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Tabiques Durlock PB-PA</FormLabel>
+              <FormControl>
+                <Input placeholder="ml" {...field} />
               </FormControl>
               {/*          <FormDescription>
                                 This is your public display name.
@@ -265,6 +299,21 @@ export default function ProfileForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Churrasquera</FormLabel>
+              <FormControl>
+                <Input placeholder="Cantidad" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="cant-banos"
+          type="number"
+          required
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cantidad de baños</FormLabel>
               <FormControl>
                 <Input placeholder="Cantidad" {...field} />
               </FormControl>
@@ -408,6 +457,40 @@ export default function ProfileForm() {
             render={({ field }) => (
                 <FormItem className="space-y-3">
                 <FormLabel>Gas</FormLabel>
+                <FormControl>
+                    <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                    >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                        <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                        Si
+                        </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                        <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                        No
+                        </FormLabel>
+                    </FormItem>
+                    </RadioGroup>
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name="luz"
+            render={({ field }) => (
+                <FormItem className="space-y-3">
+                <FormLabel>Luz</FormLabel>
                 <FormControl>
                     <RadioGroup
                     onValueChange={field.onChange}
@@ -783,6 +866,40 @@ export default function ProfileForm() {
             render={({ field }) => (
                 <FormItem className="space-y-3">
                 <FormLabel>Churrasquera de ladrillo y/o Hogar</FormLabel>
+                <FormControl>
+                    <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                    >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                        <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                        Si
+                        </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                        <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                        No
+                        </FormLabel>
+                    </FormItem>
+                    </RadioGroup>
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name="cierre-provisorio"
+            render={({ field }) => (
+                <FormItem className="space-y-3">
+                <FormLabel>Cierre provisorio</FormLabel>
                 <FormControl>
                     <RadioGroup
                     onValueChange={field.onChange}
