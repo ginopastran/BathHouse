@@ -5,7 +5,8 @@ import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';
 import { Stream } from 'stream';
-
+import { EmailTemplate } from '@/components/email-template';
+import { Resend } from 'resend';
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -13,9 +14,13 @@ const corsHeaders = {
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+let fileNameGlobal = '';
+
 export async function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders });
 }
+
 
 export async function POST(req: NextRequest) {
     try {
@@ -23,11 +28,16 @@ export async function POST(req: NextRequest) {
 
         console.log(data);
 
-        const filePath = path.resolve('./public/BATHOUSE-Enero-2024.xlsx');
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().split('T')[0];
+        const fileName = `${data["nombre-completo"]}-${formattedDate}.xlsx`;
+        const filePath = path.resolve(`./public/${fileName}`);
 
         const workbook = new ExcelJS.Workbook();
 
-        await workbook.xlsx.readFile(filePath);
+        // Leer el archivo Excel original
+        const originalFilePath = path.resolve('./public/BATHOUSE-Enero-2024.xlsx');
+        await workbook.xlsx.readFile(originalFilePath);
 
         const worksheet = workbook.getWorksheet('Informacion de Cotización');
 
@@ -67,7 +77,28 @@ export async function POST(req: NextRequest) {
             await workbook.xlsx.writeFile(filePath);
         }
 
-        return NextResponse.json({ message: "Todo bien pa" });
+        // const excelBuffer = await fs.promises.readFile(filePath);
+
+        // const emailOptions = {
+        //     from: 'Acme <onboarding@resend.dev>',
+        //     to: ['ginopastran@gmail.com'],
+        //     subject: 'Hello world',
+        //     react: EmailTemplate({ firstName: data["nombre-completo"] }),
+        //     text: 'Please find the attached Excel file.',
+        //     attachments: [
+        //         {
+        //             filename: 'BATHOUSE-Enero-2024.xlsx',
+        //             content: excelBuffer,
+        //             encoding: 'base64',
+        //         },
+        //     ],
+        // };
+
+        // const emailData = await resend.emails.send(emailOptions);
+
+        fileNameGlobal = fileName;
+
+        return NextResponse.json({ fileName: fileName });
     } catch (error: any) {
         return NextResponse.json({ message: "An error ocurred", error: error.message }, { headers: corsHeaders });
     }
@@ -77,7 +108,7 @@ const pipeline = promisify(Stream.pipeline);
 
 export async function GET(req: NextRequest) {
     try {
-        const filePath = path.resolve('./public/BATHOUSE-Enero-2024.xlsx');
+        const filePath = path.resolve(`./public/${fileNameGlobal}`);
 
         const buffer = await fs.promises.readFile(filePath);
 
@@ -88,6 +119,3 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ message: "An error ocurred", error: error.message });
     }
 }
-
-
-
