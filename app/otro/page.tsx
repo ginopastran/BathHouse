@@ -24,6 +24,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import Popoverdata from "@/components/popoverdata";
 
 const formSchema = z.object({
   "nombre-completo": z.string().min(3),
@@ -125,6 +131,7 @@ export default function ProfileForm() {
   };
 
   return (
+    <>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
@@ -802,8 +809,19 @@ export default function ProfileForm() {
           <Button type="submit" className="w-[50%]">
             Solicitar de Presupuesto
           </Button>
+
         </div>
       </form>
     </Form>
+    <div>
+
+    <Popover>
+    <PopoverTrigger>Mirar el presupuesto</PopoverTrigger>
+    <PopoverContent className="h-[800px] w-screen">
+      <Popoverdata />
+    </PopoverContent>
+  </Popover>
+    </div>
+    </>
   );
 }
