@@ -89,7 +89,7 @@ const FormularioPage: React.FC = () => {
           </button>
         </div>
       </form>
-      <a href="/presupuesto" className=" bg-black px-3 py-2 text-white">
+      <a href="/otro" className=" bg-black px-3 py-2 text-white">
         Presupuesto
       </a>
     </div>

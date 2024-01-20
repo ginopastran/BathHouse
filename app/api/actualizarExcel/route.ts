@@ -35,14 +35,12 @@ export async function POST(req: NextRequest) {
 
         const workbook = new ExcelJS.Workbook();
 
-        // Leer el archivo Excel original
         const originalFilePath = path.resolve('./public/BATHOUSE-Enero-2024.xlsx');
         await workbook.xlsx.readFile(originalFilePath);
 
         const worksheet = workbook.getWorksheet('Informacion de Cotización');
 
         if (worksheet) {
-            // Escribir en una celda
             worksheet.getCell('B2').value = data["nombre-completo"];
             worksheet.getCell('B3').value = data["ubicacion"];
             worksheet.getCell('B9').value = data["metros-cuadrados-de-planta-baja"];
@@ -74,7 +72,7 @@ export async function POST(req: NextRequest) {
             worksheet.getCell('B58').value = data["rayado-o-fino-de-muros"];
             worksheet.getCell('B59').value = data["vereda-vehiculo"];
             worksheet.getCell('B63').value = data["churrasquera-de-ladrillo-y-o-hogar"];
-            worksheet.getCell('B61').value = data["cierre-provisorio"];/*  celda incorrectao nombre corregir donde corresponda celda de pileta */
+            worksheet.getCell('B61').value = data["cierre-provisorio"];
             worksheet.getCell('B65').value = data["cuenta-con-arquitecto"];
             worksheet.getCell('B66').value = data["cuenta-con-proyecto"];
 
@@ -110,16 +108,37 @@ export async function POST(req: NextRequest) {
 
 const pipeline = promisify(Stream.pipeline);
 
+// export async function GET(req: NextRequest) {
+//     try {
+//         const filePath = path.resolve(`./public/${fileNameGlobal}`);
+
+//         const buffer = await fs.promises.readFile(filePath);
+
+//         const response = new NextResponse(buffer);
+
+//         return response;
+//     } catch (error: any) {
+//         return NextResponse.json({ message: "An error ocurred", error: error.message });
+//     }
+// }
+
 export async function GET(req: NextRequest) {
     try {
         const filePath = path.resolve(`./public/${fileNameGlobal}`);
 
-        const buffer = await fs.promises.readFile(filePath);
+        const workbook = new ExcelJS.Workbook();
+        await workbook.xlsx.readFile(filePath);
 
-        const response = new NextResponse(buffer);
+        const worksheet = workbook.getWorksheet('Informacion de Cotización');
 
-        return response;
+        let cellValueH26, cellValueH27;
+        if (worksheet) {
+            cellValueH26 = worksheet.getCell('H26').value;
+            cellValueH27 = worksheet.getCell('H27').value;
+        }
+
+        return NextResponse.json({ cellValueH26: cellValueH26, cellValueH27: cellValueH27 });
     } catch (error: any) {
-        return NextResponse.json({ message: "An error ocurred", error: error.message });
+        return NextResponse.json({ message: "Ocurrió un error", error: error.message });
     }
 }
