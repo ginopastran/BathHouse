@@ -1,0 +1,124 @@
+{
+    "etapas_a_realizar_por_fonther": [
+        {
+            "etapa": "nicelacion_del_terreno_y_compactacion",
+            "realizado": "no"
+        },
+        {
+            "etapa": "platea",
+            "realizado": "si"
+        },
+        {
+            "etapa": "cerramiento_(paneles_cassaforma)",
+            "realizado": "si"
+        },
+        {
+            "etapa": "revoque_grueso",
+            "realizado": "si"
+        },
+        {
+            "etapa": "losa_cassaforma_impermeabilizada",
+            "realizado": "si"
+        },
+        {
+            "etapa": "cochera_-_galeria",
+            "realizado": "si"
+        },
+        {
+            "etapa": "revoque_fino_interior",
+            "realizado": "si"
+        },
+        {
+            "etapa": "churrasquera:_con_ladrillo_refractario",
+            "realizado": "no"
+        },
+        {
+            "etapa": "veredines_dentro_del_lote",
+            "realizado": "no"
+        },
+        {
+            "etapa": "veredines_externos",
+            "realizado": "no"
+        },
+        {
+            "etapa": "agua",
+            "realizado": "0"
+        },
+        {
+            "etapa": "cloaca",
+            "realizado": "0"
+        },
+        {
+            "etapa": "gas",
+            "realizado": "0"
+        },
+        {
+            "etapa": "proyecto_de_gas,_tramitacion_y_aprobacion.",
+            "realizado": "0"
+        },
+        {
+            "etapa": "luz_(sin_instalacion_de_artefactos)",
+            "realizado": "0"
+        },
+        {
+            "etapa": "kit_de_pre_instalacion_de_aires_acondicionados",
+            "realizado": "no"
+        },
+        {
+            "etapa": "porcelanato",
+            "realizado": "0"
+        },
+        {
+            "etapa": "cielorraso",
+            "realizado": "0"
+        },
+        {
+            "etapa": "cierre_definitivo",
+            "realizado": "si"
+        },
+        {
+            "etapa": "pileta_ipc",
+            "realizado": "0"
+        },
+        {
+            "etapa": "colocacion_artefactos_de_bano",
+            "realizado": "no"
+        },
+        {
+            "etapa": "aberturas_puertas_y_ventanas",
+            "realizado": "no"
+        },
+        {
+            "etapa": "jardineria,_riego,_relleno.",
+            "realizado": "no"
+        },
+        {
+            "etapa": "mesada_de_cocina,_placares,_colocacion_de_zocalos_en_los_mismos",
+            "realizado": "no"
+        },
+        {
+            "etapa": "moldura_en_chapa,_puertas_de_churrasqueras,_cumbrera_de_hogar",
+            "realizado": "no"
+        },
+        {
+            "etapa": "revestimiento_plastico_exterior_e_interior",
+            "realizado": "no"
+        },
+        {
+            "etapa": "empastado_y_pintura_de_cielorraso",
+            "realizado": "no"
+        },
+        {
+            "etapa": "zingueria_y_goteros_perimetral,_molduras_y_canteros",
+            "realizado": "no"
+        },
+        {
+            "etapa": "limpieza_final_de_obra,_posterior_al_pintado",
+            "realizado": "no"
+        },
+        {
+            "etapa": "fletes,_contenedores,_limpieza_final_del_terreno,_limpieza_de_tanques",
+            "realizado": "no"
+        }
+    ]
+}

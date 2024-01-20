@@ -1,0 +1,73 @@
+{
+    "cierre preliminar": {
+        "1": {
+            "Nombre": "RAFIA (VERDE) 1,85 M - XMT",
+            "CODIGO": "XCRATRAF1.9X1",
+            "cantidad": "",
+            "tipo": "",
+            "unidad": "",
+            "costo": ""
+        },
+        "2": {
+            "Nombre": "ESTABILIZADO X 6MTS",
+            "codigo": "XCESAGMESTAB",
+            "cantidad": "",
+            "tipo": "",
+            "unidad": "",
+            "costo": ""
+        },
+        "3": {
+            "Nombre": "PUNTAL EUCA NATURAL Ø 10-12 X 2,50 MT.-",
+            "codigo": "XCPUBPUNTAL1",
+            "cantidad": "",
+            "tipo": "",
+            "unidad": "",
+            "costo": ""
+        },
+        "4": {
+            "Nombre": "ALFAJIA ALAMO S/CEPILLAR 0,5` X 2` X 2,2 MTS.-E 3",
+            "codigo": "XCALBALFAJ8",
+            "cantidad": "",
+            "tipo": "",
+            "unidad": "",
+            "costo": ""
+        }
+    },
+    "corralito": {
+        "1": {
+            "nombre": "ALFAJ ALAM SCEPILL2\"X2\"X2,2M",
+            "codigo": "XCALBALFAJ9",
+            "cantidad": "",
+            "tipo": "",
+            "unidad": "",
+            "costo": ""
+        },
+        "2": {
+            "nombre": "CLAVO PTA PARIS 2 1/2`",
+            "codigo": "CLPP002.5",
+            "cantidad": "",
+            "tipo": "",
+            "unidad": "",
+            "costo": ""
+        },
+        "3": {
+            "nombre": "ALFAJIA ALAMO 2 CANTOS CEPILL 1` X 4` X 2,2 MTS.-",
+            "codigo": "XCALBALFAJ10",
+            "cantidad": "",
+            "tipo": "",
+            "unidad": "",
+            "costo": ""
+        }
+    },
+    "pozo de infiltracion": {
+        "1": {
+            "nombre": "Piedra Bola",
+            "codigo": "XCPIRPIEDRA1RA6M",
+            "cantidad": "",
+            "tipo": "",
+            "unidad": "",
+            "costo": ""
+        }
+    }
+}
+
