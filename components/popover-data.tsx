@@ -74,6 +74,38 @@ const Popoverdata = () => {
     cellValueK22: string;
     cellValueK23: string;
     cellValueK24: string;
+    // SEELFRAMING-TOTAL
+    cellValueH28: string;
+    cellValueH29: string;
+    cellValueH30: string;
+    // SEELFRAMING-MATERIALES
+    cellValueI28: string;
+    cellValueI29: string;
+    cellValueI30: string;
+    // SEELFRAMING-M.O.
+    cellValueJ28: string;
+    cellValueJ29: string;
+    cellValueJ30: string;
+    // SEELFRAMING-TERMINACIONES
+    cellValueK28: string;
+    cellValueK29: string;
+    cellValueK30: string;
+    // LADRILLO-TOTAL
+    cellValueH34: string;
+    cellValueH35: string;
+    cellValueH36: string;
+    // LADRILLO-MATERIALES
+    cellValueI34: string;
+    cellValueI35: string;
+    cellValueI36: string;
+    // LADRILLO-M.O.
+    cellValueJ34: string;
+    cellValueJ35: string;
+    cellValueJ36: string;
+    // LADRILLO-TERMINACIONES
+    cellValueK34: string;
+    cellValueK35: string;
+    cellValueK36: string;
   } | null>(null);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState<string>("");
 
@@ -150,6 +182,38 @@ const Popoverdata = () => {
       data.cellValueK22 = Math.round(data.cellValueK22.result).toLocaleString();
       data.cellValueK23 = Math.round(data.cellValueK23.result).toLocaleString();
       data.cellValueK24 = Math.round(data.cellValueK24.result).toLocaleString();
+      // SEELFRAMING-TOTAL
+      data.cellValueH28 = Math.round(data.cellValueH28.result).toLocaleString();
+      data.cellValueH29 = Math.round(data.cellValueH29.result).toLocaleString();
+      data.cellValueH30 = Math.round(data.cellValueH30.result).toLocaleString();
+      // SEELFRAMING-MATERIALES
+      data.cellValueI28 = Math.round(data.cellValueI28.result).toLocaleString();
+      data.cellValueI29 = Math.round(data.cellValueI29.result).toLocaleString();
+      data.cellValueI30 = Math.round(data.cellValueI30.result).toLocaleString();
+      // SEELFRAMING-M.O.
+      data.cellValueJ28 = Math.round(data.cellValueJ28.result).toLocaleString();
+      data.cellValueJ29 = Math.round(data.cellValueJ29.result).toLocaleString();
+      data.cellValueJ30 = Math.round(data.cellValueJ30.result).toLocaleString();
+      // SEELFRAMING-TERMINACIONES
+      data.cellValueK28 = Math.round(data.cellValueK28.result).toLocaleString();
+      data.cellValueK29 = Math.round(data.cellValueK29.result).toLocaleString();
+      data.cellValueK30 = Math.round(data.cellValueK30.result).toLocaleString();
+      // LADRILLO-TOTAL
+      data.cellValueH34 = Math.round(data.cellValueH34.result).toLocaleString();
+      data.cellValueH35 = Math.round(data.cellValueH35.result).toLocaleString();
+      data.cellValueH36 = Math.round(data.cellValueH36.result).toLocaleString();
+      // LADRILLO-MATERIALES
+      data.cellValueI34 = Math.round(data.cellValueI34.result).toLocaleString();
+      data.cellValueI35 = Math.round(data.cellValueI35.result).toLocaleString();
+      data.cellValueI36 = Math.round(data.cellValueI36.result).toLocaleString();
+      // LADRILLO-M.O.
+      data.cellValueJ34 = Math.round(data.cellValueJ34.result).toLocaleString();
+      data.cellValueJ35 = Math.round(data.cellValueJ35.result).toLocaleString();
+      data.cellValueJ36 = Math.round(data.cellValueJ36.result).toLocaleString();
+      // LADRILLO-TERMINACIONES
+      data.cellValueK34 = Math.round(data.cellValueK34.result).toLocaleString();
+      data.cellValueK35 = Math.round(data.cellValueK35.result).toLocaleString();
+      data.cellValueK36 = Math.round(data.cellValueK36.result).toLocaleString();
 
       setCellValues(data);
     };
@@ -165,13 +229,15 @@ const Popoverdata = () => {
       </h1>
       <TabsList className="hidden flex-wrap lg:flex z-40">
         <TabsTrigger value="casaforma">CASSAFORMA</TabsTrigger>
-        <TabsTrigger value="casaformartecho">CASSAFORMA+ Techo LTN</TabsTrigger>
+        <TabsTrigger value="casaformartecho">
+          CASSAFORMA + Techo LTN
+        </TabsTrigger>
         <TabsTrigger value="casaformadosplantas">
-          DOS PLANTAS Cassaforma + LTN
+          CASSAFORMA DOS PLANTAS + LTN
         </TabsTrigger>
         <TabsTrigger value="casasip">CASSASIP</TabsTrigger>
-        <TabsTrigger value="steelframinng">Steel Framinng</TabsTrigger>
-        <TabsTrigger value="ladrillo">Ladrillo</TabsTrigger>
+        <TabsTrigger value="steelframinng">SEEL FRAMING</TabsTrigger>
+        <TabsTrigger value="ladrillo">LADRILLO</TabsTrigger>
       </TabsList>
       {/* TABLIST MOBILE */}
       <div className="z-40">
@@ -202,7 +268,7 @@ const Popoverdata = () => {
                 value="casaformadosplantas"
                 onClick={() => handleSeleccion("CASSAFORMA DOS PLANTAS + LTN")}
               >
-                DOS PLANTAS Cassaforma + LTN
+                CASSAFORMA DOS PLANTAS + LTN
               </TabsTrigger>
               <TabsTrigger
                 value="casasip"
@@ -214,13 +280,13 @@ const Popoverdata = () => {
                 value="steelframinng"
                 onClick={() => handleSeleccion("SEEL FRAMING")}
               >
-                Steel Framinng
+                SEEL FRAMING
               </TabsTrigger>
               <TabsTrigger
                 value="ladrillo"
                 onClick={() => handleSeleccion("LADRILLO")}
               >
-                Ladrillo
+                LADRILLO
               </TabsTrigger>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -228,7 +294,7 @@ const Popoverdata = () => {
       </div>
 
       <TabsContent value="casaforma" className=" flex">
-        <div className="flex w-full h-full flex-col justify-between gap-10 pt-10">
+        <div className="flex w-full h-full flex-col justify-between gap-10 pt-6">
           <div>
             <h2 className="flex justify-center font-bold uppercase">Total</h2>
             <div className="flex">
@@ -333,7 +399,7 @@ const Popoverdata = () => {
         value="casaformartecho"
         className="flex justify-center items-center"
       >
-        <div className="flex w-full h-full flex-col justify-between gap-10 pt-10">
+        <div className="flex w-full h-full flex-col justify-between gap-10 pt-6">
           <div>
             <h2 className="flex justify-center font-bold uppercase">Total</h2>
             <div className="flex">
@@ -435,7 +501,7 @@ const Popoverdata = () => {
         </div>
       </TabsContent>
       <TabsContent value="casaformadosplantas" className="flex">
-        <div className="flex w-full h-full flex-col justify-between gap-10 pt-10">
+        <div className="flex w-full h-full flex-col justify-between gap-10 pt-6">
           <div>
             <h2 className="flex justify-center font-bold uppercase">Total</h2>
             <div className="flex">
@@ -537,7 +603,7 @@ const Popoverdata = () => {
         </div>
       </TabsContent>
       <TabsContent value="casasip" className="flex">
-        <div className="flex w-full h-full flex-col justify-between gap-10 pt-10">
+        <div className="flex w-full h-full flex-col justify-between gap-10 pt-6">
           <div>
             <h2 className="flex justify-center font-bold uppercase">Total</h2>
             <div className="flex">
@@ -638,66 +704,206 @@ const Popoverdata = () => {
           </div>
         </div>
       </TabsContent>
-      <TabsContent value="steelframinng" className="pt-28">
-        <div className="grid grid-cols-2 gap-5">
+      <TabsContent value="steelframinng" className="flex">
+        <div className="flex w-full h-full flex-col justify-between gap-10 pt-6">
           <div>
-            <h2 className="flex justify-center">Total</h2>
-            <p>Pesos</p>
-            <p>Dolares</p>
-            <p>USD</p>
-          </div>
-          <div>
-            <h2 className="flex justify-center">Materiales</h2>
-            <div>
-              <p>Pesos</p>
-              <p>Dolares</p>
-              <p>USD</p>
+            <h2 className="flex justify-center font-bold uppercase">Total</h2>
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Pesos:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueH28}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Dolares:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueH29}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">USD:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueH30}
+              </p>
             </div>
           </div>
           <div>
-            <h2 className="flex justify-center">Mano de Obra</h2>
-            <p>Pesos</p>
-            <p>Dolares</p>
-            <p>USD</p>
+            <h2 className="flex justify-center font-bold uppercase">
+              Materiales
+            </h2>
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Pesos:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueI28}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Dolares:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueI29}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">USD:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueI30}
+              </p>
+            </div>
           </div>
           <div>
-            <h2 className="flex justify-center">Terminaciones</h2>
-            <div>
-              <p>Pesos</p>
-              <p>Dolares</p>
-              <p>USD</p>
+            <h2 className="flex justify-center font-bold uppercase">
+              Mano de Obra
+            </h2>
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Pesos:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueJ28}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Dolares:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueJ29}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">USD:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueJ30}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h2 className="flex justify-center font-bold uppercase">
+              Terminaciones
+            </h2>
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Pesos:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueK28}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Dolares:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueK29}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">USD:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueK30}
+              </p>
             </div>
           </div>
         </div>
       </TabsContent>
-      <TabsContent value="ladrillo" className="pt-28">
-        <div className="grid grid-cols-2 gap-5">
+      <TabsContent value="ladrillo" className="flex">
+        <div className="flex w-full h-full flex-col justify-between gap-10 pt-6">
           <div>
-            <h2 className="flex justify-center">Total</h2>
-            <p>Pesos</p>
-            <p>Dolares</p>
-            <p>USD</p>
-          </div>
-          <div>
-            <h2 className="flex justify-center">Materiales</h2>
-            <div>
-              <p>Pesos</p>
-              <p>Dolares</p>
-              <p>USD</p>
+            <h2 className="flex justify-center font-bold uppercase">Total</h2>
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Pesos:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueH34}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Dolares:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueH35}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">USD:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueH36}
+              </p>
             </div>
           </div>
           <div>
-            <h2 className="flex justify-center">Mano de Obra</h2>
-            <p>Pesos</p>
-            <p>Dolares</p>
-            <p>USD</p>
+            <h2 className="flex justify-center font-bold uppercase">
+              Materiales
+            </h2>
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Pesos:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueI34}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Dolares:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueI35}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">USD:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueI36}
+              </p>
+            </div>
           </div>
           <div>
-            <h2 className="flex justify-center">Terminaciones</h2>
-            <div>
-              <p>Pesos</p>
-              <p>Dolares</p>
-              <p>USD</p>
+            <h2 className="flex justify-center font-bold uppercase">
+              Mano de Obra
+            </h2>
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Pesos:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueJ34}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Dolares:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueJ35}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">USD:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueJ36}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h2 className="flex justify-center font-bold uppercase">
+              Terminaciones
+            </h2>
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Pesos:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueK34}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">Dolares:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueK35}
+              </p>
+            </div>
+
+            <div className="flex">
+              <h3 className=" font-semibold w-1">USD:</h3>
+              <p className="flex justify-center flex-grow">
+                {cellValues?.cellValueK36}
+              </p>
             </div>
           </div>
         </div>

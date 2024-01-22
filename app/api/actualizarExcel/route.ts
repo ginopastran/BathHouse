@@ -147,6 +147,14 @@ export async function GET(req: NextRequest) {
         let cellValueI22, cellValueI23, cellValueI24;
         let cellValueJ22, cellValueJ23, cellValueJ24;
         let cellValueK22, cellValueK23, cellValueK24;
+        let cellValueH28, cellValueH29, cellValueH30;
+        let cellValueI28, cellValueI29, cellValueI30;
+        let cellValueJ28, cellValueJ29, cellValueJ30;
+        let cellValueK28, cellValueK29, cellValueK30;
+        let cellValueH34, cellValueH35, cellValueH36;
+        let cellValueI34, cellValueI35, cellValueI36;
+        let cellValueJ34, cellValueJ35, cellValueJ36;
+        let cellValueK34, cellValueK35, cellValueK36;
 
         if (worksheet) {
             // CASSAFORMA-TOTAL
@@ -213,6 +221,38 @@ export async function GET(req: NextRequest) {
             cellValueK22 = worksheet.getCell('K22').value;
             cellValueK23 = worksheet.getCell('K23').value;
             cellValueK24 = worksheet.getCell('K24').value;
+            // SEELFRAMING-TOTAL
+            cellValueH28 = worksheet.getCell('H28').value;
+            cellValueH29 = worksheet.getCell('H29').value;
+            cellValueH30 = worksheet.getCell('H30').value;
+            // SEELFRAMING-MATERIALES
+            cellValueI28 = worksheet.getCell('I28').value;
+            cellValueI29 = worksheet.getCell('I29').value;
+            cellValueI30 = worksheet.getCell('I30').value;
+            // SEELFRAMING-M.O.
+            cellValueJ28 = worksheet.getCell('J28').value;
+            cellValueJ29 = worksheet.getCell('J29').value;
+            cellValueJ30 = worksheet.getCell('J30').value;
+            // SEELFRAMING-TERMINACIONES
+            cellValueK28 = worksheet.getCell('K28').value;
+            cellValueK29 = worksheet.getCell('K29').value;
+            cellValueK30 = worksheet.getCell('K30').value;
+            // LADRILLO-TOTAL
+            cellValueH34 = worksheet.getCell('H34').value;
+            cellValueH35 = worksheet.getCell('H35').value;
+            cellValueH36 = worksheet.getCell('H36').value;
+            // LADRILLO-MATERIALES
+            cellValueI34 = worksheet.getCell('I34').value;
+            cellValueI35 = worksheet.getCell('I35').value;
+            cellValueI36 = worksheet.getCell('I36').value;
+            // LADRILLO-M.O.
+            cellValueJ34 = worksheet.getCell('J34').value;
+            cellValueJ35 = worksheet.getCell('J35').value;
+            cellValueJ36 = worksheet.getCell('J36').value;
+            // LADRILLO-TERMINACIONES
+            cellValueK34 = worksheet.getCell('K34').value;
+            cellValueK35 = worksheet.getCell('K35').value;
+            cellValueK36 = worksheet.getCell('K36').value;
         }
 
         const buffer = await fs.promises.readFile(filePath);
@@ -266,7 +306,31 @@ export async function GET(req: NextRequest) {
             cellValueJ24,
             cellValueK22,
             cellValueK23,
-            cellValueK24
+            cellValueK24,
+            cellValueH28,
+            cellValueH29,
+            cellValueH30,
+            cellValueI28,
+            cellValueI29,
+            cellValueI30,
+            cellValueJ28,
+            cellValueJ29,
+            cellValueJ30,
+            cellValueK28,
+            cellValueK29,
+            cellValueK30,
+            cellValueH34,
+            cellValueH35,
+            cellValueH36,
+            cellValueI34,
+            cellValueI35,
+            cellValueI36,
+            cellValueJ34,
+            cellValueJ35,
+            cellValueJ36,
+            cellValueK34,
+            cellValueK35,
+            cellValueK36,
         });
     } catch (error: any) {
         return NextResponse.json({ message: "Ocurrió un error", error: error.message });

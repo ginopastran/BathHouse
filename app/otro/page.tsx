@@ -825,7 +825,7 @@ export default function ProfileForm() {
                 Mirar el presupuesto
               </PopoverTrigger>
             </div>
-            <PopoverContent className="h-[70vh] w-[80vw]">
+            <PopoverContent className=" h-[70vh] w-[80vw]">
               <Popoverdata />
             </PopoverContent>
           </Popover>
