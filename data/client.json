@@ -1,0 +1,68 @@
+    {
+        "datos-cliente": {
+            "cliente": "",
+            "ubicacion-de-la-obra": "",
+            "fecha-de-cotizacion": ""
+        },
+        "datos-de-plano-municipal": {
+            "perimetro-del-lote": "",
+            "frente-del-lote": "",
+            "metros-cuadrados-de-planta-baja": "",
+            "metros-cuadrados-de-planta-alta": "",
+            "superficie-pergolas-cubiertas-techado": "",
+            "superficie-pergolas-semi-cubierta-pergola": "",
+            "sup-aleros": "",
+            "sup-cochera-semi-cubierta-pergola": "",
+            "superficie-total": "",
+            "superficie-de-computo": ""
+        },
+        "panelizado": {
+            "muros-pb-perimetro": "",
+            "muros-pb-interiores-churrasquera-otros": "",
+            "muros-steel-concrete-pa-perimetro": "",
+            "muros-steel-concrete-pa-interiores": "",
+            "altura-de-muro-planta-baja": "",
+            "altura-de-muro-en-planta-alta": "",
+            "tabiques-durlock-pb-pa": "",
+            "balcon-con-porcelnato": "",
+            "hormigon-visto": "",
+            "cuantas-churrasquera-u-hogar": ""
+        },
+        "aberturas": {
+            "puerta-principal": "",
+            "puertas": "",
+            "ventanas": "",
+            "puerta-ventana": "",
+            "cantidad-de-bocas-electricas-y-tablero": "",
+            "cantidad-de-banos": ""
+        },
+        "otro": {
+            "pozo-filtrante-cantidad": "",
+            "cisterna-enterrada": "",
+            "con-pluviales": "",
+            "agua": "",
+            "cloaca": "",
+            "gas": "",
+            "luz": "",
+            "pozo-filtrante": "",
+            "losa-radiante-electrica": "",
+            "losa-radiante-de-agua": "",
+            "molduras-de-cumbrera": "",
+            "moldura-de-ventanas": "",
+            "cielorraso-de-placa-de-yeso": "",
+            "cielorraso-de-yeso": "",
+            "porcelanato": "",
+            "rayado-o-fino-de-muros-interiores": "",
+            "vereda-vehicular-y-peatonal-peperndic-a-la-calle": "",
+            "vereda-peatonal-paralelo-a-la-calle": "",
+            "cierre-provisorio": "",
+            "cierre-definitivo": "",
+            "churrasquera-de-ladrillo-y-o-hogar": "",
+            "con-pileta": "",
+            "cuenta-con-arquitecto": "",
+            "con-proyecto": "",
+            "costo-porcelanato": "",
+            "cotizacion-del-dolar": "",
+            "dolar": ""
+        }
+    }
