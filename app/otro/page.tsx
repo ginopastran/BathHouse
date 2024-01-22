@@ -62,16 +62,7 @@ const formSchema = z.object({
   "cuenta-con-arquitecto": z.string(),
   "cuenta-con-proyecto": z.string(),
 });
-const items = [
-  {
-    id: "SI",
-    label: "SI",
-  },
-  {
-    id: "NO",
-    label: "NO",
-  },
-];
+
 
 export default function ProfileForm() {
   // 1. Define your form.
