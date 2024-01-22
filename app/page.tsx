@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
 
 const provinciasArgentina = [
   "Buenos Aires",
@@ -54,8 +55,11 @@ const FormularioPage: React.FC = () => {
   };
 
   return (
-    <div className=" w-full h-screen bg-white p-4">
-      <a href="/otro" className=" bg-black px-3 py-2 text-white">
+    <div className=" w-full h-screen  p-4">
+      <a
+        href="/otro"
+        className=" bg-white px-3 py-2 text-black rounded-lg text-sm font-medium"
+      >
         Presupuesto 1
       </a>
     </div>
