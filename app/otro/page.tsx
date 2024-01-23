@@ -7,6 +7,7 @@ import * as z from "zod";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import {
   Form,
   FormControl,
@@ -63,16 +64,6 @@ const formSchema = z.object({
   "cuenta-con-arquitecto": z.string(),
   "cuenta-con-proyecto": z.string(),
 });
-const items = [
-  {
-    id: "SI",
-    label: "SI",
-  },
-  {
-    id: "NO",
-    label: "NO",
-  },
-];
 
 export default function ProfileForm() {
   // 1. Define your form.
@@ -112,9 +103,12 @@ export default function ProfileForm() {
   });
 
   const [isSubmitComplete, setIsSubmitComplete] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data: any) => {
     try {
+      setIsSubmitting(true);
+
       const postResponse = await axios.post("/api/actualizarExcel", data);
 
       const fileName = postResponse.data.fileName;
@@ -133,6 +127,7 @@ export default function ProfileForm() {
     } catch (error) {
       console.log(error);
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -811,8 +806,28 @@ export default function ProfileForm() {
           </div>
 
           <div className="flex justify-center pt-5 pb-6 ">
-            <Button type="submit" className="w-[50%]">
-              Solicitar Presupuesto
+            {/* <Button
+              type="submit"
+              className="w-[50%]"
+              disabled={isSubmitting || isSubmitComplete}
+              onClick={() => !isSubmitting && onSubmit}
+            >
+              {isSubmitComplete ? "Solicitud Enviada" : "Solicitar Presupuesto"}
+            </Button> */}
+            <Button
+              type="submit"
+              className="w-[50%]"
+              disabled={isSubmitting || isSubmitComplete}
+              onClick={() => !isSubmitting && onSubmit}
+            >
+              {isSubmitting && (
+                <ReloadIcon
+                  className={`mr-2 h-4 w-4 ${
+                    isSubmitting ? "animate-spin" : ""
+                  }`}
+                />
+              )}
+              {isSubmitComplete ? "Solicitud Enviada" : "Solicitar Presupuesto"}
             </Button>
           </div>
         </form>
