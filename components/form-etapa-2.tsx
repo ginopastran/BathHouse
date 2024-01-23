@@ -226,7 +226,7 @@ export default function FormEtapa2() {
               <FormItem>
                 <FormLabel>Puerta principal</FormLabel>
                 <FormControl>
-                  <Input placeholder="ml" {...field} />
+                  <Input placeholder="cantidad" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -239,7 +239,7 @@ export default function FormEtapa2() {
               <FormItem>
                 <FormLabel>Puertas</FormLabel>
                 <FormControl>
-                  <Input placeholder="ml" {...field} />
+                  <Input placeholder="cantidad" {...field} />
                 </FormControl>
                 <FormDescription>
                     (incluye puerta de entrada principal)
@@ -258,7 +258,6 @@ export default function FormEtapa2() {
                 <FormControl>
                   <Input placeholder="cantidad" {...field} />
                 </FormControl>
-             
                 <FormMessage />
               </FormItem>
             )}

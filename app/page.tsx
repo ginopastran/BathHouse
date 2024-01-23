@@ -7,7 +7,7 @@ import axios from "axios";
 const FormularioPage: React.FC = () => {
 
   return (
-    <div className="  flex    p-4 gap-5">
+    <div className=" flex p-4 gap-5">
       <a
         href="/otro"
         className=" bg-white px-3 py-2 text-black rounded-lg text-sm font-medium"
