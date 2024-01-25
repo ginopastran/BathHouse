@@ -224,7 +224,7 @@ const Popoverdata = () => {
   return (
     <Tabs defaultValue="account" className="w-full h-full">
       {/* TABLIST DESKTOP */}
-      <h1 className=" text-black text-center font-semibold uppercase p-1 pb-2 hidden lg:block ">
+      <h1 className=" text-black dark:text-white text-center font-semibold uppercase p-1 pb-2 hidden lg:block ">
         Forma de construccion
       </h1>
       <TabsList className="hidden flex-wrap lg:flex z-40">
@@ -242,7 +242,7 @@ const Popoverdata = () => {
       {/* TABLIST MOBILE */}
       <div className="z-40">
         <TabsList className="flex flex-col lg:hidden z-40">
-          <h1 className=" text-black text-center font-semibold uppercase p-1 pb-2 block lg:hidenn ">
+          <h1 className=" text-black dark:text-white text-center font-semibold uppercase p-1 pb-2 block lg:hidenn ">
             Forma de construccion
           </h1>
           <DropdownMenu>
