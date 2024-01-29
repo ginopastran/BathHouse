@@ -39,31 +39,35 @@ const formSchema = z.object({
   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
   "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
   "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
+  "sup-cochera-semi-cubierta": z.coerce.number().min(0),
   "altura-de-muro-planta-baja": z.coerce.number().min(0),
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
+  "tabiques-durlock-PB-PA": z.coerce.number().min(0),
   churrasquera: z.coerce.number().min(0),
   "aires-acondicionados": z.coerce.number().min(0),
-  "pozo-filtrante": z.coerce.number().min(0),
+  "pozo-septico": z.coerce.number().min(0),
   "cisterna-enterrada": z.coerce.number().min(0),
   "con-pluviales": z.coerce.number().min(0),
-  agua: z.string(),
-  cloaca: z.string(),
-  gas: z.string(),
-  "pozo-filtrante-bool": z.string(),
-  "losa-radiante-de-agua": z.string(),
+  "agua": z.string(),
+  "cloaca": z.string(),
+  "gas": z.string(),
+  "luz": z.string(),
+  "pozo-filtrante": z.string(),
   "losa-radiante-electrica": z.string(),
+  "losa-radiante-de-agua": z.string(),
   "molduras-de-cumbrera": z.string(),
   "moldura-de-ventanas": z.string(),
   "cielorraso-de-placa-de-yeso": z.string(),
   "cielorraso-de-yeso": z.string(),
-  porcelanato: z.string(),
+  "porcelanato": z.string(),
   "rayado-o-fino-de-muros": z.string(),
   "vereda-vehiculo": z.string(),
+  "vereda-paralela-calle": z.string(),
   "churrasquera-de-ladrillo-y-o-hogar": z.string(),
+  "pileta": z.string(),
   "cuenta-con-arquitecto": z.string(),
   "cuenta-con-proyecto": z.string(),
 });
-
 
 export default function ProfileForm() {
   // 1. Define your form.
@@ -76,19 +80,21 @@ export default function ProfileForm() {
       "metros-cuadrados-de-planta-alta": undefined,
       "superficie-p-rgolas-cubiertas-techado": undefined,
       "superficie-p-rgolas-semi-cubierta-p-rgola": undefined,
+      "sup-cochera-semi-cubierta": undefined,
       "altura-de-muro-planta-baja": undefined,
       "altura-de-muro-planta-alta": undefined,
       churrasquera: undefined,
       "aires-acondicionados": undefined,
-      "pozo-filtrante": undefined,
+      "pozo-septico": undefined,
       "cisterna-enterrada": undefined,
       "con-pluviales": undefined,
       agua: "NO",
       cloaca: "NO",
-      gas: "NO",
-      "pozo-filtrante-bool": "NO",
-      "losa-radiante-de-agua": "NO",
+      "gas": "NO",
+      "luz": "NO",
+      "pozo-filtrante": "NO",
       "losa-radiante-electrica": "NO",
+      "losa-radiante-de-agua": "NO",
       "molduras-de-cumbrera": "NO",
       "moldura-de-ventanas": "NO",
       "cielorraso-de-placa-de-yeso": "NO",
@@ -96,7 +102,9 @@ export default function ProfileForm() {
       porcelanato: "NO",
       "rayado-o-fino-de-muros": "NO",
       "vereda-vehiculo": "NO",
+      "vereda-paralela-calle": "NO",
       "churrasquera-de-ladrillo-y-o-hogar": "NO",
+      "pileta": "NO",
       "cuenta-con-arquitecto": "NO",
       "cuenta-con-proyecto": "NO",
     },
@@ -176,7 +184,7 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" type="number" {...field} />
+                    <Input placeholder="ml" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -189,7 +197,7 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" type="number" {...field} />
+                    <Input placeholder="ml" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -225,6 +233,19 @@ export default function ProfileForm() {
             />
             <FormField
               control={form.control}
+              name="sup-cochera-semi-cubierta"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Superficie Cochera semi cubierta</FormLabel>
+                  <FormControl>
+                    <Input placeholder="m2" type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="altura-de-muro-planta-baja"
               render={({ field }) => (
                 <FormItem>
@@ -244,6 +265,19 @@ export default function ProfileForm() {
                   <FormLabel>Altura de muro planta alta</FormLabel>
                   <FormControl>
                     <Input placeholder="m" type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="tabiques-durlock-PB-PA"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tabiques Durlock PB-PA</FormLabel>
+                  <FormControl>
+                    <Input placeholder="ml" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -277,10 +311,10 @@ export default function ProfileForm() {
             />
             <FormField
               control={form.control}
-              name="pozo-filtrante"
+              name="pozo-septico"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Pozo Filtrante</FormLabel>
+                  <FormLabel>Pozo Septico</FormLabel>
                   <FormControl>
                     <Input placeholder="Cantidad" type="number" {...field} />
                   </FormControl>
@@ -408,7 +442,37 @@ export default function ProfileForm() {
             />
             <FormField
               control={form.control}
-              name="pozo-filtrante-bool"
+              name="luz"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Luz</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pozo-filtrante"
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Pozo Filtrante</FormLabel>
@@ -436,12 +500,13 @@ export default function ProfileForm() {
                 </FormItem>
               )}
             />
+        
             <FormField
               control={form.control}
-              name="losa-radiante-de-agua"
+              name="losa-radiante-electrica"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Losa Radiante de Agua</FormLabel>
+                  <FormLabel>Losa Radiante Eléctrica</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -466,12 +531,12 @@ export default function ProfileForm() {
                 </FormItem>
               )}
             />
-            <FormField
+                <FormField
               control={form.control}
-              name="losa-radiante-electrica"
+              name="losa-radiante-de-agua"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Losa Radiante Eléctrica</FormLabel>
+                  <FormLabel>Losa Radiante de Agua</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -711,10 +776,72 @@ export default function ProfileForm() {
             />
             <FormField
               control={form.control}
+              name="vereda-vehiculo"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>
+                  Vereda Peatonal paralelo a la calle
+                  </FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="churrasquera-de-ladrillo-y-o-hogar"
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Churrasquera de ladrillo y/o Hogar</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="churrasquera-de-ladrillo-y-o-hogar"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Pileta</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
