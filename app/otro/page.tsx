@@ -184,7 +184,7 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" type="number" {...field} />
+                    <Input placeholder="m2" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -197,7 +197,7 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" type="number" {...field} />
+                    <Input placeholder="m2" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
