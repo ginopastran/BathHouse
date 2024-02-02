@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
             worksheet.getCell('B11').value = data["superficie-p-rgolas-cubiertas-techado"];
             worksheet.getCell('B12').value = data["superficie-p-rgolas-semi-cubierta-p-rgola"];
             worksheet.getCell('B14').value = data["sup-cochera-semi-cubierta"];
+            worksheet.getCell('B14').value = data["sup-cochera-semi-cubierta"];
             worksheet.getCell('B23').value = data["altura-de-muro-planta-baja"];
             worksheet.getCell('B24').value = data["altura-de-muro-planta-alta"];
             worksheet.getCell('B25').value = data["tabique-durlock-pb-pa"];
