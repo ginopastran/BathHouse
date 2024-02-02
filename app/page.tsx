@@ -1,27 +1,35 @@
-"use client";
+import { Poppins } from "next/font/google";
 
-import React, { useState } from "react";
-import axios from "axios";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { LoginButton } from "@/components/auth/login-button";
 
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["600"],
+});
 
-const FormularioPage: React.FC = () => {
-
+export default function Home() {
   return (
-    <div className=" flex p-4 gap-5">
-      <a
-        href="/otro"
-        className=" bg-white px-3 py-2 text-black rounded-lg text-sm font-medium"
-      >
-        Presupuesto 1
-      </a>
-      <a
-        href="/etapa-2"
-        className=" bg-white px-3 py-2 text-black rounded-lg text-sm font-medium"
-      >
-        Presupuesto 2
-      </a>
-    </div>
+    <main className="flex h-screen flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-400 to-blue-800">
+      <div className=" space-y-6 text-center">
+        <h1
+          className={cn(
+            "text-6xl font-semibold text-white drop-shadow-md",
+            font.className
+          )}
+        >
+          🔐 Auth
+        </h1>
+        <p className="text-white text-lg">A simple authentication service</p>
+        <div>
+          <LoginButton mode="modal" asChild>
+            <Button variant="secondary" size="lg">
+              Sign In
+            </Button>
+          </LoginButton>
+        </div>
+      </div>
+    </main>
   );
-};
-
-export default FormularioPage;
+}
