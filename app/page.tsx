@@ -2,11 +2,20 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import Analytics from '../components/Analytics';
+import Cards from '../components/Cards';
+import Footer from '../components/Footer';
+import Hero from '../components/Hero';
+import Navbar from '../components/Nabvar';
+import Newsletter from '../components/Newletter';
 
 
 const FormularioPage: React.FC = () => {
 
   return (
+    <div>
+    <Navbar />
+    <Hero />
     <div className=" flex p-4 gap-5">
       <a
         href="/otro"
@@ -21,6 +30,13 @@ const FormularioPage: React.FC = () => {
         Presupuesto 2
       </a>
     </div>
+    <Analytics />
+    <Newsletter />
+    <Cards />
+    <Footer />
+  </div>
+
+
   );
 };
 

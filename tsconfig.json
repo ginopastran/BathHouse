@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "app/components/**/*.tsx"
 , "app/presupuesto/page.tsx",  
-"app/otro/page.tsx",  ],
+"app/otro/page.tsx", "components/Hero.tsx",  ],
   "exclude": ["node_modules"]
 }
