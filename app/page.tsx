@@ -19,7 +19,9 @@ const font = Poppins({
 
 export default function Home() {
   return (
+    <div>
     <main className="flex h-screen flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-400 to-blue-800">
+    
       <div className=" space-y-6 text-center">
         <h1
           className={cn(
@@ -38,8 +40,8 @@ export default function Home() {
           </LoginButton>
         </div>
       </div>
-    </main>
-    <div>
+      </main>
+            <div>
     <Navbar />
     <Hero />
     <div className=" flex p-4 gap-5">
@@ -60,6 +62,9 @@ export default function Home() {
     <Newsletter />
     <Cards />
     <Footer />
+      </div>
+
+
   </div>
 
 
