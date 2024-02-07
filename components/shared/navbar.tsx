@@ -40,7 +40,7 @@ export default function MainNavbar() {
           />
           <NavbarBrand>
             <Link href="/">
-              <p className="font-bold text-inherit text-2xl">Bathouse</p>
+              <p className="font-bold text-inherit text-2xl">Bathouse V.1.0 Beta </p>
             </Link>
           </NavbarBrand>
         </NavbarContent>
@@ -112,7 +112,7 @@ export default function MainNavbar() {
         />
         <NavbarBrand>
           <Link href="/">
-            <p className="font-bold text-inherit text-2xl">Bathouse</p>
+            <p className="font-bold text-inherit text-2xl">Bathouse V1.0 Beta</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>

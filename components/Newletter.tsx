@@ -6,9 +6,9 @@ import { Textarea } from "@/components/ui/textarea"
 
 const Newsletter = () => {
   return (
-    <div className="w-full py-16 text-white ">
-      <div className="max-w-[1240px] mx-auto grid lg:grid-cols-1">
-        <div className="lg:col-span-3 my-4">
+    <div className="w-full py-16 text-white my-4">
+      <div className="max-w-[1240px] my-4 mx-6 grid lg:grid-cols-1">
+        <div className="lg:col-span-3 ">
           <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold py-2 text-center">
             Enviar recomendaciones
           </h1>
@@ -18,7 +18,7 @@ const Newsletter = () => {
             mejorar esta primera versión. Muchas gracias By Ciclo
           </p>
         </div>
-        <div className="my-4">
+        <div className="my-1">
           <div className="flex flex-col sm:flex-row items-center justify-center w-full">
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="picture">Ingrese captura</Label>
@@ -30,7 +30,7 @@ const Newsletter = () => {
             </div>
           </div>
           <p className="text-center">
-            We care bout the protection of your data. Read our{" "}
+              © 2023 Ciclo™. All Rights Reserved.{" "}
             <span className="text-[#00df9a]">Privacy Policy.</span>
           </p>
         </div>
