@@ -5,7 +5,6 @@ import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';
 import { Stream } from 'stream';
-import { EmailTemplate } from '@/components/email-template';
 import { Resend } from 'resend';
 
 const corsHeaders = {
@@ -48,11 +47,12 @@ export async function POST(req: NextRequest) {
             worksheet.getCell('B11').value = data["superficie-p-rgolas-cubiertas-techado"];
             worksheet.getCell('B12').value = data["superficie-p-rgolas-semi-cubierta-p-rgola"];
             worksheet.getCell('B14').value = data["sup-cochera-semi-cubierta"];
+            worksheet.getCell('B14').value = data["sup-cochera-semi-cubierta"];
             worksheet.getCell('B23').value = data["altura-de-muro-planta-baja"];
             worksheet.getCell('B24').value = data["altura-de-muro-planta-alta"];
             worksheet.getCell('B25').value = data["tabique-durlock-pb-pa"];
             worksheet.getCell('B28').value = data["churrasquera"];
-/*          worksheet.getCell('B35').value = data["cant-banos"]; */ 
+            /*          worksheet.getCell('B35').value = data["cant-banos"]; */
             worksheet.getCell('B41').value = data["aires-acondicionados"];
             worksheet.getCell('B42').value = data["pozo-septico"];
             worksheet.getCell('B43').value = data["cisterna-enterrada"];
