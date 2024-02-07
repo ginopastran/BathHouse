@@ -1,23 +1,44 @@
 'use client'
 import React from 'react';
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { LoginButton } from "@/components/auth/login-button";
+import { Poppins } from "next/font/google";
 
+
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["600"],
+});
 const Hero = () => {
+  
   return (
-    <div className='text-white'>
-      <div className='max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center'>
+    <div className='text-white z-0 absolute flex flex-col top-36 md:top-60 xl:top-64 justify-center w-full'>
+      <div className='max-w-[800px] mt-[-96px] w-full h-m-screen mx-auto text-center flex flex-col justify-center'>
         <p className='text-[#00df9a] font-bold p-2'>
-          BATHOUSE
+          BATHOUSE 🔐 Auth
         </p>
-        <h1 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6'>
-          Grow with data.
-        </h1>
-        <div className='flex justify-center items-center'>
+        <h1
+          className={cn(
+            "text-[#00df9a] font-bold p-2 drop-shadow-md",
+            font.className
+          )}
+        >
+Hacemos tu casa        
+</h1>
+        <div className='flex justify-center items-center md:pt-32 pt-20 xl:pt-56'>
           <p className='md:text-5xl sm:text-4xl text-xl font-bold py-4'>
-            Fast, flexible financing for
+            Precio, Calidad, y el mejor Servicio
           </p>
         </div>
-        <p className='md:text-2xl text-xl font-bold text-gray-500'>Monitor your data analytics to increase revenue for BTB, BTC, & SASS platforms.</p>
-        <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black'>Get Started</button>
+        <p className='md:text-2xl text-xl font-bold text-gray-500'>Deja tu proyecto en nuestras manos, te brindamos un hogar.</p>
+        <div>
+          <LoginButton mode="modal" asChild>
+            <Button variant="secondary" size="lg">
+              Sign In
+            </Button>
+          </LoginButton>
+        </div>
       </div>
     </div>
   );

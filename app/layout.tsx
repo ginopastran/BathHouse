@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import MainNavbar from "@/components/shared/navbar";
 import { useSession } from "next-auth/react";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
             {children}
           </Providers>
         </body>
+
       </html>
     </SessionProvider>
   );
