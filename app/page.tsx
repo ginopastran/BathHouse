@@ -1,8 +1,5 @@
 import { Poppins } from "next/font/google";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { LoginButton } from "@/components/auth/login-button";
 import React, { useState } from "react";
 import axios from "axios";
 import Analytics from "../components/Analytics";
@@ -32,7 +29,7 @@ export default function Home() {
     </header><div>
 
         <Newsletter />
-
+        <Footer />
       </div></>
   );
 }

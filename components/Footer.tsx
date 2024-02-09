@@ -1,29 +1,64 @@
-import React from 'react';
+"use client";
+import styles from "../app/style";
+import { footerLinks, socialMedia } from "../constants";
 
+const Footer = () => (
+  <section className={`${styles.flexCenter} ${styles.paddingY} flex-col`}>
+    <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
+      <div className="flex-[1] flex flex-col justify-start mr-10">
+        <img
+          src="Asset/MARCA-BathouseWhite-8.png"
+          alt="hoobank"
+          className="w-[266px] h-[72.14px] object-contain"
+        />
+        <p className={`${styles.paragraph} mt-4 max-w-[312px]`}>
+        No solo construimos casas, construimos hogares.
+        </p>
+      </div>
 
-const Footer = () => {
-  return (
-    <footer className="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
-    <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-      <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" className="hover:underline">Flowbite™</a>. All Rights Reserved.
-    </span>
-    <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-        <li>
-            <a href="#" className="hover:underline me-4 md:me-6">About</a>
-        </li>
-        <li>
-            <a href="#" className="hover:underline me-4 md:me-6">Privacy Policy</a>
-        </li>
-        <li>
-            <a href="#" className="hover:underline me-4 md:me-6">Licensing</a>
-        </li>
-        <li>
-            <a href="#" className="hover:underline">Contact</a>
-        </li>
-    </ul>
+      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
+        {footerLinks.map((footerlink) => (
+          <div key={footerlink.title} className={`flex flex-col ss:my-0 my-4 min-w-[150px]`}>
+            <h4 className="font-poppins font-medium text-[18px] leading-[27px] text-white">
+              {footerlink.title}
+            </h4>
+            <ul className="list-none mt-4">
+              {footerlink.links.map((link, index) => (
+                <li
+                  key={link.name}
+                  className={`font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer ${
+                    index !== footerlink.links.length - 1 ? "mb-4" : "mb-0"
+                  }`}
+                >
+                  {link.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
-</footer>
-  );
-};
+
+    <div className="w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t-[1px] border-t-[#3F3E45]">
+      <p className="font-poppins font-normal text-center text-[18px] leading-[27px] text-white">
+        Copyright Ⓒ 2022 Bathouse. All Rights Reserved.
+      </p>
+
+      <div className="flex flex-row md:mt-0 mt-6">
+        {socialMedia.map((social, index) => (
+          <img
+            key={social.id}
+            src={social.icon}
+            alt={social.id}
+            className={`w-[21px] h-[21px] object-contain cursor-pointer ${
+              index !== socialMedia.length - 1 ? "mr-6" : "mr-0"
+            }`}
+            onClick={() => window.open(social.link)}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Footer;
