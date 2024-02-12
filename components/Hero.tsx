@@ -21,7 +21,7 @@ const Hero = () => {
         <p className="md:text-2xl text-xl font-bold text-gray-500">
           Deja tu proyecto en nuestras manos, te brindamos un hogar.
         </p>
-        {/* <div className='pt-6'>
+        {/* <div className="pt-6">
           <LoginButton mode="modal" asChild>
             <Button variant="secondary" size="lg">
               Sign In
