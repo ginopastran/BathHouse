@@ -5,6 +5,16 @@ import { Button } from "@/components/ui/button";
 import { LoginButton } from "@/components/auth/login-button";
 import { useSession } from "next-auth/react";
 
+import React, { useState } from "react";
+import axios from "axios";
+import Analytics from "../components/Analytics";
+import Cards from "../components/Cards";
+import Footer from "../components/Footer";
+import Hero from "../components/Hero";
+import Navbar from "../components/Nabvar";
+import Newsletter from "../components/Newletter";
+
+
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
@@ -12,25 +22,21 @@ const font = Poppins({
 
 export default function Home() {
   return (
-    <main className="flex h-screen flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-400 to-blue-800">
-      <div className=" space-y-6 text-center">
-        <h1
-          className={cn(
-            "text-6xl font-semibold text-white drop-shadow-md",
-            font.className
-          )}
-        >
-          🔐 Auth
-        </h1>
-        <p className="text-white text-lg">A simple authentication service</p>
-        <div>
-          <LoginButton mode="modal" asChild>
-            <Button variant="secondary" size="lg">
-              Sign In
-            </Button>
-          </LoginButton>
-        </div>
+    <div className="mx-6"><header className=" text-gray-400 body-font w-full pt-20">
+      <div className=" flex flex-col justify-center items-center">
+        <img
+          src="Asset/MARCA-BathouseWhite-8.png" alt="background image"
+          className=" size-fit" />
+
+
+        <Hero />
+
       </div>
-    </main>
+    </header><div>
+
+        <Newsletter />
+        <Footer />
+      </div></div>
   );
 }
+
