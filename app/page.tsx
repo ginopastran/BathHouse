@@ -16,11 +16,11 @@ const font = Poppins({
 
 export default function Home() {
   return (
-    <><header className="relative text-gray-400 body-font w-full">
-      <div className="relative w-full md:h-screen h-[100vmin]">
+    <div className="mx-6"><header className=" text-gray-400 body-font w-full pt-20">
+      <div className=" flex flex-col justify-center items-center">
         <img
-          src="Asset/bathouse-header.jpeg" alt="background image"
-          className="absolute md:inset-0 md:h-screen h-[100vmin] w-100% md:overflow-hidden " />
+          src="Asset/MARCA-BathouseWhite-8.png" alt="background image"
+          className=" size-fit" />
 
 
         <Hero />
@@ -30,7 +30,7 @@ export default function Home() {
 
         <Newsletter />
         <Footer />
-      </div></>
+      </div></div>
   );
 }
 
