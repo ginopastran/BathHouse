@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/shared/navbar";
 import { Providers } from "@/components/providers";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import MainNavbar from "@/components/shared/navbar";
-import { useSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +18,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const session = await auth();
-
   return (
     <SessionProvider>
       <html lang="en">

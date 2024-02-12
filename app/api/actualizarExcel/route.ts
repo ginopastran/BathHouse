@@ -1,11 +1,15 @@
 import ExcelJS from 'exceljs';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
-import fs from 'fs';
-import { promisify } from 'util';
-import { Stream } from 'stream';
-import { Resend } from 'resend';
+import { auth } from '@/auth';
+import AWS from "aws-sdk"
+import * as fs from 'fs';
+import os from 'os';
+import { Readable } from 'stream';
+import readExcelFromS3 from '@/lib/s3';
+import { google } from "googleapis"
+import { GoogleAuth } from "google-auth-library"
+
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -19,9 +23,24 @@ let fileNameGlobal = '';
 export async function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders });
 }
+AWS.config.update({
+    accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
+    region: "sa-east-1",
+});
+
+const s3 = new AWS.S3();
+
+const privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
+const clientEmail = process.env.GOOGLE_CLIENT_EMAIL || '';
+
+if (!privateKey || !clientEmail) {
+    throw new Error('Las variables de entorno GOOGLE_SHEETS_PRIVATE_KEY y GOOGLE_SHEETS_CLIENT_EMAIL deben estar definidas');
+}
 
 
 export async function POST(req: NextRequest) {
+    const session = await auth();
     try {
         const data = await req.json();
 
@@ -29,78 +48,121 @@ export async function POST(req: NextRequest) {
 
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
-        const fileName = `${data["nombre-completo"]}-${formattedDate}.xlsx`;
-        const filePath = path.resolve(`./public/${fileName}`);
+        const fileName = `${session?.user?.email}.xlsx`;
 
-        const workbook = new ExcelJS.Workbook();
+        const jwtClient = new google.auth.JWT(
+            clientEmail,
+            undefined,
+            privateKey.replace(/\\n/g, '\n'),
+            ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+        );
 
-        const originalFilePath = path.resolve('./public/7-BATHOUSE-Enero-2024.xlsx');
-        await workbook.xlsx.readFile(originalFilePath);
+        const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
-        const worksheet = workbook.getWorksheet('Informacion de Cotización');
+        const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+        const range = 'Informacion de Cotización!B2:B65';
 
-        if (worksheet) {
-            worksheet.getCell('B2').value = data["nombre-completo"];
-            worksheet.getCell('B3').value = data["ubicacion"];
-            worksheet.getCell('B9').value = data["metros-cuadrados-de-planta-baja"];
-            worksheet.getCell('B10').value = data["metros-cuadrados-de-planta-alta"];
-            worksheet.getCell('B11').value = data["superficie-p-rgolas-cubiertas-techado"];
-            worksheet.getCell('B12').value = data["superficie-p-rgolas-semi-cubierta-p-rgola"];
-            worksheet.getCell('B14').value = data["sup-cochera-semi-cubierta"];
-            worksheet.getCell('B14').value = data["sup-cochera-semi-cubierta"];
-            worksheet.getCell('B23').value = data["altura-de-muro-planta-baja"];
-            worksheet.getCell('B24').value = data["altura-de-muro-planta-alta"];
-            worksheet.getCell('B25').value = data["tabique-durlock-pb-pa"];
-            worksheet.getCell('B28').value = data["churrasquera"];
-            /*          worksheet.getCell('B35').value = data["cant-banos"]; */
-            worksheet.getCell('B41').value = data["aires-acondicionados"];
-            worksheet.getCell('B42').value = data["pozo-septico"];
-            worksheet.getCell('B43').value = data["cisterna-enterrada"];
-            worksheet.getCell('B44').value = data["con-pluviales"];
-            worksheet.getCell('B45').value = data["agua"];
-            worksheet.getCell('B46').value = data["cloaca"];
-            worksheet.getCell('B47').value = data["gas"];
-            worksheet.getCell('B48').value = data["luz"];
-            worksheet.getCell('B49').value = data["pozo-filtrante"];
-            worksheet.getCell('B50').value = data["losa-radiante-electrica"];
-            worksheet.getCell('B51').value = data["losa-radiante-de-agua"];
-            worksheet.getCell('B52').value = data["molduras-de-cumbrera"];
-            worksheet.getCell('B53').value = data["moldura-de-ventanas"];
-            worksheet.getCell('B54').value = data["cielorraso-de-placa-de-yeso"];
-            worksheet.getCell('B55').value = data["cielorraso-de-yeso"];
-            worksheet.getCell('B56').value = data["porcelanato"];
-            worksheet.getCell('B57').value = data["rayado-o-fino-de-muros"];
-            worksheet.getCell('B58').value = data["vereda-vehiculo"];
-            worksheet.getCell('B59').value = data["vereda-paralela-calle"];
-            worksheet.getCell('B62').value = data["churrasquera-de-ladrillo-y-o-hogar"];
-            worksheet.getCell('B63').value = data["churrasquera-de-ladrillo-y-o-hogar"];
-            /* worksheet.getCell('B61').value = data["cierre-provisorio"]; */
-            worksheet.getCell('B64').value = data["cuenta-con-arquitecto"];
-            worksheet.getCell('B65').value = data["cuenta-con-proyecto"];
+        const valueInputOption = 'RAW';
 
-            await workbook.xlsx.writeFile(filePath);
+        try {
+            const response = await sheets.spreadsheets.values.update({
+                spreadsheetId,
+                range: range,
+                valueInputOption: 'USER_ENTERED',
+                requestBody: {
+                    // Los arrays con strings vacíos son para rellenar espacios que no se llenan en el data del form, es porque google sheets no deja especificar un dato para cada celda espeficica, solo deja agregar un rango desde una celda hasta otra, ej: B2:B65
+                    values: [
+                        [data["nombre-completo"]], // B2
+                        [data["ubicacion"]], // B3
+                        [""], [""], [""], [""], [""], [data["metros-cuadrados-de-planta-baja"]], // B9
+                        [data["metros-cuadrados-de-planta-alta"]],
+                        [data["superficie-p-rgolas-cubiertas-techado"]],
+                        [data["superficie-p-rgolas-semi-cubierta-p-rgola"]],
+                        [""],
+                        [data["sup-cochera-semi-cubierta"]],
+                        ["=+B9+B10+B11+B12+B13+B14"], ["=B9+B10+B11+B12/2+B13/2+B14/2"], // AQUI ES DONDE DIGO 
+                        [""], [""], [""], [""], [""], [""],
+                        [data["altura-de-muro-planta-baja"]], //B23
+                        [data["altura-de-muro-planta-alta"]],
+                        [data["tabique-durlock-pb-pa"]], //B25
+                        [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""],
+                        // [data["churrasquera"]], //B28
+                        [data["aires-acondicionados"]], //B39
+                        [data["churrasquera"]], //40
+                        [""],
+                        [data["pozo-septico"]], //42
+                        [data["cisterna-enterrada"]],
+                        [data["con-pluviales"]],
+                        [data["agua"]],
+                        [data["cloaca"]],
+                        [data["gas"]],
+                        [data["luz"]],
+                        [data["pozo-filtrante"]],
+                        [data["losa-radiante-electrica"]],
+                        [data["losa-radiante-de-agua"]],
+                        [data["molduras-de-cumbrera"]],
+                        [data["moldura-de-ventanas"]],
+                        [data["cielorraso-de-placa-de-yeso"]],
+                        [data["cielorraso-de-yeso"]],
+                        [data["porcelanato"]],
+                        [data["rayado-o-fino-de-muros"]],
+                        [data["vereda-vehiculo"]],
+                        [data["vereda-paralela-calle"]],
+                        [""], [""],
+                        [data["churrasquera-de-ladrillo-y-o-hogar"]],
+                        [""], //ACA DEBERIA IR EL DATO DE PILETA ? B63
+                        [data["cuenta-con-arquitecto"]],
+                        [data["cuenta-con-proyecto"]],
+                    ],
+                },
+            });
+
+        } catch (error) {
+            console.log(error);
         }
 
-        // const excelBuffer = await fs.promises.readFile(filePath);
+        try {
+            const drive = google.drive({ version: 'v3', auth: jwtClient });
+            const responseDrive = await drive.files.export({
+                fileId: spreadsheetId,
+                mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            }, { responseType: 'stream' });
 
-        // const emailOptions = {
-        //     from: 'Acme <onboarding@resend.dev>',
-        //     to: ['ginopastran@gmail.com'],
-        //     subject: 'Hello world',
-        //     react: EmailTemplate({ firstName: data["nombre-completo"] }),
-        //     text: 'Please find the attached Excel file.',
-        //     attachments: [
-        //         {
-        //             filename: 'BATHOUSE-Enero-2024.xlsx',
-        //             content: excelBuffer,
-        //             encoding: 'base64',
-        //         },
-        //     ],
-        // };
+            const tmpDir = path.join(os.tmpdir(), 'myapp');
+            if (!fs.existsSync(tmpDir)) {
+                fs.mkdirSync(tmpDir);
+            }
 
-        // const emailData = await resend.emails.send(emailOptions);
+            const filePath = path.join(tmpDir, fileName);
+            const dest = fs.createWriteStream(filePath);
 
-        fileNameGlobal = fileName;
+            responseDrive.data
+                .on('end', () => {
+                    console.log('Archivo descargado exitosamente.');
+
+                    const fileContent = fs.readFileSync(filePath);
+
+                    const params = {
+                        Bucket: 'bathouse-excel-test',
+                        Key: fileName,
+                        Body: fileContent
+                    };
+
+                    s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log(`File uploaded successfully. ${data.Location}`);
+                    });
+                })
+                .on('error', (err) => {
+                    console.error('Error durante la descarga:', err);
+                })
+                .pipe(dest);
+
+        } catch (error) {
+            console.log(error);
+        }
 
         return NextResponse.json({ fileName: fileName });
     } catch (error: any) {
@@ -108,7 +170,6 @@ export async function POST(req: NextRequest) {
     }
 }
 
-const pipeline = promisify(Stream.pipeline);
 
 // export async function GET(req: NextRequest) {
 //     try {
@@ -125,13 +186,29 @@ const pipeline = promisify(Stream.pipeline);
 // }
 
 export async function GET(req: NextRequest) {
+
+    const session = await auth()
+
     try {
-        const filePath = path.resolve(`./public/${fileNameGlobal}`);
+
+        const fileNameGlobal = `${session?.user?.email}.xlsx`;
+        const bucketName = "bathouse-excel-test";
+
+        const excelData = await readExcelFromS3(bucketName, fileNameGlobal);
+
+        if (!excelData) {
+            return NextResponse.json({ message: "No se pudo leer el archivo Excel desde S3" });
+        }
 
         const workbook = new ExcelJS.Workbook();
-        await workbook.xlsx.readFile(filePath);
+        await workbook.xlsx.load(excelData);
 
         const worksheet = workbook.getWorksheet('Informacion de Cotización');
+
+        if (!worksheet) {
+            return NextResponse.json({ message: "No se encontró la hoja de trabajo 'Informacion de Cotización'" });
+        }
+
 
         let cellValueH4, cellValueH5, cellValueH6;
         let cellValueI4, cellValueI5, cellValueI6;
@@ -160,7 +237,7 @@ export async function GET(req: NextRequest) {
 
         if (worksheet) {
             // CASSAFORMA-TOTAL
-            cellValueH4 = worksheet.getCell('H4').value;
+            cellValueH4 = worksheet.getCell('H4').value
             cellValueH5 = worksheet.getCell('H5').value;
             cellValueH6 = worksheet.getCell('H6').value;
             // CASSAFORMA-MATERIALES
@@ -256,9 +333,6 @@ export async function GET(req: NextRequest) {
             cellValueK35 = worksheet.getCell('K35').value;
             cellValueK36 = worksheet.getCell('K36').value;
         }
-
-        const buffer = await fs.promises.readFile(filePath);
-        const response = new NextResponse(buffer);
 
         return NextResponse.json({
             cellValueH4,
