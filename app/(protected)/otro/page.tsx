@@ -111,12 +111,12 @@ export default function ProfileForm() {
 
       const postResponse = await axios.post("/api/actualizarExcel", data);
 
-      const fileName = postResponse.data.fileName;
+      // const fileName = postResponse.data.fileName;
 
-      const getResponse = await axios.get("/api/actualizarExcel", {
-        responseType: "blob",
-      });
-      const url = window.URL.createObjectURL(new Blob([getResponse.data]));
+      // const getResponse = await axios.get("/api/actualizarExcel", {
+      //   responseType: "blob",
+      // });
+      // const url = window.URL.createObjectURL(new Blob([getResponse.data]));
       // const link = document.createElement("a");
       // link.href = url;
       // link.setAttribute("download", fileName);

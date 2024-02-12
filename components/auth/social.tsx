@@ -5,7 +5,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
 
-import { Button } from "../ui/button";
+// import { Button } from "../ui/button";
+import { Button } from "@nextui-org/react";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const Social = () => {
@@ -22,6 +23,24 @@ export const Social = () => {
     <div className=" flex items-center w-full gap-x-2">
       <Button
         size="lg"
+        radius="sm"
+        className=" w-full"
+        variant="ghost"
+        onClick={() => onClick("google")}
+      >
+        <FcGoogle className=" h-5 w-5" />
+      </Button>
+      <Button
+        size="lg"
+        radius="sm"
+        className=" w-full hover:bg-inherit"
+        variant="ghost"
+        onClick={() => onClick("github")}
+      >
+        <FaGithub className=" h-5 w-5" />
+      </Button>
+      {/* <Button
+        size="lg"
         className=" w-full"
         variant="outline"
         onClick={() => onClick("google")}
@@ -35,7 +54,7 @@ export const Social = () => {
         onClick={() => onClick("github")}
       >
         <FaGithub className=" h-5 w-5" />
-      </Button>
+      </Button> */}
     </div>
   );
 };

@@ -1,5 +1,10 @@
 import { Poppins } from "next/font/google";
 
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { LoginButton } from "@/components/auth/login-button";
+import { useSession } from "next-auth/react";
+
 import React, { useState } from "react";
 import axios from "axios";
 import Analytics from "../components/Analytics";
@@ -8,6 +13,7 @@ import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import Navbar from "../components/Nabvar";
 import Newsletter from "../components/Newletter";
+
 
 const font = Poppins({
   subsets: ["latin"],
