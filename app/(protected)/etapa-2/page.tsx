@@ -11,7 +11,11 @@ import {
 const Etapa2 = () => {
   return (
     <>
-      <Accordion type="single" collapsible>
+      <Accordion
+        type="single"
+        collapsible
+        className=" flex  items-center justify-center w-full"
+      >
         <AccordionItem value="item-1">
           <AccordionTrigger className="pl-6">
             Desea Editar campos del Primer Presupuesto

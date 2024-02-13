@@ -159,6 +159,9 @@ export async function POST(req: NextRequest) {
                         }
                         console.log(`File uploaded successfully. ${data.Location}`);
                     });
+
+                    fs.unlinkSync(filePath);
+                    console.log(`Archivo eliminado exitosamente: ${filePath}`);
                 })
                 .on('error', (err) => {
                     console.error('Error durante la descarga:', err);

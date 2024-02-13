@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
         console.log(data);
 
         const fileName = `${session?.user?.email}.xlsx`;
+        const fileName2 = `${session?.user?.email}2.xlsx`;
 
         const jwtClient = new google.auth.JWT(
             clientEmail,
@@ -74,45 +75,63 @@ export async function POST(req: NextRequest) {
                         [""], [""], [""],
                         [data["perimetro-lote"]], //B7
                         [data["frente-lote"]],
-                        [data["metros-cuadrados-de-planta-baja"]], // B9
-                        [data["metros-cuadrados-de-planta-alta"]],
-                        [data["superficie-p-rgolas-cubiertas-techado"]],
-                        [data["superficie-p-rgolas-semi-cubierta-p-rgola"]],
-                        [""],
-                        [data["sup-cochera-semi-cubierta"]],
-                        ["=+B9+B10+B11+B12+B13+B14"], ["=B9+B10+B11+B12/2+B13/2+B14/2"], // AQUI ES DONDE DIGO 
-                        [""], [""], [""], [""], [""], [""],
-                        [data["altura-de-muro-planta-baja"]], //B23
-                        [data["altura-de-muro-planta-alta"]],
-                        [data["tabique-durlock-pb-pa"]], //B25
-                        [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""],
-                        // [data["churrasquera"]], //B28
-                        [data["aires-acondicionados"]], //B39
-                        [data["churrasquera"]], //40
-                        [""],
-                        [data["pozo-septico"]], //42
-                        [data["cisterna-enterrada"]],
-                        [data["con-pluviales"]],
-                        [data["agua"]],
-                        [data["cloaca"]],
-                        [data["gas"]],
-                        [data["luz"]],
-                        [data["pozo-filtrante"]],
-                        [data["losa-radiante-electrica"]],
-                        [data["losa-radiante-de-agua"]],
-                        [data["molduras-de-cumbrera"]],
-                        [data["moldura-de-ventanas"]],
-                        [data["cielorraso-de-placa-de-yeso"]],
-                        [data["cielorraso-de-yeso"]],
-                        [data["porcelanato"]],
-                        [data["rayado-o-fino-de-muros"]],
-                        [data["vereda-vehiculo"]],
-                        [data["vereda-paralela-calle"]],
+                        [jsonData["metros-cuadrados-de-planta-baja"]], // B9
+                        [jsonData["metros-cuadrados-de-planta-alta"]],
+                        [jsonData["superficie-p-rgolas-cubiertas-techado"]],
+                        [jsonData["superficie-p-rgolas-semi-cubierta-p-rgola"]],
+                        [data["sup-aleros"]],
+                        [jsonData["sup-cochera-semi-cubierta"]],
+                        ["=+B9+B10+B11+B12+B13+B14"],
+                        ["=B9+B10+B11+B12/2+B13/2+B14/2"], // B16
                         [""], [""],
-                        [data["churrasquera-de-ladrillo-y-o-hogar"]],
+                        [data["muros-PB-perimetro"]],
+                        [data["muros-PB-interiores-churrasquera-otros"]],
+                        [data["muros-steel-concrete-PA-perimetro"]],
+                        [data["muros-steel-concrete-PA-interiores"]],
+                        [jsonData["altura-de-muro-planta-baja"]], //B23
+                        [jsonData["altura-de-muro-planta-alta"]],
+                        [jsonData["tabique-durlock-pb-pa"]], //B25
+                        [data["balcon-con-porcelanato"]],
+                        [data["hormigon-visto"]],
+                        [""],
+                        [data["puerta-principal"]], // B29
+                        [data["puertas"]],
+                        [data["ventanas"]],
+                        [data["puerta-ventana"]],
+                        [data["cantidad-bocas-electricas-tablero"]],
+                        [""],
+                        [data["cocina"]],
+                        [data["lavanderia"]],
+                        [data["banos-visita"]],
+                        [data["banos"]],
+                        // [data["churrasquera"]], //B28
+                        [jsonData["aires-acondicionados"]], //B39
+                        [jsonData["churrasquera"]], //40
+                        [""],
+                        [jsonData["pozo-septico"]], //42
+                        [jsonData["cisterna-enterrada"]],
+                        [jsonData["con-pluviales"]],
+                        [jsonData["agua"]],
+                        [jsonData["cloaca"]],
+                        [jsonData["gas"]],
+                        [jsonData["luz"]],
+                        [jsonData["pozo-filtrante"]],
+                        [jsonData["losa-radiante-electrica"]],
+                        [jsonData["losa-radiante-de-agua"]],
+                        [jsonData["molduras-de-cumbrera"]],
+                        [jsonData["moldura-de-ventanas"]],
+                        [jsonData["cielorraso-de-placa-de-yeso"]],
+                        [jsonData["cielorraso-de-yeso"]],
+                        [jsonData["porcelanato"]],
+                        [jsonData["rayado-o-fino-de-muros"]],
+                        [jsonData["vereda-vehiculo"]],
+                        [jsonData["vereda-paralela-calle"]],
+                        [data["cierre-provisorio"]], // B60
+                        [data["cierre-definitivo"]],
+                        [jsonData["churrasquera-de-ladrillo-y-o-hogar"]],
                         [""], //ACA DEBERIA IR EL DATO DE PILETA ? B63
-                        [data["cuenta-con-arquitecto"]],
-                        [data["cuenta-con-proyecto"]],
+                        [jsonData["cuenta-con-arquitecto"]],
+                        [jsonData["cuenta-con-proyecto"]],
                     ],
                 },
             });
@@ -121,51 +140,54 @@ export async function POST(req: NextRequest) {
             console.log(error);
         }
 
-        // try {
-        //     const drive = google.drive({ version: 'v3', auth: jwtClient });
-        //     const responseDrive = await drive.files.export({
-        //         fileId: spreadsheetId,
-        //         mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        //     }, { responseType: 'stream' });
+        try {
+            const drive = google.drive({ version: 'v3', auth: jwtClient });
+            const responseDrive = await drive.files.export({
+                fileId: spreadsheetId,
+                mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            }, { responseType: 'stream' });
 
-        //     const tmpDir = path.join(os.tmpdir(), 'myapp');
-        //     if (!fs.existsSync(tmpDir)) {
-        //         fs.mkdirSync(tmpDir);
-        //     }
+            const tmpDir = path.join(os.tmpdir(), 'myapp');
+            if (!fs.existsSync(tmpDir)) {
+                fs.mkdirSync(tmpDir);
+            }
 
-        //     const filePath = path.join(tmpDir, fileName);
-        //     const dest = fs.createWriteStream(filePath);
+            const filePath = path.join(tmpDir, fileName2);
+            const dest = fs.createWriteStream(filePath);
 
-        //     responseDrive.data
-        //         .on('end', () => {
-        //             console.log('Archivo descargado exitosamente.');
+            responseDrive.data
+                .on('end', () => {
+                    console.log('Archivo descargado exitosamente.');
 
-        //             const fileContent = fs.readFileSync(filePath);
+                    const fileContent = fs.readFileSync(filePath);
 
-        //             const params = {
-        //                 Bucket: 'bathouse-excel-test',
-        //                 Key: fileName,
-        //                 Body: fileContent
-        //             };
+                    const params = {
+                        Bucket: 'bathouse-excel-test',
+                        Key: fileName2,
+                        Body: fileContent
+                    };
 
-        //             s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-        //                 if (err) {
-        //                     throw err;
-        //                 }
-        //                 console.log(`File uploaded successfully. ${data.Location}`);
-        //             });
-        //         })
-        //         .on('error', (err) => {
-        //             console.error('Error durante la descarga:', err);
-        //         })
-        //         .pipe(dest);
+                    s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log(`File uploaded successfully. ${data.Location}`);
+                    });
 
-        // } catch (error) {
-        //     console.log(error);
-        // }
+                    fs.unlinkSync(filePath);
+                    console.log(`Archivo eliminado exitosamente: ${filePath}`);
+                })
+                .on('error', (err) => {
+                    console.error('Error durante la descarga:', err);
+                })
+                .pipe(dest);
+
+        } catch (error) {
+            console.log(error);
+        }
 
 
-        return NextResponse.json({ fileName: fileName });
+        return NextResponse.json({ fileName2: fileName2 });
     } catch (error: any) {
         return NextResponse.json({ message: "An error ocurred", error: error.message }, { headers: corsHeaders });
     }
