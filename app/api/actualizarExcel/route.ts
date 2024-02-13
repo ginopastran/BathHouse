@@ -6,7 +6,7 @@ import AWS from "aws-sdk"
 import * as fs from 'fs';
 import os from 'os';
 import { Readable } from 'stream';
-import readExcelFromS3 from '@/lib/s3';
+import readExcelFromS3 from '@/lib/readExcelFromS3';
 import { google } from "googleapis"
 import { GoogleAuth } from "google-auth-library"
 
@@ -43,6 +43,11 @@ export async function POST(req: NextRequest) {
     const session = await auth();
     try {
         const data = await req.json();
+
+        const jsonData = JSON.stringify(data);
+        const jsonFileName = `${session?.user?.email}.json`;
+        const jsonBuffer = Buffer.from(jsonData, 'utf-8');
+
 
         console.log(data);
 
@@ -163,6 +168,19 @@ export async function POST(req: NextRequest) {
         } catch (error) {
             console.log(error);
         }
+
+        const params = {
+            Bucket: 'bathouse-excel-test',
+            Key: jsonFileName,
+            Body: jsonBuffer
+        };
+
+        s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+            if (err) {
+                throw err;
+            }
+            console.log(`JSON file uploaded successfully. ${data.Location}`);
+        });
 
         return NextResponse.json({ fileName: fileName });
     } catch (error: any) {

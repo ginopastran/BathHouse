@@ -5,7 +5,7 @@ import path from 'path';
 import { google } from 'googleapis';
 import { auth } from '@/auth';
 import { NextRequest, NextResponse } from 'next/server';
-import readExcelFromS3 from '@/lib/s3';
+import readExcelFromS3 from '@/lib/readExcelFromS3';
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
