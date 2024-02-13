@@ -23,6 +23,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Popoverdata from "@/components/popover-data-form2";
+import { useState } from "react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
   "perimetro-lote": z.coerce.number().min(0),
@@ -75,24 +77,32 @@ export default function FormEtapa2() {
     },
   });
 
+  const [isSubmitComplete, setIsSubmitComplete] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const onSubmit = async (data: any) => {
     try {
-      const postResponse = await axios.post("/api/actualizarExcel", data);
+      setIsSubmitting(true);
 
-      const fileName = postResponse.data.fileName;
+      const postResponse = await axios.post("/api/actualizarExcel2", data);
 
-      const getResponse = await axios.get("/api/actualizarExcel", {
-        responseType: "blob",
-      });
-      const url = window.URL.createObjectURL(new Blob([getResponse.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
+      // const fileName = postResponse.data.fileName;
+
+      // const getResponse = await axios.get("/api/actualizarExcel", {
+      //   responseType: "blob",
+      // });
+      // const url = window.URL.createObjectURL(new Blob([getResponse.data]));
+      // const link = document.createElement("a");
+      // link.href = url;
+      // link.setAttribute("download", fileName);
+      // document.body.appendChild(link);
+      // link.click();
+
+      setIsSubmitComplete(true);
     } catch (error) {
       console.log(error);
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -409,23 +419,37 @@ export default function FormEtapa2() {
             />
           </div>
           <div className="flex justify-center pt-5 pb-6 ">
-            <Button type="submit" className="w-[50%]">
-              Solicitar de Presupuesto
+            <Button
+              type="submit"
+              className="w-[50%]"
+              disabled={isSubmitting || isSubmitComplete}
+              onClick={() => !isSubmitting && onSubmit}
+            >
+              {isSubmitting && (
+                <ReloadIcon
+                  className={`mr-2 h-4 w-4 ${
+                    isSubmitting ? "animate-spin" : ""
+                  }`}
+                />
+              )}
+              {isSubmitComplete ? "Solicitud Enviada" : "Solicitar Presupuesto"}
             </Button>
           </div>
         </form>
       </Form>
       <div>
-        <Popover>
-          <div className="flex justify-center pb-6">
-            <PopoverTrigger className="  rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
-              Mirar el presupuesto
-            </PopoverTrigger>
-          </div>
-          <PopoverContent className="h-[800px] w-screen">
-            <Popoverdata />
-          </PopoverContent>
-        </Popover>
+        {isSubmitComplete && (
+          <Popover>
+            <div className="flex justify-center pb-6">
+              <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
+                Mirar el presupuesto
+              </PopoverTrigger>
+            </div>
+            <PopoverContent className=" h-[70vh] w-[80vw]">
+              <Popoverdata />
+            </PopoverContent>
+          </Popover>
+        )}
       </div>
     </>
   );

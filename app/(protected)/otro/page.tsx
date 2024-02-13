@@ -180,7 +180,7 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" type="number" {...field} />
+                    <Input placeholder="m²" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -193,7 +193,7 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" type="number" {...field} />
+                    <Input placeholder="m²" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -206,7 +206,7 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Superficie Pérgolas cubiertas (techado)</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" type="number" {...field} />
+                    <Input placeholder="m²" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -221,7 +221,7 @@ export default function ProfileForm() {
                     Superficie Pérgolas semi cubierta (pérgola)
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" type="number" {...field} />
+                    <Input placeholder="m²" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
