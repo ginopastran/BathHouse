@@ -18,7 +18,7 @@ const Etapa2 = () => {
       >
         <AccordionItem value="item-1">
           <AccordionTrigger className="pl-6">
-            Desea Editar campos del Primer Presupuesto
+            ¿Desea Editar campos del Primer Presupuesto?
           </AccordionTrigger>
           <AccordionContent>
             <FormEtapa1 />
