@@ -132,8 +132,8 @@ export default function ProfileForm() {
 
   return (
     <>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+      <Form {...form} >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
             <FormField
               control={form.control}
@@ -835,7 +835,7 @@ export default function ProfileForm() {
       <div>
         {isSubmitComplete && (
           <Popover>
-            <div className="flex justify-center pb-6">
+            <div className="flex justify-center pb-6 relative">
               <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
                 Mirar el presupuesto
               </PopoverTrigger>

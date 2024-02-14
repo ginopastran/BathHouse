@@ -21,7 +21,7 @@ const font = Poppins({
 
 export default function Home() {
   return (
-    <div className="mx-6">
+    <div className="mx-6 relative">
       <header className=" text-gray-400 body-font w-full pt-20">
         <div className=" flex flex-col justify-center items-center">
           <img

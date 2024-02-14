@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss"
 const { nextui } = require("@nextui-org/react");
 
+
+
 const config = {
   darkMode: ["class"],
   content: [
@@ -12,6 +14,7 @@ const config = {
   ],
   prefix: "",
   theme: {
+
     container: {
       center: true,
       padding: "2rem",
@@ -20,7 +23,11 @@ const config = {
       },
     },
     extend: {
+      cover: {
+        cover: "cover",
+      },
       colors: {
+        azulPrincipal: "#041c4c",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

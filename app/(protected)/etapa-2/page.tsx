@@ -83,11 +83,11 @@ export default function Etapa2() {
   }
 
   return (
-    <>
+    <div className="relative">
       <Accordion
         type="single"
         collapsible
-        className="flex items-center justify-center w-full"
+        className="flex items-center justify-center w-full "
       >
         <AccordionItem value="item-1">
           <AccordionTrigger className="pl-6">
@@ -99,6 +99,6 @@ export default function Etapa2() {
         </AccordionItem>
       </Accordion>
       <FormEtapa2 />
-    </>
+    </div>
   );
 }

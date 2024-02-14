@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import MainNavbar from "@/components/shared/navbar";
 import { useSession } from "next-auth/react";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -41,10 +42,13 @@ export default function RootLayout({
     <SessionProvider>
       <html lang="en">
         <body className={poppins.className}>
+        <div className="relative min-h-screen">
+          <Image src="/background/red-background-2.webp" alt="" layout="fill" objectFit="cover" className="absolute opacity-100   " />
           <Providers>
             <MainNavbar />
             {children}
           </Providers>
+          </div>
         </body>
       </html>
     </SessionProvider>

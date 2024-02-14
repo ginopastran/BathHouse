@@ -434,7 +434,7 @@ const Popoverdata = () => {
           </div>
 
           <TabsContent value="casaforma" className=" flex mt-2">
-            <div className="flex w-full h-full flex-col justify-between gap-10 pt-6">
+            <div className="grid w-full h-full grid-cols-2 justify-between gap-10 pt-6">
               <div>
                 <h2 className="flex justify-center font-bold uppercase">
                   Total

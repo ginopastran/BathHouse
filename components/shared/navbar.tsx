@@ -69,7 +69,7 @@ export default function MainNavbar() {
                 <Button
                   onClick={onClick}
                   variant="flat"
-                  className=" bg-emerald-400"
+                  className=" bg-azulPrincipal"
                 >
                   Log Out
                 </Button>
@@ -82,7 +82,7 @@ export default function MainNavbar() {
                     as={Link}
                     href="/auth/login"
                     variant="bordered"
-                    className=" border-emerald-400"
+                    className=" border-sky-700"
                   >
                     Log In
                   </Button>
@@ -91,7 +91,7 @@ export default function MainNavbar() {
                   <Button
                     as={Link}
                     href="/auth/register"
-                    className=" bg-emerald-400"
+                    className=" bg-azulPrincipal text-white"
                   >
                     Sign Up
                   </Button>
@@ -139,7 +139,7 @@ export default function MainNavbar() {
                 color="primary"
                 onClick={onClick}
                 variant="flat"
-                className=" bg-emerald-400"
+                className=" bg-azulPrincipal text-white"
               >
                 Log Out
               </Button>
@@ -148,7 +148,7 @@ export default function MainNavbar() {
           {!session && (
             <NavbarItem className=" lg:flex">
               <LoginButton mode="modal" asChild>
-                <Button variant="bordered" className=" border-emerald-400">
+                <Button variant="bordered" className=" border-sky-700">
                   Login
                 </Button>
               </LoginButton>
@@ -159,7 +159,7 @@ export default function MainNavbar() {
               <Button
                 as={Link}
                 href="/auth/register"
-                className=" bg-emerald-400 text-sm text-slate-950"
+                className=" bg-azulPrincipal text-sm text-withe"
               >
                 Sign Up
               </Button>
@@ -181,7 +181,7 @@ export default function MainNavbar() {
                 color="primary"
                 onClick={onClick}
                 variant="flat"
-                className=" bg-emerald-400"
+                className=" bg-azulPrincipal text-white"
               >
                 Log Out
               </Button>
@@ -194,7 +194,7 @@ export default function MainNavbar() {
                   as={Link}
                   href="/auth/login"
                   variant="bordered"
-                  className=" border-emerald-400"
+                  className=" border-skyl-700"
                 >
                   Log In
                 </Button>
@@ -203,7 +203,7 @@ export default function MainNavbar() {
                 <Button
                   as={Link}
                   href="/auth/register"
-                  className=" bg-emerald-400 text-slate-950"
+                  className=" bg-azulPrincipal text-white"
                 >
                   Sign Up
                 </Button>
