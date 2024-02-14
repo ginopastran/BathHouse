@@ -14,12 +14,7 @@ import {
 } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import { logout } from "@/actions/logout";
-import { Session } from "next-auth";
 import { LoginButton } from "../auth/login-button";
-
-interface NavBarProps {
-  session: Session | null;
-}
 
 export default function MainNavbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -40,7 +35,9 @@ export default function MainNavbar() {
           />
           <NavbarBrand>
             <Link href="/">
-              <p className="font-bold text-inherit text-2xl">Bathouse V.1.0 Beta </p>
+              <p className="font-bold text-inherit text-2xl">
+                Bathouse V.1.0 Beta{" "}
+              </p>
             </Link>
           </NavbarBrand>
         </NavbarContent>
@@ -70,10 +67,9 @@ export default function MainNavbar() {
             {session && (
               <NavbarItem>
                 <Button
-                  color="primary"
                   onClick={onClick}
                   variant="flat"
-                  className=" bg-sky-600"
+                  className=" bg-emerald-400"
                 >
                   Log Out
                 </Button>
@@ -82,15 +78,20 @@ export default function MainNavbar() {
             {!session && (
               <div className="flex gap-x-4">
                 <NavbarItem className="flex">
-                  <LoginButton mode="modal" asChild>
-                    <Link className=" cursor-pointer">Login</Link>
-                  </LoginButton>
+                  <Button
+                    as={Link}
+                    href="/auth/login"
+                    variant="bordered"
+                    className=" border-emerald-400"
+                  >
+                    Log In
+                  </Button>
                 </NavbarItem>
                 <NavbarItem>
                   <Button
                     as={Link}
                     href="/auth/register"
-                    className=" bg-sky-600"
+                    className=" bg-emerald-400"
                   >
                     Sign Up
                   </Button>
@@ -112,7 +113,9 @@ export default function MainNavbar() {
         />
         <NavbarBrand>
           <Link href="/">
-            <p className="font-bold text-inherit text-2xl">Bathouse V1.0 Beta</p>
+            <p className="font-bold text-inherit text-2xl">
+              Bathouse V1.0 Beta
+            </p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -136,7 +139,7 @@ export default function MainNavbar() {
                 color="primary"
                 onClick={onClick}
                 variant="flat"
-                className=" bg-sky-600"
+                className=" bg-emerald-400"
               >
                 Log Out
               </Button>
@@ -145,7 +148,7 @@ export default function MainNavbar() {
           {!session && (
             <NavbarItem className=" lg:flex">
               <LoginButton mode="modal" asChild>
-                <Button variant="bordered" className=" border-sky-600">
+                <Button variant="bordered" className=" border-emerald-400">
                   Login
                 </Button>
               </LoginButton>
@@ -156,7 +159,7 @@ export default function MainNavbar() {
               <Button
                 as={Link}
                 href="/auth/register"
-                className=" bg-sky-600 text-sm"
+                className=" bg-emerald-400 text-sm text-slate-950"
               >
                 Sign Up
               </Button>
@@ -178,7 +181,7 @@ export default function MainNavbar() {
                 color="primary"
                 onClick={onClick}
                 variant="flat"
-                className=" bg-sky-600"
+                className=" bg-emerald-400"
               >
                 Log Out
               </Button>
@@ -187,12 +190,21 @@ export default function MainNavbar() {
           {!session && (
             <div className="flex gap-x-4">
               <NavbarItem className="flex">
-                <LoginButton mode="modal" asChild>
-                  <Link className=" cursor-pointer">Login</Link>
-                </LoginButton>
+                <Button
+                  as={Link}
+                  href="/auth/login"
+                  variant="bordered"
+                  className=" border-emerald-400"
+                >
+                  Log In
+                </Button>
               </NavbarItem>
               <NavbarItem>
-                <Button as={Link} href="/auth/register" className=" bg-sky-600">
+                <Button
+                  as={Link}
+                  href="/auth/register"
+                  className=" bg-emerald-400 text-slate-950"
+                >
                   Sign Up
                 </Button>
               </NavbarItem>

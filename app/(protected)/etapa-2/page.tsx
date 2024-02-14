@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import FormEtapa2 from "@/components/form-etapa-2";
 import FormEtapa1 from "@/components/form-etapa-1";
 import {
@@ -7,14 +9,79 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { auth } from "@/auth";
+import readJsonFromS3 from "@/lib/readJsonFromS3";
+import { Loader2 } from "lucide-react";
+import AWS from "aws-sdk";
+import { useSession } from "next-auth/react";
+import { FormError } from "@/components/form-error";
 
-const Etapa2 = () => {
+AWS.config.update({
+  accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
+  region: "sa-east-1",
+});
+
+export default function Etapa2() {
+  const [jsonData, setJsonData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<boolean | string>(false);
+  const { data: session, status } = useSession();
+
+  console.log(session);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const bucketName = "bathouse-excel-test";
+        console.log(session);
+
+        const jsonFileName = `${session?.user?.email}.json`;
+
+        const data = await readJsonFromS3(bucketName, jsonFileName);
+
+        console.log(data);
+
+        if (data) {
+          setJsonData(data);
+        } else {
+          setError("No se encontraron datos en S3");
+        }
+      } catch (error: any) {
+        console.error("Error fetching data:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (session) {
+      fetchData();
+    }
+  }, [session]);
+
+  if (loading) {
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Loader2 className=" h-20 w-20 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!jsonData) {
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <FormError message="Para hacer el formulario 2 primero hay que hacer el formulario 1" />
+      </div>
+    ); // Muestra un mensaje de error si no hay datos o si hubo un error
+  }
+
   return (
     <>
       <Accordion
         type="single"
         collapsible
-        className=" flex  items-center justify-center w-full"
+        className="flex items-center justify-center w-full"
       >
         <AccordionItem value="item-1">
           <AccordionTrigger className="pl-6">
@@ -28,6 +95,4 @@ const Etapa2 = () => {
       <FormEtapa2 />
     </>
   );
-};
-
-export default Etapa2;
+}

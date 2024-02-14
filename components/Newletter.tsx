@@ -1,10 +1,9 @@
-'use client'
+"use client";
 
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea"
-
+import { Textarea } from "@/components/ui/textarea";
 
 const Newsletter = () => {
   return (
@@ -26,17 +25,18 @@ const Newsletter = () => {
               <Label htmlFor="picture">Ingrese captura</Label>
               <Input id="picture" type="file" />
               <Textarea placeholder="Type your message here." />
-            <button className=" bg-[#00df9a] text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3"
-            onClick={async()=> {
-              const res = await fetch('/app/api/resend/resend', {
-                method: 'POST',
-          
-              });
-              const data = await res.json();
-              console.log(data);
-            }}>
-              Enviar
-            </button>
+              <button
+                className=" bg-emerald-400 text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3"
+                onClick={async () => {
+                  const res = await fetch("/app/api/resend/resend", {
+                    method: "POST",
+                  });
+                  const data = await res.json();
+                  console.log(data);
+                }}
+              >
+                Enviar
+              </button>
             </div>
           </div>
         </div>
