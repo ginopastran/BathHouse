@@ -15,6 +15,7 @@ import { Loader2 } from "lucide-react";
 import AWS from "aws-sdk";
 import { useSession } from "next-auth/react";
 import { FormError } from "@/components/form-error";
+import { BsExclamationTriangle } from "react-icons/bs";
 
 AWS.config.update({
   accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
@@ -70,8 +71,13 @@ export default function Etapa2() {
 
   if (!jsonData) {
     return (
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <FormError message="Para hacer el formulario 2 primero hay que hacer el formulario 1" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-destructive/30 p-3 rounded-md flex items-center gap-x-2 text-sm text-red-500">
+        <div className="flex flex-col items-center justify-center sm:flex-row gap-4">
+          <p className=" text-medium">
+            Para hacer el formulario 2 primero hay que hacer el formulario 1
+          </p>
+          <BsExclamationTriangle className=" h-10 w-10" />
+        </div>
       </div>
     ); // Muestra un mensaje de error si no hay datos o si hubo un error
   }
