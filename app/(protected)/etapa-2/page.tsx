@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import FormEtapa2 from "@/components/form-etapa-2";
-import FormEtapa1 from "@/components/form-etapa-1";
+import FormEtapa1Edit from "@/components/form-etapa-edit-1";
 import {
   Accordion,
   AccordionContent,
@@ -88,7 +88,7 @@ export default function Etapa2() {
             ¿Desea Editar campos del Primer Presupuesto?
           </AccordionTrigger>
           <AccordionContent>
-            <FormEtapa1 />
+            <FormEtapa1Edit />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

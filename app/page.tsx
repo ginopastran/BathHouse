@@ -14,7 +14,6 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Nabvar";
 import Newsletter from "../components/Newletter";
 
-
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
@@ -22,21 +21,22 @@ const font = Poppins({
 
 export default function Home() {
   return (
-    <div className="mx-6"><header className=" text-gray-400 body-font w-full pt-20">
-      <div className=" flex flex-col justify-center items-center">
-        <img
-          src="Asset/MARCA-BathouseWhite-8.png" alt="background image"
-          className=" size-fit" />
+    <div className="mx-6">
+      <header className=" text-gray-400 body-font w-full pt-20">
+        <div className=" flex flex-col justify-center items-center">
+          <img
+            src="Asset/MARCA-BathouseWhite-8.png"
+            alt="background image"
+            className=" size-fit"
+          />
 
-
-        <Hero />
-
-      </div>
-    </header><div>
-
+          <Hero />
+        </div>
+      </header>
+      <div>
         <Newsletter />
         <Footer />
-      </div></div>
+      </div>
+    </div>
   );
 }
-
