@@ -4,7 +4,8 @@ const readJsonFromS3 = async (bucketName: string, fileName: string): Promise<any
     const s3 = new S3();
     const params = {
         Bucket: bucketName,
-        Key: fileName
+        Key: fileName,
+        ResponseCacheControl: 'no-cache'
     };
     try {
         const data = await s3.getObject(params).promise();

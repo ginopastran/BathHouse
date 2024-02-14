@@ -69,7 +69,7 @@ export default function MainNavbar() {
                 <Button
                   onClick={onClick}
                   variant="flat"
-                  className=" bg-emerald-400"
+                  className=" bg-emerald-400 text-slate-950"
                 >
                   Log Out
                 </Button>
@@ -139,7 +139,7 @@ export default function MainNavbar() {
                 color="primary"
                 onClick={onClick}
                 variant="flat"
-                className=" bg-emerald-400"
+                className=" bg-emerald-400 text-slate-950"
               >
                 Log Out
               </Button>
@@ -181,7 +181,7 @@ export default function MainNavbar() {
                 color="primary"
                 onClick={onClick}
                 variant="flat"
-                className=" bg-emerald-400"
+                className=" bg-emerald-400 text-slate-950"
               >
                 Log Out
               </Button>

@@ -29,19 +29,19 @@ export default function Etapa2() {
   const [error, setError] = useState<boolean | string>(false);
   const { data: session, status } = useSession();
 
-  console.log(session);
+  // console.log(session);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const bucketName = "bathouse-excel-test";
-        console.log(session);
+        // console.log(session);
 
         const jsonFileName = `${session?.user?.email}.json`;
 
         const data = await readJsonFromS3(bucketName, jsonFileName);
 
-        console.log(data);
+        // console.log(data);
 
         if (data) {
           setJsonData(data);
@@ -94,7 +94,7 @@ export default function Etapa2() {
             ¿Desea Editar campos del Primer Presupuesto?
           </AccordionTrigger>
           <AccordionContent>
-            <FormEtapa1Edit />
+            <FormEtapa1Edit data={jsonData} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
