@@ -42,19 +42,22 @@ interface Datos {
   "metros-cuadrados-de-planta-alta": number;
   "superficie-p-rgolas-cubiertas-techado": number;
   "superficie-p-rgolas-semi-cubierta-p-rgola": number;
+  "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": undefined,
   "altura-de-muro-planta-baja": number;
   "altura-de-muro-planta-alta": number;
-  churrasquera: number;
+  "tabique-durlok-pb-pa": number;
   "aires-acondicionados": number;
-  "pozo-filtrante": number;
-  "cisterna-enterrada": number;
-  "con-pluviales": number;
+  churrasquera: number;
+  "pozo-septico": string;
+  "cisterna-enterrada": string;
+  "con-pluviales": string;
   agua: string;
   cloaca: string;
   gas: string;
-  "pozo-filtrante-bool": string;
-  "losa-radiante-de-agua": string;
+  luz: string;
+  "pozo-filtrante": string;
   "losa-radiante-electrica": string;
+  "losa-radiante-de-agua": string;
   "molduras-de-cumbrera": string;
   "moldura-de-ventanas": string;
   "cielorraso-de-placa-de-yeso": string;
@@ -62,7 +65,9 @@ interface Datos {
   porcelanato: string;
   "rayado-o-fino-de-muros": string;
   "vereda-vehiculo": string;
+  "vereda-peatonal-paralela-calle": string;
   "churrasquera-de-ladrillo-y-o-hogar": string;
+  pileta: string;
   "cuenta-con-arquitecto": string;
   "cuenta-con-proyecto": string;
 }
@@ -83,13 +88,14 @@ const formSchema = z.object({
   "tabique-durlok-pb-pa": z.coerce.number().min(0),
   churrasquera: z.coerce.number().min(0),
   "aires-acondicionados": z.coerce.number().min(0),
-  "pozo-filtrante": z.coerce.number().min(0),
-  "cisterna-enterrada": z.coerce.number().min(0),
-  "con-pluviales": z.coerce.number().min(0),
+  "pozo-septico": z.string(),
+  "cisterna-enterrada": z.string(),
+  "con-pluviales": z.string(),
   agua: z.string(),
   cloaca: z.string(),
   gas: z.string(),
-  "pozo-filtrante-bool": z.string(),
+  luz: z.string(),
+  "pozo-filtrante": z.string(),
   "losa-radiante-de-agua": z.string(),
   "losa-radiante-electrica": z.string(),
   "molduras-de-cumbrera": z.string(),
@@ -99,7 +105,9 @@ const formSchema = z.object({
   porcelanato: z.string(),
   "rayado-o-fino-de-muros": z.string(),
   "vereda-vehiculo": z.string(),
+  "vereda-peatonal-paralela-calle": z.string(),
   "churrasquera-de-ladrillo-y-o-hogar": z.string(),
+  pileta: z.string(),
   "cuenta-con-arquitecto": z.string(),
   "cuenta-con-proyecto": z.string(),
 });
@@ -137,7 +145,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
           agua: data["agua"],
           cloaca: data["cloaca"],
           gas: data["gas"],
-          "pozo-filtrante-bool": data["pozo-filtrante-bool"],
+          "pozo-filtrante": data["pozo-filtrante"],
           "losa-radiante-de-agua": data["losa-radiante-de-agua"],
           "losa-radiante-electrica": data["losa-radiante-electrica"],
           "molduras-de-cumbrera": data["molduras-de-cumbrera"],
