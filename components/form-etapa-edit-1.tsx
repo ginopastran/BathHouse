@@ -33,6 +33,43 @@ import Popoverdata from "@/components/popover-data";
 import { useEffect, useState } from "react";
 
 import data from "@/public/Asset/edit.json";
+import { getJson } from "@/lib/getJson";
+
+interface Datos {
+  "nombre-completo": string;
+  ubicacion: string;
+  "metros-cuadrados-de-planta-baja": number;
+  "metros-cuadrados-de-planta-alta": number;
+  "superficie-p-rgolas-cubiertas-techado": number;
+  "superficie-p-rgolas-semi-cubierta-p-rgola": number;
+  "altura-de-muro-planta-baja": number;
+  "altura-de-muro-planta-alta": number;
+  churrasquera: number;
+  "aires-acondicionados": number;
+  "pozo-filtrante": number;
+  "cisterna-enterrada": number;
+  "con-pluviales": number;
+  agua: string;
+  cloaca: string;
+  gas: string;
+  "pozo-filtrante-bool": string;
+  "losa-radiante-de-agua": string;
+  "losa-radiante-electrica": string;
+  "molduras-de-cumbrera": string;
+  "moldura-de-ventanas": string;
+  "cielorraso-de-placa-de-yeso": string;
+  "cielorraso-de-yeso": string;
+  porcelanato: string;
+  "rayado-o-fino-de-muros": string;
+  "vereda-vehiculo": string;
+  "churrasquera-de-ladrillo-y-o-hogar": string;
+  "cuenta-con-arquitecto": string;
+  "cuenta-con-proyecto": string;
+}
+
+interface FormEtapa1EditProps {
+  data: Datos;
+}
 
 const formSchema = z.object({
   "nombre-completo": z.string().min(3),
@@ -66,59 +103,55 @@ const formSchema = z.object({
   "cuenta-con-proyecto": z.string(),
 });
 
-function FormEtapa1Edit() {
+function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   const [isSubmitComplete, setIsSubmitComplete] = useState(false);
-  // manejo de datos json para editar formulario uno
-  const informacionGeneral = data;
-
-  // Estado para manejar la edición
+  const [informacionGeneral, setInformacionGeneral] = useState(null);
   const [editing, setEditing] = useState<boolean>(false);
+  const [datos, setDatos] = useState<Datos | null>(null);
+  const [datosOriginales, setDatosOriginales] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Estado para almacenar todos los datos
-  const [datos, setDatos] = useState({
-    ...informacionGeneral,
-  });
-
-  // Estado para almacenar los datos originales
-  const [datosOriginales, setDatosOriginales] = useState<any>({
-    ...informacionGeneral,
-  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      "nombre-completo": data["nombre_completo"],
-      ubicacion: "",
-      "metros-cuadrados-de-planta-baja": datos.metros_cuadrados_planta_baja,
-      "metros-cuadrados-de-planta-alta": datos.metros_cuadrados_planta_baja,
-      "superficie-p-rgolas-cubiertas-techado": datos.superficie_pergolas_cubiertas_techado,
-      "superficie-p-rgolas-semi-cubierta-p-rgola": datos.superficie_pergolas_semi_cubierta_pergola,
-      "altura-de-muro-planta-baja": datos.altura_de_muro_planta_baja,
-      "altura-de-muro-planta-alta": datos.altura_de_muro_planta_alta,
-      churrasquera: datos.churrasquera,
-      "aires-acondicionados": datos.churrasquera,
-      "pozo-filtrante": datos.pozo_filtrante,
-      "cisterna-enterrada": datos.cisterna_enterrada,
-      "con-pluviales": datos.con_pluviales,
-      agua: datos.agua,
-      cloaca: datos.cloaca,
-      gas: datos.gas,
-      "pozo-filtrante-bool": datos.pozo_filtrante_bool,
-      "losa-radiante-de-agua": datos.losa_radiante_de_agua,
-      "losa-radiante-electrica": datos.losa_radiante_electrica,
-      "molduras-de-cumbrera": datos.molduras_de_cumbrera,
-      "moldura-de-ventanas": datos.moldura_de_ventanas,
-      "cielorraso-de-placa-de-yeso": datos.cielorraso_de_placa_de_yeso,
-      "cielorraso-de-yeso": datos.cielorraso_de_yeso,
-      porcelanato: datos.porcelanato,
-      "rayado-o-fino-de-muros": datos.rayado_o_fino_de_muros,
-      "vereda-vehiculo": datos.vereda_vehiculo,
-      "churrasquera-de-ladrillo-y-o-hogar": datos.churrasquera_de_ladrillo_y_o_hogar,
-      "cuenta-con-arquitecto": datos.cuenta_con_arquitecto,
-      "cuenta-con-proyecto": datos.cuenta_con_proyecto,
-    },
+    defaultValues: data
+      ? {
+          "nombre-completo": data["nombre-completo"],
+          ubicacion: data["ubicacion"],
+          "metros-cuadrados-de-planta-baja":
+            data["metros-cuadrados-de-planta-baja"],
+          "metros-cuadrados-de-planta-alta":
+            data["metros-cuadrados-de-planta-alta"],
+          "superficie-p-rgolas-cubiertas-techado":
+            data["superficie-p-rgolas-cubiertas-techado"],
+          "superficie-p-rgolas-semi-cubierta-p-rgola":
+            data["superficie-p-rgolas-semi-cubierta-p-rgola"],
+          "altura-de-muro-planta-baja": data["altura-de-muro-planta-baja"],
+          "altura-de-muro-planta-alta": data["altura-de-muro-planta-alta"],
+          churrasquera: data["churrasquera"],
+          "aires-acondicionados": data["aires-acondicionados"],
+          "pozo-filtrante": data["pozo-filtrante"],
+          "cisterna-enterrada": data["cisterna-enterrada"],
+          "con-pluviales": data["con-pluviales"],
+          agua: data["agua"],
+          cloaca: data["cloaca"],
+          gas: data["gas"],
+          "pozo-filtrante-bool": data["pozo-filtrante-bool"],
+          "losa-radiante-de-agua": data["losa-radiante-de-agua"],
+          "losa-radiante-electrica": data["losa-radiante-electrica"],
+          "molduras-de-cumbrera": data["molduras-de-cumbrera"],
+          "moldura-de-ventanas": data["moldura-de-ventanas"],
+          "cielorraso-de-placa-de-yeso": data["cielorraso-de-placa-de-yeso"],
+          "cielorraso-de-yeso": data["cielorraso-de-yeso"],
+          porcelanato: data["porcelanato"],
+          "rayado-o-fino-de-muros": data["rayado-o-fino-de-muros"],
+          "vereda-vehiculo": data["vereda-vehiculo"],
+          "churrasquera-de-ladrillo-y-o-hogar":
+            data["churrasquera-de-ladrillo-y-o-hogar"],
+          "cuenta-con-arquitecto": data["cuenta-con-arquitecto"],
+          "cuenta-con-proyecto": data["cuenta-con-proyecto"],
+        }
+      : {},
   });
-
-  
 
   // Función para manejar el botón de editar
   const handleEditarClick = () => {
@@ -140,7 +173,12 @@ function FormEtapa1Edit() {
 
   // Función para manejar cambios en los campos de entrada
   const handleInputChange = (key: string, value: any) => {
-    setDatos((prevDatos) => ({ ...prevDatos, [key]: value }));
+    setDatos((prevDatos) => {
+      if (prevDatos) {
+        return { ...prevDatos, [key]: value };
+      }
+      return null;
+    });
   };
 
   // Función para manejar el envío del formulario
@@ -171,8 +209,6 @@ function FormEtapa1Edit() {
   }; */
   // Convertir valores numéricos a números
 
-  console.log(datos.cisterna_enterrada);
-
   return (
     <>
       <Form {...form}>
@@ -189,7 +225,7 @@ function FormEtapa1Edit() {
                       placeholder=""
                       {...field}
                       onChange={(e) =>
-                        handleInputChange("nombre_completo", e.target.value)
+                        handleInputChange("nombre-completo", e.target.value)
                       }
                       disabled={!editing}
                     />
@@ -210,8 +246,8 @@ function FormEtapa1Edit() {
                       field.onChange(value);
                     }}
                     defaultValue={
-                      typeof datos["ubicacion"] === "string"
-                        ? datos["ubicacion"]
+                      typeof data["ubicacion"] === "string"
+                        ? data["ubicacion"]
                         : ""
                     }
                     disabled={!editing}
@@ -246,7 +282,7 @@ function FormEtapa1Edit() {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
-                          "metros_cuadrados_de_planta_baja",
+                          "metros-cuadrados-de-planta-baja",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }}
@@ -289,7 +325,7 @@ function FormEtapa1Edit() {
                 <FormItem>
                   <FormLabel>Superficie Pérgolas cubiertas (techado)</FormLabel>
                   <FormControl>
-                  <Input
+                    <Input
                       placeholder="m2"
                       {...field}
                       onChange={(e) => {
@@ -317,7 +353,7 @@ function FormEtapa1Edit() {
                     Superficie Pérgolas semi cubierta (pérgola)
                   </FormLabel>
                   <FormControl>
-                  <Input
+                    <Input
                       placeholder="m2"
                       {...field}
                       onChange={(e) => {
@@ -344,19 +380,19 @@ function FormEtapa1Edit() {
                   <FormLabel>Altura de muro planta baja</FormLabel>
                   <FormControl>
                     <Input
-                    placeholder="m"
-                    {...field}
-                    onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const parsedValue = parseFloat(inputValue);
-                      handleInputChange(
-                        "altura_de_muro_planta_baja",
-                        isNaN(parsedValue) ? "" : parsedValue
-                      );
-                    }}
-                    disabled={!editing}
-                    type="number"
-                  />
+                      placeholder="m"
+                      {...field}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const parsedValue = parseFloat(inputValue);
+                        handleInputChange(
+                          "altura_de_muro_planta_baja",
+                          isNaN(parsedValue) ? "" : parsedValue
+                        );
+                      }}
+                      disabled={!editing}
+                      type="number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -369,20 +405,20 @@ function FormEtapa1Edit() {
                 <FormItem>
                   <FormLabel>Altura de muro planta alta</FormLabel>
                   <FormControl>
-                  <Input
-                    placeholder="m"
-                    {...field}
-                    onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const parsedValue = parseFloat(inputValue);
-                      handleInputChange(
-                        "altura_de_muro_planta_alta",
-                        isNaN(parsedValue) ? "" : parsedValue
-                      );
-                    }}
-                    disabled={!editing}
-                    type="number"
-                  />
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const parsedValue = parseFloat(inputValue);
+                        handleInputChange(
+                          "altura_de_muro_planta_alta",
+                          isNaN(parsedValue) ? "" : parsedValue
+                        );
+                      }}
+                      disabled={!editing}
+                      type="number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -395,20 +431,20 @@ function FormEtapa1Edit() {
                 <FormItem>
                   <FormLabel>Churrasquera</FormLabel>
                   <FormControl>
-                  <Input
-                    placeholder="m"
-                    {...field}
-                    onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const parsedValue = parseFloat(inputValue);
-                      handleInputChange(
-                        "churrasquera",
-                        isNaN(parsedValue) ? "" : parsedValue
-                      );
-                    }}
-                    disabled={!editing}
-                    type="number"
-                  />
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const parsedValue = parseFloat(inputValue);
+                        handleInputChange(
+                          "churrasquera",
+                          isNaN(parsedValue) ? "" : parsedValue
+                        );
+                      }}
+                      disabled={!editing}
+                      type="number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -421,20 +457,20 @@ function FormEtapa1Edit() {
                 <FormItem>
                   <FormLabel>Aires Acondicionados</FormLabel>
                   <FormControl>
-                  <Input
-                    placeholder="m"
-                    {...field}
-                    onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const parsedValue = parseFloat(inputValue);
-                      handleInputChange(
-                        "aires_acondicionados",
-                        isNaN(parsedValue) ? "" : parsedValue
-                      );
-                    }}
-                    disabled={!editing}
-                    type="number"
-                  />
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const parsedValue = parseFloat(inputValue);
+                        handleInputChange(
+                          "aires_acondicionados",
+                          isNaN(parsedValue) ? "" : parsedValue
+                        );
+                      }}
+                      disabled={!editing}
+                      type="number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -447,20 +483,20 @@ function FormEtapa1Edit() {
                 <FormItem>
                   <FormLabel>Pozo Filtrante</FormLabel>
                   <FormControl>
-                  <Input
-                    placeholder="m"
-                    {...field}
-                    onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const parsedValue = parseFloat(inputValue);
-                      handleInputChange(
-                        "pozo_filtrante",
-                        isNaN(parsedValue) ? "" : parsedValue
-                      );
-                    }}
-                    disabled={!editing}
-                    type="number"
-                  />
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const parsedValue = parseFloat(inputValue);
+                        handleInputChange(
+                          "pozo_filtrante",
+                          isNaN(parsedValue) ? "" : parsedValue
+                        );
+                      }}
+                      disabled={!editing}
+                      type="number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -473,15 +509,19 @@ function FormEtapa1Edit() {
                 <FormItem>
                   <FormLabel>Cisterna Enterrada</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" type="number" {...field}  onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const parsedValue = parseFloat(inputValue);
-                      handleInputChange(
-                        "cisterna-enterrada",
-                        isNaN(parsedValue) ? "" : parsedValue
-                      );
-                    }}
-                    disabled={!editing}
+                    <Input
+                      placeholder="Cantidad"
+                      type="number"
+                      {...field}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const parsedValue = parseFloat(inputValue);
+                        handleInputChange(
+                          "cisterna-enterrada",
+                          isNaN(parsedValue) ? "" : parsedValue
+                        );
+                      }}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -495,15 +535,20 @@ function FormEtapa1Edit() {
                 <FormItem>
                   <FormLabel>Con Pluviales</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" type="number" {...field}  onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const parsedValue = parseFloat(inputValue);
-                      handleInputChange(
-                        "cisterna-enterrada",
-                        isNaN(parsedValue) ? "" : parsedValue
-                      );
-                    }}
-                    disabled={!editing}/>
+                    <Input
+                      placeholder="Cantidad"
+                      type="number"
+                      {...field}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const parsedValue = parseFloat(inputValue);
+                        handleInputChange(
+                          "cisterna-enterrada",
+                          isNaN(parsedValue) ? "" : parsedValue
+                        );
+                      }}
+                      disabled={!editing}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
