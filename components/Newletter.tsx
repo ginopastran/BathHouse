@@ -21,7 +21,7 @@ const Newsletter = () => {
             mejorar esta primera versión. 
           </p>
           <p className="pt-5">
-          Muchas gracias <span>By Ciclo</span>
+          Muchas gracias <span className="text-[#f9b33c] ">By Ciclo</span>
           </p>
           </div>
         </div>
