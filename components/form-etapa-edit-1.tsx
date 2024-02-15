@@ -224,9 +224,9 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder=""
                       {...field}
-                      onChange={(e) =>
+                   /*    onChange={(e) =>
                         handleInputChange("nombre-completo", e.target.value)
-                      }
+                      } */
                       disabled={!editing}
                     />
                   </FormControl>
@@ -243,8 +243,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                   <Select
                     onValueChange={(value) => {
                       handleInputChange("ubicacion", value);
-                      field.onChange(value);
-                    }}
+/*                       field.onChange(value);
+ */                    }}
                     defaultValue={
                       typeof data["ubicacion"] === "string"
                         ? data["ubicacion"]
@@ -278,14 +278,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m2"
                       {...field}
-                      onChange={(e) => {
+             /*          onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "metros-cuadrados-de-planta-baja",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -305,12 +305,12 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                       placeholder="m2"
                       type="number"
                       {...field}
-                      onChange={(e) =>
+                     /*  onChange={(e) =>
                         handleInputChange(
                           "metros_cuadrados_de_planta_alta",
                           e.target.value
                         )
-                      }
+                      } */
                       disabled={!editing}
                     />
                   </FormControl>
@@ -328,14 +328,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m2"
                       {...field}
-                      onChange={(e) => {
+                     /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "superficie_pergolas_cubiertas_techado",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -356,14 +356,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m2"
                       {...field}
-                      onChange={(e) => {
+                      /* onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "superficie_pergolas_semi_cubierta_pergola",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -382,14 +382,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                      onChange={(e) => {
+                  /*     onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "altura_de_muro_planta_baja",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -408,14 +408,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                      onChange={(e) => {
+                     /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "altura_de_muro_planta_alta",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -434,14 +434,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                      onChange={(e) => {
+                  /*     onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "churrasquera",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -460,14 +460,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                      onChange={(e) => {
+                     /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "aires_acondicionados",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -486,18 +486,18 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                      onChange={(e) => {
+                   /*    onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "pozo_filtrante",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                       type="number"
                     />
-                  </FormControl>
+                  </FormControl>  
                   <FormMessage />
                 </FormItem>
               )}
@@ -513,14 +513,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                       placeholder="Cantidad"
                       type="number"
                       {...field}
-                      onChange={(e) => {
+                 /*      onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "cisterna-enterrada",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                     />
                   </FormControl>
@@ -539,14 +539,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                       placeholder="Cantidad"
                       type="number"
                       {...field}
-                      onChange={(e) => {
+                  /*     onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
                           "cisterna-enterrada",
                           isNaN(parsedValue) ? "" : parsedValue
                         );
-                      }}
+                      }} */
                       disabled={!editing}
                     />
                   </FormControl>
