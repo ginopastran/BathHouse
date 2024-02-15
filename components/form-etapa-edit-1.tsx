@@ -83,6 +83,7 @@ const formSchema = z.object({
   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
   "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
   "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
+  "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": z.coerce.number().min(0),
   "altura-de-muro-planta-baja": z.coerce.number().min(0),
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
   "tabique-durlok-pb-pa": z.coerce.number().min(0),
@@ -134,17 +135,19 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             data["superficie-p-rgolas-cubiertas-techado"],
           "superficie-p-rgolas-semi-cubierta-p-rgola":
             data["superficie-p-rgolas-semi-cubierta-p-rgola"],
+            "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": data["superficie-p-rgolas-cochera-semi-cubierta-p-rgola"],
           "altura-de-muro-planta-baja": data["altura-de-muro-planta-baja"],
           "altura-de-muro-planta-alta": data["altura-de-muro-planta-alta"],
-          /* "tabique-durlok-pb-pa": data["tabique-durlok-pb-pa"], // cuando sacar comentario */
+          "tabique-durlok-pb-pa": data["tabique-durlok-pb-pa"], 
           churrasquera: data["churrasquera"],
           "aires-acondicionados": data["aires-acondicionados"],
-          "pozo-filtrante": data["pozo-filtrante"],
+          "pozo-septico": data["pozo-septico"],
           "cisterna-enterrada": data["cisterna-enterrada"],
           "con-pluviales": data["con-pluviales"],
           agua: data["agua"],
           cloaca: data["cloaca"],
           gas: data["gas"],
+          luz: data["luz"],
           "pozo-filtrante": data["pozo-filtrante"],
           "losa-radiante-de-agua": data["losa-radiante-de-agua"],
           "losa-radiante-electrica": data["losa-radiante-electrica"],
@@ -157,6 +160,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
           "vereda-vehiculo": data["vereda-vehiculo"],
           "churrasquera-de-ladrillo-y-o-hogar":
             data["churrasquera-de-ladrillo-y-o-hogar"],
+            pileta: data["pileta"],
           "cuenta-con-arquitecto": data["cuenta-con-arquitecto"],
           "cuenta-con-proyecto": data["cuenta-con-proyecto"],
         }
@@ -223,7 +227,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
+        <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
             <FormField
               control={form.control}
               name="nombre-completo"
@@ -231,18 +235,12 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                 <FormItem>
                   <FormLabel>Nombre Completo</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder=""
-                      {...field}
-                   /*    onChange={(e) =>
-                        handleInputChange("nombre-completo", e.target.value)
-                      } */
-                      disabled={!editing}
-                    />
+                    <Input placeholder="Nombre y Apellido" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
+              disabled={!editing}
             />
             <FormField
               control={form.control}
@@ -251,16 +249,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                 <FormItem>
                   <FormLabel>Ubicacion</FormLabel>
                   <Select
-                    onValueChange={(value) => {
-                      handleInputChange("ubicacion", value);
-/*                       field.onChange(value);
- */                    }}
-                    defaultValue={
-                      typeof data["ubicacion"] === "string"
-                        ? data["ubicacion"]
-                        : ""
-                    }
-                    disabled={!editing}
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -277,28 +267,16 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="metros-cuadrados-de-planta-baja"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta baja</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m2"
-                      {...field}
-             /*          onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "metros-cuadrados-de-planta-baja",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
+                    <Input placeholder="m²" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -307,22 +285,13 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="metros-cuadrados-de-planta-alta"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta alta</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m2"
-                      type="number"
-                      {...field}
-                     /*  onChange={(e) =>
-                        handleInputChange(
-                          "metros_cuadrados_de_planta_alta",
-                          e.target.value
-                        )
-                      } */
-                      disabled={!editing}
-                    />
+                    <Input placeholder="m²" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -331,24 +300,13 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="superficie-p-rgolas-cubiertas-techado"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Superficie Pérgolas cubiertas (techado)</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m2"
-                      {...field}
-                     /*  onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "superficie_pergolas_cubiertas_techado",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
+                    <Input placeholder="m²" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -357,26 +315,32 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="superficie-p-rgolas-semi-cubierta-p-rgola"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
                     Superficie Pérgolas semi cubierta (pérgola)
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m2"
-                      {...field}
-                      /* onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "superficie_pergolas_semi_cubierta_pergola",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
+                    <Input placeholder="m²" type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="superficie-p-rgolas-cochera-semi-cubierta-p-rgola"
+              disabled={!editing}
+
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Superficie Cochera semi cubierta (pérgola)
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="m²" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -385,24 +349,13 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="altura-de-muro-planta-baja"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Altura de muro planta baja</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m"
-                      {...field}
-                  /*     onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "altura_de_muro_planta_baja",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
+                    <Input placeholder="m" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -411,24 +364,28 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="altura-de-muro-planta-alta"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Altura de muro planta alta</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m"
-                      {...field}
-                     /*  onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "altura_de_muro_planta_alta",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
+                    <Input placeholder="m" type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="tabique-durlok-pb-pa"
+              disabled={!editing}
+
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tabiques Durlock  PB-PA</FormLabel>
+                  <FormControl>
+                    <Input placeholder="m" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -437,24 +394,13 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="churrasquera"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Churrasquera</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m"
-                      {...field}
-                  /*     onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "churrasquera",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
+                    <Input placeholder="Cantidad" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -463,51 +409,14 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="aires-acondicionados"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Aires Acondicionados</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m"
-                      {...field}
-                     /*  onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "aires_acondicionados",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
+                    <Input placeholder="Cantidad" type="number" {...field} />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="pozo-filtrante"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pozo Filtrante</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="m"
-                      {...field}
-                   /*    onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "pozo_filtrante",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
-                  </FormControl>  
                   <FormMessage />
                 </FormItem>
               )}
@@ -515,60 +424,90 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="cisterna-enterrada"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Cisterna Enterrada</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Cantidad"
-                      type="number"
-                      {...field}
-                 /*      onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "cisterna-enterrada",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                    />
+                    <Input placeholder="Cantidad" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="con-pluviales"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Con Pluviales</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Cantidad"
-                      type="number"
-                      {...field}
-                  /*     onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "cisterna-enterrada",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+         
           </div>
           <div className="gap-4 grid mx-4   grid-flow-row-dense grid-cols-2 grid-rows-3 xl:grid-cols-3 2xl:grid-cols-3 ">
             <FormField
               control={form.control}
+              name="con-pluviales"
+              disabled={!editing}
+
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Con Pluviales</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="vereda-peatonal-paralela-calle"
+              disabled={!editing}
+
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Vereda Peatonal PAR Calle</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="agua"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Agua</FormLabel>
@@ -598,7 +537,105 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             />
             <FormField
               control={form.control}
+              name="luz"
+              disabled={!editing}
+
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Luz</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pozo-filtrante"
+              disabled={!editing}
+
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Pozo Filtrante</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cisterna-enterrada"
+              disabled={!editing}
+
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Cisterna Enterrada</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="cloaca"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Cloaca</FormLabel>
@@ -629,6 +666,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="gas"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Gas</FormLabel>
@@ -658,10 +697,12 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             />
             <FormField
               control={form.control}
-              name="pozo-filtrante-bool"
+              name="pozo-septico"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Pozo Filtrante</FormLabel>
+                  <FormLabel>Pozo Septico</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -689,6 +730,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="losa-radiante-de-agua"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Losa Radiante de Agua</FormLabel>
@@ -719,6 +762,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="losa-radiante-electrica"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Losa Radiante Eléctrica</FormLabel>
@@ -749,6 +794,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="molduras-de-cumbrera"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Molduras de Cumbrera</FormLabel>
@@ -779,6 +826,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="moldura-de-ventanas"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Moldura de Ventanas</FormLabel>
@@ -809,6 +858,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="cielorraso-de-placa-de-yeso"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Cielorraso de Placa de Yeso</FormLabel>
@@ -839,6 +890,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="cielorraso-de-yeso"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Cielorraso de Yeso</FormLabel>
@@ -870,6 +923,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="porcelanato"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Porcelanato</FormLabel>
@@ -900,6 +955,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="rayado-o-fino-de-muros"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Rayado o Fino de Muros</FormLabel>
@@ -930,6 +987,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="vereda-vehiculo"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>
@@ -962,6 +1021,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="churrasquera-de-ladrillo-y-o-hogar"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Churrasquera de ladrillo y/o Hogar</FormLabel>
@@ -991,7 +1052,41 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             />
             <FormField
               control={form.control}
+              name="pileta"
+              disabled={!editing}
+
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Pileta</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="cuenta-con-arquitecto"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>¿Cuenta con arquitecto?</FormLabel>
@@ -1022,6 +1117,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             <FormField
               control={form.control}
               name="cuenta-con-proyecto"
+              disabled={!editing}
+
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>¿Cuenta con proyecto?</FormLabel>
