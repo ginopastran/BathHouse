@@ -80,6 +80,7 @@ const formSchema = z.object({
   "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
   "altura-de-muro-planta-baja": z.coerce.number().min(0),
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
+  "tabique-durlok-pb-pa": z.coerce.number().min(0),
   churrasquera: z.coerce.number().min(0),
   "aires-acondicionados": z.coerce.number().min(0),
   "pozo-filtrante": z.coerce.number().min(0),
@@ -127,6 +128,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             data["superficie-p-rgolas-semi-cubierta-p-rgola"],
           "altura-de-muro-planta-baja": data["altura-de-muro-planta-baja"],
           "altura-de-muro-planta-alta": data["altura-de-muro-planta-alta"],
+          /* "tabique-durlok-pb-pa": data["tabique-durlok-pb-pa"], // cuando sacar comentario */
           churrasquera: data["churrasquera"],
           "aires-acondicionados": data["aires-acondicionados"],
           "pozo-filtrante": data["pozo-filtrante"],
