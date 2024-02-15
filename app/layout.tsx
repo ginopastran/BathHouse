@@ -43,7 +43,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={poppins.className}>
         <div className="relative min-h-screen">
-          <Image src="/background/red-background-2.webp" alt="" layout="fill" objectFit="cover" className="absolute opacity-100   " />
+          <Image src="/background/red-background-3.jpg" alt="" layout="fill" objectFit="cover" className="absolute opacity-100   " />
           <Providers>
             <MainNavbar />
             {children}
