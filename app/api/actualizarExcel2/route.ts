@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
                         [jsonData["superficie-p-rgolas-cubiertas-techado"]],
                         [jsonData["superficie-p-rgolas-semi-cubierta-p-rgola"]],
                         [data["sup-aleros"]],
-                        [jsonData["sup-cochera-semi-cubierta"]],
+                        [jsonData["superficie-p-rgolas-cochera-semi-cubierta-p-rgola"]],
                         ["=+B9+B10+B11+B12+B13+B14"],
                         ["=B9+B10+B11+B12/2+B13/2+B14/2"], // B16
                         [""], [""],
