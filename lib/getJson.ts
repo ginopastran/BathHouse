@@ -13,7 +13,7 @@ AWS.config.update({
 export const getJson = async () => {
     const session = await auth()
 
-    const bucketName = "bathouse-excel-test";
+    const bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME!;
 
     const jsonFileName = `${session?.user?.email}.json`;
 

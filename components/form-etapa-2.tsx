@@ -97,12 +97,12 @@ export default function FormEtapa2() {
       // link.setAttribute("download", fileName);
       // document.body.appendChild(link);
       // link.click();
-
-      setIsSubmitComplete(true);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitComplete(true);
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   return (

@@ -137,12 +137,12 @@ export default function ProfileForm() {
       // link.setAttribute("download", fileName);
       // document.body.appendChild(link);
       // link.click();
-
-      setIsSubmitComplete(true);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
+      setIsSubmitComplete(true);
     }
-    setIsSubmitting(false);
   };
 
   return (

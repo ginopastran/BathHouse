@@ -34,7 +34,7 @@ export default function Etapa2() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bucketName = "bathouse-excel-test";
+        const bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME!;
         // console.log(session);
 
         const jsonFileName = `${session?.user?.email}.json`;

@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
                         const fileContent = fs.readFileSync(filePath);
 
                         const params = {
-                            Bucket: 'bathouse-excel-test',
+                            Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
                             Key: fileName,
                             Body: fileContent
                         };
@@ -172,7 +172,7 @@ export async function POST(req: NextRequest) {
         }
 
         const params = {
-            Bucket: 'bathouse-excel-test',
+            Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
             Key: jsonFileName,
             Body: jsonBuffer
         };
@@ -212,7 +212,7 @@ export async function GET(req: NextRequest) {
     try {
 
         const fileNameGlobal = `${session?.user?.email}.xlsx`;
-        const bucketName = "bathouse-excel-test";
+        const bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME!;
 
         const excelData = await readExcelFromS3(bucketName, fileNameGlobal);
 
