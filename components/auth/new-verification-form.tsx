@@ -1,6 +1,4 @@
-"use client";
-
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { Suspense, useState, useEffect, useCallback } from "react";
 import { BarLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 
@@ -10,11 +8,19 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 
 export const NewVerificationForm = () => {
-  const [error, setError] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NewVerificationFormContent />
+    </Suspense>
+  );
+};
+
+const NewVerificationFormContent = () => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
-
   const token = searchParams.get("token");
 
   const onSubmit = useCallback(() => {
@@ -33,6 +39,9 @@ export const NewVerificationForm = () => {
       })
       .catch(() => {
         setError("Algo salió mal");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [token, success, error]);
 
@@ -41,18 +50,20 @@ export const NewVerificationForm = () => {
   }, [onSubmit]);
 
   return (
-    <Suspense>
-      <CardWraper
-        headerLabel="Confirma tu verificación"
-        backButtonLabel="Volver al inicio de sesión"
-        backButtonHref="/auth/login"
-      >
-        <div className=" flex items-center w-full justify-center">
-          {!success && !error && <BarLoader color="#ffffff" />}
-          <FormSuccess message={success} />
-          {!success && <FormError message={error} />}
-        </div>
-      </CardWraper>
-    </Suspense>
+    <CardWraper
+      headerLabel="Confirma tu verificación"
+      backButtonLabel="Volver al inicio de sesión"
+      backButtonHref="/auth/login"
+    >
+      <div className="flex items-center justify-center">
+        {isLoading && <BarLoader color="#ffffff" />}
+        {!isLoading && (
+          <>
+            <FormSuccess message={success} />
+            <FormError message={error} />
+          </>
+        )}
+      </div>
+    </CardWraper>
   );
 };
