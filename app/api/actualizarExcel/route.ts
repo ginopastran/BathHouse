@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
                         [data["superficie-p-rgolas-cubiertas-techado"]],
                         [data["superficie-p-rgolas-semi-cubierta-p-rgola"]],
                         [""],
-                        [data["sup-cochera-semi-cubierta"]],
+                        [data["superficie-p-rgolas-cochera-semi-cubierta-p-rgola"]],
                         ["=+B9+B10+B11+B12+B13+B14"], ["=B9+B10+B11+B12/2+B13/2+B14/2"], // AQUI ES DONDE DIGO 
                         [""], [""], [""], [""], [""], [""],
                         [data["altura-de-muro-planta-baja"]], //B23
