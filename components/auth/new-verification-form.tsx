@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 
@@ -41,16 +41,18 @@ export const NewVerificationForm = () => {
   }, [onSubmit]);
 
   return (
-    <CardWraper
-      headerLabel="Confirma tu verificación"
-      backButtonLabel="Volver al inicio de sesión"
-      backButtonHref="/auth/login"
-    >
-      <div className=" flex items-center w-full justify-center">
-        {!success && !error && <BarLoader color="#ffffff" />}
-        <FormSuccess message={success} />
-        {!success && <FormError message={error} />}
-      </div>
-    </CardWraper>
+    <Suspense>
+      <CardWraper
+        headerLabel="Confirma tu verificación"
+        backButtonLabel="Volver al inicio de sesión"
+        backButtonHref="/auth/login"
+      >
+        <div className=" flex items-center w-full justify-center">
+          {!success && !error && <BarLoader color="#ffffff" />}
+          <FormSuccess message={success} />
+          {!success && <FormError message={error} />}
+        </div>
+      </CardWraper>
+    </Suspense>
   );
 };
