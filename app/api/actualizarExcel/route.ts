@@ -9,6 +9,7 @@ import { Readable } from 'stream';
 import readExcelFromS3 from '@/lib/readExcelFromS3';
 import { google } from "googleapis"
 import { GoogleAuth } from "google-auth-library"
+import { exportAndUploadToS3 } from '@/lib/exportAndUploadToS3';
 
 
 const corsHeaders = {
@@ -122,51 +123,7 @@ export async function POST(req: NextRequest) {
                 },
             });
 
-            try {
-                const drive = google.drive({ version: 'v3', auth: jwtClient });
-                const responseDrive = await drive.files.export({
-                    fileId: spreadsheetId,
-                    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                }, { responseType: 'stream' });
-
-                const tmpDir = path.join(os.tmpdir(), 'myapp');
-                if (!fs.existsSync(tmpDir)) {
-                    fs.mkdirSync(tmpDir);
-                }
-
-                const filePath = path.join(tmpDir, fileName);
-                const dest = fs.createWriteStream(filePath);
-
-                responseDrive.data
-                    .on('end', () => {
-                        console.log('Archivo descargado exitosamente.');
-
-                        const fileContent = fs.readFileSync(filePath);
-
-                        const params = {
-                            Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-                            Key: fileName,
-                            Body: fileContent
-                        };
-
-                        s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-                            if (err) {
-                                throw err;
-                            }
-                            console.log(`File uploaded successfully. ${data.Location}`);
-                        });
-
-                        fs.unlinkSync(filePath);
-                        console.log(`Archivo eliminado exitosamente: ${filePath}`);
-                    })
-                    .on('error', (err) => {
-                        console.error('Error durante la descarga:', err);
-                    })
-                    .pipe(dest);
-
-            } catch (error) {
-                console.log(error);
-            }
+            await exportAndUploadToS3(jwtClient, spreadsheetId, fileName);
         } catch (error) {
             console.log(error);
         }
