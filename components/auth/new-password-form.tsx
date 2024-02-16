@@ -21,7 +21,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import { newPassword } from "@/actions/new-password";
 
 export const NewPasswordForm = () => {
@@ -51,40 +51,42 @@ export const NewPasswordForm = () => {
   };
 
   return (
-    <CardWraper
-      headerLabel="Ingresa una nueva contraseña"
-      backButtonLabel="Volver al inicio de sesión"
-      backButtonHref="/auth/login"
-    >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
-          <div className=" space-y-4">
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="******"
-                      type="password"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <FormError message={error} />
-          <FormSuccess message={success} />
-          <Button type="submit" className=" w-full" disabled={isPending}>
-            Reiniciar contraseña
-          </Button>
-        </form>
-      </Form>
-    </CardWraper>
+    <Suspense>
+      <CardWraper
+        headerLabel="Ingresa una nueva contraseña"
+        backButtonLabel="Volver al inicio de sesión"
+        backButtonHref="/auth/login"
+      >
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
+            <div className=" space-y-4">
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="******"
+                        type="password"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormError message={error} />
+            <FormSuccess message={success} />
+            <Button type="submit" className=" w-full" disabled={isPending}>
+              Reiniciar contraseña
+            </Button>
+          </form>
+        </Form>
+      </CardWraper>
+    </Suspense>
   );
 };
