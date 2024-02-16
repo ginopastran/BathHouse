@@ -7,7 +7,7 @@ import { google } from "googleapis"
 AWS.config.update({
     accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
     secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
-    region: "sa-east-1",
+    region: process.env.NEXT_PUBLIC_S3_REGION,
 });
 
 const s3 = new AWS.S3();
