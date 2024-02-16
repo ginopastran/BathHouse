@@ -112,10 +112,10 @@ export async function POST(req: NextRequest) {
                         [data["porcelanato"]],
                         [data["rayado-o-fino-de-muros"]],
                         [data["vereda-vehiculo"]],
-                        [data["vereda-paralela-calle"]],
+                        [data["vereda-peatonal-paralela-calle"]],
                         [""], [""],
                         [data["churrasquera-de-ladrillo-y-o-hogar"]],
-                        [""], //ACA DEBERIA IR EL DATO DE PILETA ? B63
+                        [data["pileta"]], //ACA DEBERIA IR EL DATO DE PILETA ? B63
                         [data["cuenta-con-arquitecto"]],
                         [data["cuenta-con-proyecto"]],
                     ],

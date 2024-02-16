@@ -126,11 +126,11 @@ export async function POST(req: NextRequest) {
                         [jsonData["porcelanato"]],
                         [jsonData["rayado-o-fino-de-muros"]],
                         [jsonData["vereda-vehiculo"]],
-                        [jsonData["vereda-paralela-calle"]],
+                        [jsonData["vereda-peatonal-paralela-calle"]],
                         [data["cierre-provisorio"]], // B60
                         [data["cierre-definitivo"]],
                         [jsonData["churrasquera-de-ladrillo-y-o-hogar"]],
-                        [""], //ACA DEBERIA IR EL DATO DE PILETA ? B63
+                        [jsonData["pileta"]], //ACA DEBERIA IR EL DATO DE PILETA ? B63
                         [jsonData["cuenta-con-arquitecto"]],
                         [jsonData["cuenta-con-proyecto"]],
                     ],

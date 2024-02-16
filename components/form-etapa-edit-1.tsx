@@ -32,8 +32,8 @@ import {
 import Popoverdata from "@/components/popover-data";
 import { useEffect, useState } from "react";
 
-import data from "@/public/Asset/edit.json";
 import { getJson } from "@/lib/getJson";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 interface Datos {
   "nombre-completo": string;
@@ -42,7 +42,7 @@ interface Datos {
   "metros-cuadrados-de-planta-alta": number;
   "superficie-p-rgolas-cubiertas-techado": number;
   "superficie-p-rgolas-semi-cubierta-p-rgola": number;
-  "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": undefined,
+  "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": undefined;
   "altura-de-muro-planta-baja": number;
   "altura-de-muro-planta-alta": number;
   "tabique-durlok-pb-pa": number;
@@ -118,7 +118,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   const [editing, setEditing] = useState<boolean>(false);
   const [datos, setDatos] = useState<Datos | null>(null);
   const [datosOriginales, setDatosOriginales] = useState<any>({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -145,7 +145,6 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
           agua: data["agua"],
           cloaca: data["cloaca"],
           gas: data["gas"],
-          "pozo-filtrante": data["pozo-filtrante"],
           "losa-radiante-de-agua": data["losa-radiante-de-agua"],
           "losa-radiante-electrica": data["losa-radiante-electrica"],
           "molduras-de-cumbrera": data["molduras-de-cumbrera"],
@@ -169,8 +168,17 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   };
 
   // Función para manejar el botón de guardar
-  const handleGuardarClick = () => {
-    // Realizar las acciones necesarias para guardar los datos, como enviar una solicitud a la API, etc.
+  const handleGuardarClick = async () => {
+    try {
+      setIsSubmitting(true);
+      const formData = form.getValues(); // Obtener los valores actuales del formulario
+      const postResponse = await axios.post("/api/actualizarJson", formData); // Enviar los datos del formulario
+      setIsSubmitComplete(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
     setEditing(false);
   };
 
@@ -191,38 +199,19 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
     });
   };
 
-  // Función para manejar el envío del formulario
-  const onSubmit = (data: any) => {
-    // Realizar las acciones necesarias al enviar el formulario
-    console.log(data);
-  };
-  /*   const onSubmit = async (data: any) => {
+  const onSubmit = async (formdata: any) => {
     try {
-      const postResponse = await axios.post("/api/actualizarExcel", data);
-
-      const fileName = postResponse.data.fileName;
-
-      const getResponse = await axios.get("/api/actualizarExcel", {
-        responseType: "blob",
-      });
-      const url = window.URL.createObjectURL(new Blob([getResponse.data]));
-      // const link = document.createElement("a");
-      // link.href = url;
-      // link.setAttribute("download", fileName);
-      // document.body.appendChild(link);
-      // link.click();
-
+      const postResponse = await axios.post("/api/actualizarJson", formdata);
       setIsSubmitComplete(true);
     } catch (error) {
       console.log(error);
     }
-  }; */
-  // Convertir valores numéricos a números
+  };
 
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(handleGuardarClick)}>
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
             <FormField
               control={form.control}
@@ -234,7 +223,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder=""
                       {...field}
-                   /*    onChange={(e) =>
+                      /*    onChange={(e) =>
                         handleInputChange("nombre-completo", e.target.value)
                       } */
                       disabled={!editing}
@@ -253,8 +242,9 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                   <Select
                     onValueChange={(value) => {
                       handleInputChange("ubicacion", value);
-/*                       field.onChange(value);
- */                    }}
+                      /*                       field.onChange(value);
+                       */
+                    }}
                     defaultValue={
                       typeof data["ubicacion"] === "string"
                         ? data["ubicacion"]
@@ -288,7 +278,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m2"
                       {...field}
-             /*          onChange={(e) => {
+                      /*          onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -315,7 +305,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                       placeholder="m2"
                       type="number"
                       {...field}
-                     /*  onChange={(e) =>
+                      /*  onChange={(e) =>
                         handleInputChange(
                           "metros_cuadrados_de_planta_alta",
                           e.target.value
@@ -338,7 +328,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m2"
                       {...field}
-                     /*  onChange={(e) => {
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -392,7 +382,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                  /*     onChange={(e) => {
+                      /*     onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -418,7 +408,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                     /*  onChange={(e) => {
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -444,7 +434,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                  /*     onChange={(e) => {
+                      /*     onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -470,7 +460,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                     <Input
                       placeholder="m"
                       {...field}
-                     /*  onChange={(e) => {
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -486,84 +476,6 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="pozo-filtrante"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pozo Filtrante</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="m"
-                      {...field}
-                   /*    onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "pozo_filtrante",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                      type="number"
-                    />
-                  </FormControl>  
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="cisterna-enterrada"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Cisterna Enterrada</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Cantidad"
-                      type="number"
-                      {...field}
-                 /*      onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "cisterna-enterrada",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="con-pluviales"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Con Pluviales</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Cantidad"
-                      type="number"
-                      {...field}
-                  /*     onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const parsedValue = parseFloat(inputValue);
-                        handleInputChange(
-                          "cisterna-enterrada",
-                          isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
-                      disabled={!editing}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
           <div className="gap-4 grid mx-4   grid-flow-row-dense grid-cols-2 grid-rows-3 xl:grid-cols-3 2xl:grid-cols-3 ">
             <FormField
@@ -572,6 +484,36 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Agua</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cisterna-enterrada"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Cisterna Enterrada</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -658,7 +600,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             />
             <FormField
               control={form.control}
-              name="pozo-filtrante-bool"
+              name="pozo-filtrante"
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Pozo Filtrante</FormLabel>
@@ -929,6 +871,36 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             />
             <FormField
               control={form.control}
+              name="con-pluviales"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Con Pluviales</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="vereda-vehiculo"
               render={({ field }) => (
                 <FormItem className="space-y-3">
@@ -1054,10 +1026,21 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
           <div className="flex justify-center pt-5 pb-6 ">
             <Button
               type="submit"
-              className="w-[50%] "
+              className="w-[50%]"
+              disabled={isSubmitting}
               onClick={editing ? handleGuardarClick : handleEditarClick}
             >
-              {editing ? "Guardar" : "Editar"}
+              {isSubmitting ? (
+                <ReloadIcon
+                  className={`mr-2 h-4 w-4 ${
+                    isSubmitting ? "animate-spin" : ""
+                  }`}
+                />
+              ) : editing ? (
+                "Guardar"
+              ) : (
+                "Editar"
+              )}
             </Button>
           </div>
         </form>

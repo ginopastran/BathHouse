@@ -43,7 +43,7 @@ const formSchema = z.object({
   "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": z.coerce.number().min(0),
   "altura-de-muro-planta-baja": z.coerce.number().min(0),
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
-  "tabique-durlok-pb-pa": z.coerce.number().min(0),
+  "tabique-durlock-pb-pa": z.coerce.number().min(0),
   churrasquera: z.coerce.number().min(0),
   "aires-acondicionados": z.coerce.number().min(0),
   "pozo-filtrante": z.string(),
@@ -77,21 +77,21 @@ export default function ProfileForm() {
     defaultValues: {
       "nombre-completo": "",
       ubicacion: "",
-/// cuadro segundo
+      /// cuadro segundo
       "metros-cuadrados-de-planta-baja": undefined,
       "metros-cuadrados-de-planta-alta": undefined,
       "superficie-p-rgolas-cubiertas-techado": undefined,
       "superficie-p-rgolas-semi-cubierta-p-rgola": undefined,
       "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": undefined,
- // cuadro tercero     
-      
+      // cuadro tercero
+
       "altura-de-muro-planta-baja": undefined,
       "altura-de-muro-planta-alta": undefined,
-      "tabique-durlok-pb-pa": undefined,
-  // cuadro quinto
+      "tabique-durlock-pb-pa": undefined,
+      // cuadro quinto
       "aires-acondicionados": undefined,
       churrasquera: undefined,
-  //cuadro sexto
+      //cuadro sexto
       "pozo-septico": "NO",
       "cisterna-enterrada": "NO",
       "con-pluviales": "NO",
@@ -147,7 +147,7 @@ export default function ProfileForm() {
 
   return (
     <>
-      <Form {...form} >
+      <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
             <FormField
@@ -285,10 +285,10 @@ export default function ProfileForm() {
             />
             <FormField
               control={form.control}
-              name="tabique-durlok-pb-pa"
+              name="tabique-durlock-pb-pa"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tabiques Durlock  PB-PA</FormLabel>
+                  <FormLabel>Tabiques Durlock PB-PA</FormLabel>
                   <FormControl>
                     <Input placeholder="m" type="number" {...field} />
                   </FormControl>
@@ -322,20 +322,6 @@ export default function ProfileForm() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="cisterna-enterrada"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Cisterna Enterrada</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Cantidad" type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-         
           </div>
           <div className="gap-4 grid mx-4   grid-flow-row-dense grid-cols-2 grid-rows-3 xl:grid-cols-3 2xl:grid-cols-3 ">
             <FormField
