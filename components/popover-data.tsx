@@ -123,7 +123,7 @@ const Popoverdata = () => {
         const response = await axios.get("/api/actualizarExcel");
         const data = response.data;
 
-        console.log(data);
+        // console.log(data);
 
         // CASSAFORMA-TOTAL
         data.cellValueH4 = Math.round(data.cellValueH4.result).toLocaleString();

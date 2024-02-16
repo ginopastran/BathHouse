@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
         const jsonBuffer = Buffer.from(jsonData, 'utf-8');
 
 
-        console.log(data);
+        // console.log(data);
 
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
