@@ -252,7 +252,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                       typeof data["ubicacion"] === "string"
                         ? data["ubicacion"]
                         : ""
-                    }
+                    } 
                     disabled={!editing}
                   >
                     <FormControl>
