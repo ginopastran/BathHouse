@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense, useState, useEffect, useCallback } from "react";
 import { BarLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
