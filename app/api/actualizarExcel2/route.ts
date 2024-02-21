@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
                 },
             });
 
-            await exportAndUploadToS3(jwtClient, spreadsheetId, fileName2);
+            await exportAndUploadToS3(jwtClient, spreadsheetId, fileName2, data);
         } catch (error) {
             console.log(error);
         }
