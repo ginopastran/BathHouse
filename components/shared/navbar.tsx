@@ -19,7 +19,7 @@ import {
 import { useSession } from "next-auth/react";
 import { logout } from "@/actions/logout";
 import { LoginButton } from "../auth/login-button";
-import { ArrowDown, ChevronDown } from "lucide-react";
+import { ArrowDown, ChevronDown, CircleUserRound } from "lucide-react";
 
 export default function MainNavbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -203,18 +203,6 @@ export default function MainNavbar() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden sm:flex gap-3">
-          {session && (
-            <NavbarItem>
-              <Button
-                color="primary"
-                onClick={onClick}
-                variant="flat"
-                className=" bg-azulPrincipal text-white"
-              >
-                Log Out
-              </Button>
-            </NavbarItem>
-          )}
           {!session && (
             <NavbarItem className=" lg:flex">
               <LoginButton mode="modal" asChild>
@@ -224,6 +212,7 @@ export default function MainNavbar() {
               </LoginButton>
             </NavbarItem>
           )}
+
           {!session && (
             <NavbarItem>
               <Button
@@ -236,27 +225,39 @@ export default function MainNavbar() {
             </NavbarItem>
           )}
         </NavbarItem>
+        <NavbarItem>
+          {session && (
+            <NavbarItem>
+              <Dropdown placement="bottom-end">
+                <DropdownTrigger>
+                  <CircleUserRound className=" h-6 w-6" />
+                </DropdownTrigger>
+                <DropdownMenu aria-label="Profile Actions" variant="flat">
+                  <DropdownItem key="profile" className="h-14 gap-2">
+                    <p className="font-semibold">Sesión iniciada como</p>
+                    <p className="font-semibold">{`${session.user?.email}`}</p>
+                  </DropdownItem>
+                  {/* AÑADIR RUTA HACIA EL HISTORIAL */}
+                  <DropdownItem key="historial">Historial</DropdownItem>
+                  <DropdownItem key="logout" color="danger" onClick={onClick}>
+                    Cerrar Sesión
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </NavbarItem>
+          )}
+        </NavbarItem>
       </NavbarContent>
       <NavbarMenu className="flex pt-8">
         <NavbarMenuItem className="flex flex-col gap-y-6">
-          <Link href="/otro" className=" text-lg">
-            Presupuesto 1
-          </Link>
-          <Link href="/etapa-2" className=" text-lg">
-            Presupuesto 2
-          </Link>
-          {session && (
-            <NavbarItem>
-              <Button
-                color="primary"
-                onClick={onClick}
-                variant="flat"
-                className=" bg-azulPrincipal text-white"
-              >
-                Log Out
-              </Button>
-            </NavbarItem>
-          )}
+          <div className="flex flex-col items-center gap-6">
+            <Link href="/otro" className=" text-lg">
+              Presupuesto 1
+            </Link>
+            <Link href="/etapa-2" className=" text-lg">
+              Presupuesto 2
+            </Link>
+          </div>
           {!session && (
             <div className="flex gap-x-4">
               <NavbarItem className="flex">
