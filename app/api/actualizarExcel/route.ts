@@ -10,6 +10,7 @@ import readExcelFromS3 from '@/lib/readExcelFromS3';
 import { google } from "googleapis"
 import { GoogleAuth } from "google-auth-library"
 import { exportAndUploadToS3 } from '@/lib/exportAndUploadToS3';
+import getLastXlsxFile from '@/lib/getLastXlsxFile'
 
 
 const corsHeaders = {
@@ -46,7 +47,7 @@ export async function POST(req: NextRequest) {
         const data = await req.json();
 
         const jsonData = JSON.stringify(data);
-        const jsonFileName = `${session?.user?.email}.json`;
+        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-completo"]}.json`;
         const jsonBuffer = Buffer.from(jsonData, 'utf-8');
 
 
@@ -54,7 +55,7 @@ export async function POST(req: NextRequest) {
 
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
-        const fileName = `${session?.user?.email}.xlsx`;
+        const fileName = `${session?.user?.email}/` + `${data["nombre-completo"]}.xlsx`;
 
         const jwtClient = new google.auth.JWT(
             clientEmail,
@@ -123,7 +124,7 @@ export async function POST(req: NextRequest) {
                 },
             });
 
-            await exportAndUploadToS3(jwtClient, spreadsheetId, fileName);
+            await exportAndUploadToS3(jwtClient, spreadsheetId, fileName, data);
         } catch (error) {
             console.log(error);
         }
@@ -171,7 +172,15 @@ export async function GET(req: NextRequest) {
         const fileNameGlobal = `${session?.user?.email}.xlsx`;
         const bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME!;
 
-        const excelData = await readExcelFromS3(bucketName, fileNameGlobal);
+        const userFolder = `${session?.user?.email}`;
+
+        const lastModifiedFileName = await getLastXlsxFile(bucketName, userFolder);
+
+        if (!lastModifiedFileName) {
+            return NextResponse.json({ message: "No se encontró ningún archivo en el bucket de S3" });
+        }
+
+        const excelData = await readExcelFromS3(bucketName, lastModifiedFileName);
 
         if (!excelData) {
             return NextResponse.json({ message: "No se pudo leer el archivo Excel desde S3" });

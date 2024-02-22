@@ -3,6 +3,7 @@ import AWS from "aws-sdk"
 import * as fs from 'fs';
 import os from 'os';
 import { google } from "googleapis"
+import { auth } from '@/auth';
 
 AWS.config.update({
     accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
@@ -26,8 +27,13 @@ const jwtClient = new google.auth.JWT(
     ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 );
 
-export async function exportAndUploadToS3(jwtClient: any, spreadsheetId: string | undefined, fileName: string) {
+export async function exportAndUploadToS3(jwtClient: any, spreadsheetId: string | undefined, fileName: string, data: any) {
     try {
+        const session = await auth()
+        if (!session?.user?.email) {
+            throw new Error('El correo electrónico del usuario no está definido');
+        }
+
         const drive = google.drive({ version: 'v3', auth: jwtClient });
         const responseDrive = await drive.files.export({
             fileId: spreadsheetId,
@@ -35,11 +41,12 @@ export async function exportAndUploadToS3(jwtClient: any, spreadsheetId: string 
         }, { responseType: 'stream' });
 
         const tmpDir = path.join(os.tmpdir(), 'myapp');
-        if (!fs.existsSync(tmpDir)) {
-            fs.mkdirSync(tmpDir);
+        const userDir = path.join(tmpDir, session.user.email);
+        if (!fs.existsSync(userDir)) {
+            fs.mkdirSync(userDir, { recursive: true });
         }
 
-        const filePath = path.join(tmpDir, fileName);
+        const filePath = path.join(userDir, `${data["nombre-completo"]}.xlsx`);
         const dest = fs.createWriteStream(filePath);
 
         await new Promise<void>((resolve, reject) => {

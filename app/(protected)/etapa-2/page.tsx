@@ -16,12 +16,8 @@ import AWS from "aws-sdk";
 import { useSession } from "next-auth/react";
 import { FormError } from "@/components/form-error";
 import { BsExclamationTriangle } from "react-icons/bs";
-
-AWS.config.update({
-  accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
-  region: process.env.NEXT_PUBLIC_S3_REGION,
-});
+import getLastJsonFile from "@/lib/getLastJsonFile";
+import axios from "axios";
 
 export default function Etapa2() {
   const [jsonData, setJsonData] = useState(null);
@@ -29,25 +25,18 @@ export default function Etapa2() {
   const [error, setError] = useState<boolean | string>(false);
   const { data: session, status } = useSession();
 
-  // console.log(session);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME!;
-        // console.log(session);
+        const response = await axios.get("/api/conseguirJson");
+        const data = response.data;
+        console.log(data.jsonData);
 
-        const jsonFileName = `${session?.user?.email}.json`;
-
-        const data = await readJsonFromS3(bucketName, jsonFileName);
-
-        // console.log(data);
-
-        if (data) {
-          setJsonData(data);
-        } else {
-          setError("No se encontraron datos en S3");
+        if (data.error) {
+          throw new Error(data.message);
         }
+
+        setJsonData(data.jsonData);
       } catch (error: any) {
         console.error("Error fetching data:", error);
         setError(error.message);
@@ -56,9 +45,7 @@ export default function Etapa2() {
       }
     };
 
-    if (session) {
-      fetchData();
-    }
+    fetchData();
   }, [session]);
 
   if (loading) {
