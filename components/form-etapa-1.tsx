@@ -33,25 +33,57 @@ import Popoverdata from "@/components/popover-data";
 import { useState } from "react";
 
 const formSchema = z.object({
+  //datos cliente
   "nombre-completo": z.string().min(3),
+  "nombre-obra": z.string().min(3),
   ubicacion: z.string(),
+  //datos plano municipal
+  
   "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
   "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
   "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce.number().min(0),
+  "sup-alero":z.coerce.number().min(0),
+  //cerramiento
+  "pb-muros-pb-perimetro": z.coerce.number().min(0),
+  "pb-muros-pb-interiores-churrasquera-otros": z.coerce.number().min(0),
+  "pa-muros-pa-perimetro": z.coerce.number().min(0),
+  "pa-muros-pa-interiores": z.coerce.number().min(0),
   "altura-de-muro-planta-baja": z.coerce.number().min(0),
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
-  churrasquera: z.coerce.number().min(0),
+
+  //forma 2
+  "tabique-durlock-pb-pa": z.coerce.number().min(0),
+  //abertura
+  
+  "puerta-principal-tipo": z.string(),// le agreto tipo de puerta madera o chapa
+  "puerta-principal-cantidad": z.coerce.number().min(0),
+  "puerta-interior": z.coerce.number().min(0),
+  "ventana-habitacion": z.coerce.number().min(0),
+  "puerta-ventana-habitacion": z.coerce.number().min(0),
+  "ventana-bano": z.coerce.number().min(0),
+  "puerta-ventana-living": z.coerce.number().min(0),
+  "puerta-lavanderia": z.coerce.number().min(0),
+  "vidrio-simple-dvh":z.string(),
+  //electricidad
+  "bocas-electricas": z.coerce.number().min(0),
+  
+  //preguntas
   "aires-acondicionados": z.coerce.number().min(0),
-  "pozo-filtrante": z.coerce.number().min(0),
-  "cisterna-enterrada": z.coerce.number().min(0),
-  "con-pluviales": z.coerce.number().min(0),
+  churrasquera: z.coerce.number().min(0),
+  
+  //otros
+  "pozo-septico": z.string(), 
+  "cisterna-enterrada": z.string(),
+  "con-pluviales": z.string(),
   agua: z.string(),
   cloaca: z.string(),
   gas: z.string(),
-  "pozo-filtrante-bool": z.string(),
-  "losa-radiante-de-agua": z.string(),
+  luz: z.string(),
+  "pozo-filtrante": z.string(),
   "losa-radiante-electrica": z.string(),
+  "losa-radiante-de-agua": z.string(),
   "molduras-de-cumbrera": z.string(),
   "moldura-de-ventanas": z.string(),
   "cielorraso-de-placa-de-yeso": z.string(),
@@ -59,44 +91,78 @@ const formSchema = z.object({
   porcelanato: z.string(),
   "rayado-o-fino-de-muros": z.string(),
   "vereda-vehiculo": z.string(),
+  "vereda-peatonal-PAR-calle": z.string(),
   "churrasquera-de-ladrillo-y-o-hogar": z.string(),
-  "cuenta-con-arquitecto": z.string(),
+  pileta: z.string(),
   "cuenta-con-proyecto": z.string(),
+  "pago-aforos": z.string(),
 });
 
 function FormEtapa1() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      "nombre-completo": "",
-      ubicacion: "",
-      "metros-cuadrados-de-planta-baja": undefined,
-      "metros-cuadrados-de-planta-alta": undefined,
-      "superficie-p-rgolas-cubiertas-techado": undefined,
-      "superficie-p-rgolas-semi-cubierta-p-rgola": undefined,
-      "altura-de-muro-planta-baja": undefined,
-      "altura-de-muro-planta-alta": undefined,
-      churrasquera: undefined,
-      "aires-acondicionados": undefined,
-      "pozo-filtrante": undefined,
-      "cisterna-enterrada": undefined,
-      "con-pluviales": undefined,
-      agua: "NO",
-      cloaca: "NO",
-      gas: "NO",
-      "pozo-filtrante-bool": "NO",
-      "losa-radiante-de-agua": "NO",
-      "losa-radiante-electrica": "NO",
-      "molduras-de-cumbrera": "NO",
-      "moldura-de-ventanas": "NO",
-      "cielorraso-de-placa-de-yeso": "NO",
-      "cielorraso-de-yeso": "NO",
-      porcelanato: "NO",
-      "rayado-o-fino-de-muros": "NO",
-      "vereda-vehiculo": "NO",
-      "churrasquera-de-ladrillo-y-o-hogar": "NO",
-      "cuenta-con-arquitecto": "NO",
-      "cuenta-con-proyecto": "NO",
+  //datos cliente
+  "nombre-completo": "",
+  "nombre-obra":"",
+  ubicacion: "",
+  //datos plano municipal
+  
+  "metros-cuadrados-de-planta-baja": 0,
+  "metros-cuadrados-de-planta-alta": 0,
+  "superficie-p-rgolas-cubiertas-techado": 0,
+  "superficie-p-rgolas-semi-cubierta-p-rgola": 0,
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": 0,
+  "sup-alero":0,
+  //cerramiento
+  "pb-muros-pb-perimetro": 0,
+  "pb-muros-pb-interiores-churrasquera-otros":0,
+  "pa-muros-pa-perimetro": 0,
+  "pa-muros-pa-interiores": 0,
+  "altura-de-muro-planta-baja": 0,
+  "altura-de-muro-planta-alta": 0,
+  //form 2
+  "tabique-durlock-pb-pa": 0,
+  //abertura
+
+  "puerta-principal-tipo": "MADERA",// le agreto tipo de puerta madera o chapa
+  "puerta-principal-cantidad": undefined,
+  "puerta-interior": undefined,
+  "ventana-habitacion": undefined,
+  "puerta-ventana-habitacion": undefined,
+  "ventana-bano": undefined,
+  "puerta-ventana-living": undefined,
+  "puerta-lavanderia": undefined,
+  "vidrio-simple-dvh":undefined,
+  //electricidad
+  "bocas-electricas": undefined,
+  //preguntas
+  "aires-acondicionados": undefined,
+  churrasquera: undefined,
+  
+  //otros
+  "pozo-septico": "NO", 
+  "cisterna-enterrada": "NO",
+  "con-pluviales": "NO",
+  agua: "NO",
+  cloaca: "NO",
+  gas: "NO",
+  luz: "NO",
+  "pozo-filtrante": "NO",
+  "losa-radiante-electrica": "NO",
+  "losa-radiante-de-agua": "NO",
+  "molduras-de-cumbrera": "NO",
+  "moldura-de-ventanas": "NO",
+  "cielorraso-de-placa-de-yeso": "NO",
+  "cielorraso-de-yeso": "NO",
+  porcelanato: "NO",
+  "rayado-o-fino-de-muros": "NO",
+  "vereda-vehiculo": "NO",
+  "vereda-peatonal-PAR-calle": "NO",
+  "churrasquera-de-ladrillo-y-o-hogar": "NO",
+  pileta: "NO",
+  "cuenta-con-proyecto": "NO",
+  "pago-aforos": "NO",
     },
   });
 
@@ -144,6 +210,19 @@ function FormEtapa1() {
           />
           <FormField
             control={form.control}
+            name="nombre-obra"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nombre de Obra</FormLabel>
+                <FormControl>
+                  <Input placeholder="Nombre de obra" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="ubicacion"
             render={({ field }) => (
               <FormItem>
@@ -174,7 +253,7 @@ function FormEtapa1() {
               <FormItem>
                 <FormLabel>Metros cuadrados de planta baja</FormLabel>
                 <FormControl>
-                  <Input placeholder="m2" type="number" {...field} />
+                  <Input placeholder="m2" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -187,7 +266,7 @@ function FormEtapa1() {
               <FormItem>
                 <FormLabel>Metros cuadrados de planta alta</FormLabel>
                 <FormControl>
-                  <Input placeholder="m2" type="number" {...field} />
+                  <Input placeholder="m2" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -200,7 +279,7 @@ function FormEtapa1() {
               <FormItem>
                 <FormLabel>Superficie Pérgolas cubiertas (techado)</FormLabel>
                 <FormControl>
-                  <Input placeholder="m2" type="number" {...field} />
+                  <Input placeholder="m2" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -215,12 +294,27 @@ function FormEtapa1() {
                   Superficie Pérgolas semi cubierta (pérgola)
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="m2" type="number" {...field} />
+                  <Input placeholder="m2" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+            <FormField
+              control={form.control}
+              name="superficie-p-rgolas-semi-cochera-cubierta-p-rgola"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Superficie Pérgolas semi cubierta(Cochera)
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="m2" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           <FormField
             control={form.control}
             name="altura-de-muro-planta-baja"
@@ -228,7 +322,72 @@ function FormEtapa1() {
               <FormItem>
                 <FormLabel>Altura de muro planta baja</FormLabel>
                 <FormControl>
-                  <Input placeholder="m" type="number" {...field} />
+                  <Input placeholder="m2" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="sup-alero"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Superficie de Aleros</FormLabel>
+                <FormControl>
+                  <Input placeholder="m2" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="pb-muros-pb-perimetro"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Muros planta baja Perímetro</FormLabel>
+                <FormControl>
+                  <Input placeholder="ml" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="pb-muros-pb-interiores-churrasquera-otros"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Muros interiores, churrasquera y otros </FormLabel>
+                <FormControl>
+                  <Input placeholder="ml" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="pa-muros-pa-perimetro"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Muro Planta Alta Perímetro</FormLabel>
+                <FormControl>
+                  <Input placeholder="ml" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="pa-muros-pa-interiores"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Muro Planta Alta interiores</FormLabel>
+                <FormControl>
+                  <Input placeholder="ml" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -241,13 +400,26 @@ function FormEtapa1() {
               <FormItem>
                 <FormLabel>Altura de muro planta alta</FormLabel>
                 <FormControl>
-                  <Input placeholder="m" type="number" {...field} />
+                  <Input placeholder="ml" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
+            control={form.control}
+            name="altura-de-muro-planta-baja"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Altura de Muro Planta baja</FormLabel>
+                <FormControl>
+                  <Input placeholder="ml" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* <FormField
             control={form.control}
             name="churrasquera"
             render={({ field }) => (
@@ -797,6 +969,7 @@ function FormEtapa1() {
               </FormItem>
             )}
           />
+          */} 
         </div>
 
         <div className="flex justify-center pt-5 pb-6 ">
