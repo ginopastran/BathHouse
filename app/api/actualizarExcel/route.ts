@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
         const data = await req.json();
 
         const jsonData = JSON.stringify(data);
-        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-completo"]}.json`;
+        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}.json`;
         const jsonBuffer = Buffer.from(jsonData, 'utf-8');
 
 
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
-        const fileName = `${session?.user?.email}/` + `${data["nombre-completo"]}.xlsx`;
+        const fileName = `${session?.user?.email}/` + `${data["nombre-obra"]}.xlsx`;
 
         const jwtClient = new google.auth.JWT(
             clientEmail,
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
         const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
         const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-        const range = 'Informacion de Cotización!B2:B65';
+        const range = 'Informacion de Cotización!B2:B73';
 
         const valueInputOption = 'RAW';
 
@@ -80,46 +80,51 @@ export async function POST(req: NextRequest) {
                     // Los arrays con strings vacíos son para rellenar espacios que no se llenan en el data del form, es porque google sheets no deja especificar un dato para cada celda espeficica, solo deja agregar un rango desde una celda hasta otra, ej: B2:B65
                     values: [
                         [data["nombre-completo"]], // B2
-                        [data["ubicacion"]], // B3
-                        [""], [""], [""], [""], [""], [data["metros-cuadrados-de-planta-baja"]], // B9
+                        [data["nombre-obra"]], // B3
+                        [data["ubicacion"]], // B4
+                        [""], [""], [""], [""], [""],
+                        [data["metros-cuadrados-de-planta-baja"]], // B10
                         [data["metros-cuadrados-de-planta-alta"]],
                         [data["superficie-p-rgolas-cubiertas-techado"]],
                         [data["superficie-p-rgolas-semi-cubierta-p-rgola"]],
-                        [""],
-                        [data["superficie-p-rgolas-cochera-semi-cubierta-p-rgola"]],
-                        ["=+B9+B10+B11+B12+B13+B14"], ["=B9+B10+B11+B12/2+B13/2+B14/2"], // AQUI ES DONDE DIGO 
-                        [""], [""], [""], [""], [""], [""],
-                        [data["altura-de-muro-planta-baja"]], //B23
-                        [data["altura-de-muro-planta-alta"]],
-                        [data["tabique-durlock-pb-pa"]], //B25
-                        [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], [""],
-                        // [data["churrasquera"]], //B28
-                        [data["aires-acondicionados"]], //B39
-                        [data["churrasquera"]], //40
-                        [""],
-                        [data["pozo-septico"]], //42
-                        [data["cisterna-enterrada"]],
-                        [data["con-pluviales"]],
-                        [data["agua"]],
-                        [data["cloaca"]],
-                        [data["gas"]],
-                        [data["luz"]],
-                        [data["pozo-filtrante"]],
-                        [data["losa-radiante-electrica"]],
-                        [data["losa-radiante-de-agua"]],
-                        [data["molduras-de-cumbrera"]],
-                        [data["moldura-de-ventanas"]],
-                        [data["cielorraso-de-placa-de-yeso"]],
-                        [data["cielorraso-de-yeso"]],
-                        [data["porcelanato"]],
-                        [data["rayado-o-fino-de-muros"]],
-                        [data["vereda-vehiculo"]],
-                        [data["vereda-peatonal-paralela-calle"]],
+                        [data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"]],
+                        [data["sup-alero"]],
+                        ["=+B9+B10+B11+B12+B13+B14"], ["=B9+B10+B11+B12/2+B13/2+B13/2"],
                         [""], [""],
-                        [data["churrasquera-de-ladrillo-y-o-hogar"]],
-                        [data["pileta"]], //ACA DEBERIA IR EL DATO DE PILETA ? B63
-                        [data["cuenta-con-arquitecto"]],
-                        [data["cuenta-con-proyecto"]],
+                        [data["pb-muros-pb-perimetro"]],
+                        [data["pb-muros-pb-interiores-churrasquera-otros"]],
+                        [data["pa-muros-pa-perimetro"]],
+                        [data["pa-muros-pa-interiores"]],
+                        [data["altura-de-muro-planta-baja"]], //B24
+                        [data["altura-de-muro-planta-alta"]], //B25
+                        [""], //B26
+                        [""], [""], [""], [""],
+                        [90], //B31
+                        ["Chapa"], //B32
+                        [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], //42
+                        [""], [""], [""], [""], [""], [""], [""], [""], [""],
+                        ["SI"], //52
+                        ["SI"], //53
+                        ["SI"], //54
+                        ["SI"], //55
+                        ["SI"], //56
+                        ["SI"], //57
+                        ["SI"], //58
+                        ["SI"], //59
+                        ["Eléctrica"], //60
+                        ["SI"], //61
+                        ["SI"], //62
+                        ["Placa"], //63
+                        ["SI"], //64
+                        ["SI"], //65
+                        ["SI"], //66
+                        ["SI"], //67
+                        ["SI"], //68
+                        ["SI"], //69
+                        ["SI"], //70
+                        ["NO"], //71
+                        ["SI"], //72
+                        ["SI"], //73                        
                     ],
                 },
             });
@@ -196,203 +201,268 @@ export async function GET(req: NextRequest) {
         }
 
 
-        let cellValueH4, cellValueH5, cellValueH6;
-        let cellValueI4, cellValueI5, cellValueI6;
-        let cellValueJ4, cellValueJ5, cellValueJ6;
-        let cellValueK4, cellValueK5, cellValueK6;
-        let cellValueH10, cellValueH11, cellValueH12;
-        let cellValueI10, cellValueI11, cellValueI12;
-        let cellValueJ10, cellValueJ11, cellValueJ12;
-        let cellValueK10, cellValueK11, cellValueK12;
-        let cellValueH16, cellValueH17, cellValueH18;
-        let cellValueI16, cellValueI17, cellValueI18;
-        let cellValueJ16, cellValueJ17, cellValueJ18;
-        let cellValueK16, cellValueK17, cellValueK18;
-        let cellValueH22, cellValueH23, cellValueH24;
-        let cellValueI22, cellValueI23, cellValueI24;
-        let cellValueJ22, cellValueJ23, cellValueJ24;
-        let cellValueK22, cellValueK23, cellValueK24;
-        let cellValueH28, cellValueH29, cellValueH30;
-        let cellValueI28, cellValueI29, cellValueI30;
-        let cellValueJ28, cellValueJ29, cellValueJ30;
-        let cellValueK28, cellValueK29, cellValueK30;
-        let cellValueH34, cellValueH35, cellValueH36;
-        let cellValueI34, cellValueI35, cellValueI36;
-        let cellValueJ34, cellValueJ35, cellValueJ36;
-        let cellValueK34, cellValueK35, cellValueK36;
+        // let cellValueH4, cellValueH5, cellValueH6;
+        // let cellValueI4, cellValueI5, cellValueI6;
+        // let cellValueJ4, cellValueJ5, cellValueJ6;
+        // let cellValueK4, cellValueK5, cellValueK6;
+        // let cellValueH10, cellValueH11, cellValueH12;
+        // let cellValueI10, cellValueI11, cellValueI12;
+        // let cellValueJ10, cellValueJ11, cellValueJ12;
+        // let cellValueK10, cellValueK11, cellValueK12;
+        // let cellValueH16, cellValueH17, cellValueH18;
+        // let cellValueI16, cellValueI17, cellValueI18;
+        // let cellValueJ16, cellValueJ17, cellValueJ18;
+        // let cellValueK16, cellValueK17, cellValueK18;
+        // let cellValueH22, cellValueH23, cellValueH24;
+        // let cellValueI22, cellValueI23, cellValueI24;
+        // let cellValueJ22, cellValueJ23, cellValueJ24;
+        // let cellValueK22, cellValueK23, cellValueK24;
+        // let cellValueH28, cellValueH29, cellValueH30;
+        // let cellValueI28, cellValueI29, cellValueI30;
+        // let cellValueJ28, cellValueJ29, cellValueJ30;
+        // let cellValueK28, cellValueK29, cellValueK30;
+        // let cellValueH34, cellValueH35, cellValueH36;
+        // let cellValueI34, cellValueI35, cellValueI36;
+        // let cellValueJ34, cellValueJ35, cellValueJ36;
+        // let cellValueK34, cellValueK35, cellValueK36;
+
+        //CASSAFORMA PURO
+        let cellValueI5, cellValueI6, cellValueI7
+        let cellValueK5, cellValueK6, cellValueK7
+        let cellValueL5, cellValueL6, cellValueL7
+        let cellValueM5, cellValueM6, cellValueM7
+        let cellValueN5, cellValueN6, cellValueN7
+        //CASSAFORMA + TECHO LTN
+        let cellValueI11, cellValueI12, cellValueI13
+        let cellValueK11, cellValueK12, cellValueK13
+        let cellValueL11, cellValueL12, cellValueL13
+        let cellValueM11, cellValueM12, cellValueM13
+        let cellValueN11, cellValueN12, cellValueN13
+        //CASSAFORMA + TECHO LTN (DOS PLANTAS)
+        let cellValueI17, cellValueI18, cellValueI19
+        let cellValueK17, cellValueK18, cellValueK19
+        let cellValueL17, cellValueL18, cellValueL19
+        let cellValueM17, cellValueM18, cellValueM19
+        let cellValueN17, cellValueN18, cellValueN19
+        //CASSASIP (UNA PLANTA)
+        let cellValueI23, cellValueI24, cellValueI25
+        let cellValueK23, cellValueK24, cellValueK25
+        let cellValueL23, cellValueL24, cellValueL25
+        let cellValueM23, cellValueM24, cellValueM25
+        let cellValueN23, cellValueN24, cellValueN25
+
+        //CASSASIP (DOS PLANTAS)
+        let cellValueI29, cellValueI30, cellValueI31
+        let cellValueK29, cellValueK30, cellValueK31
+        let cellValueL29, cellValueL30, cellValueL31
+        let cellValueM29, cellValueM30, cellValueM31
+        let cellValueN29, cellValueN30, cellValueN31
+
+        //SEEL FRAMING 
+        let cellValueI35, cellValueI36, cellValueI37
+        let cellValueK35, cellValueK36, cellValueK37
+        let cellValueL35, cellValueL36, cellValueL37
+        let cellValueM35, cellValueM36, cellValueM37
+        let cellValueN35, cellValueN36, cellValueN37
+
+        //LADRILLO  
+        let cellValueI41, cellValueI42, cellValueI43
+        let cellValueK41, cellValueK42, cellValueK43
+        let cellValueL41, cellValueL42, cellValueL43
+        let cellValueM41, cellValueM42, cellValueM43
+        let cellValueN41, cellValueN42, cellValueN43
 
         if (worksheet) {
             // CASSAFORMA-TOTAL
-            cellValueH4 = worksheet.getCell('H4').value
-            cellValueH5 = worksheet.getCell('H5').value;
-            cellValueH6 = worksheet.getCell('H6').value;
-            // CASSAFORMA-MATERIALES
-            cellValueI4 = worksheet.getCell('I4').value;
-            cellValueI5 = worksheet.getCell('I5').value;
+            cellValueI5 = worksheet.getCell('I5').value
             cellValueI6 = worksheet.getCell('I6').value;
-            // CASSAFORMA-M.O.
-            cellValueJ4 = worksheet.getCell('J4').value;
-            cellValueJ5 = worksheet.getCell('J5').value;
-            cellValueJ6 = worksheet.getCell('J6').value;
-            // CASSAFORMA-TERMINACIONES
-            cellValueK4 = worksheet.getCell('K4').value;
+            cellValueI7 = worksheet.getCell('I7').value;
+            // CASSAFORMA-MATERIALES
             cellValueK5 = worksheet.getCell('K5').value;
             cellValueK6 = worksheet.getCell('K6').value;
+            cellValueK7 = worksheet.getCell('K7').value;
+            // CASSAFORMA-SERVICIOS
+            cellValueL5 = worksheet.getCell('L5').value;
+            cellValueL6 = worksheet.getCell('L6').value;
+            cellValueL7 = worksheet.getCell('L7').value;
+            // CASSAFORMA-M.O.
+            cellValueM5 = worksheet.getCell('M5').value;
+            cellValueM6 = worksheet.getCell('M6').value;
+            cellValueM7 = worksheet.getCell('M7').value;
+            // CASSAFORMA-TERMINACIONES
+            cellValueN5 = worksheet.getCell('N5').value;
+            cellValueN6 = worksheet.getCell('N6').value;
+            cellValueN7 = worksheet.getCell('N7').value;
+
             // CASSAFORMA + TECHO LTN-TOTAL
-            cellValueH10 = worksheet.getCell('H10').value;
-            cellValueH11 = worksheet.getCell('H11').value;
-            cellValueH12 = worksheet.getCell('H12').value;
-            // CASSAFORMA + TECHO LTN-MATERIALES
-            cellValueI10 = worksheet.getCell('I10').value;
             cellValueI11 = worksheet.getCell('I11').value;
             cellValueI12 = worksheet.getCell('I12').value;
-            // CASSAFORMA + TECHO LTN-M.O.
-            cellValueJ10 = worksheet.getCell('J10').value;
-            cellValueJ11 = worksheet.getCell('J11').value;
-            cellValueJ12 = worksheet.getCell('J12').value;
-            // CASSAFORMA + TECHO LTN-TERMINACIONES
-            cellValueK10 = worksheet.getCell('K10').value;
+            cellValueI13 = worksheet.getCell('I13').value;
+            // CASSAFORMA + TECHO LTN-MATERIALES
             cellValueK11 = worksheet.getCell('K11').value;
             cellValueK12 = worksheet.getCell('K12').value;
-            //CASSAFORMA DOS PLANTAS + LTN-TOTAL
-            cellValueH16 = worksheet.getCell('H16').value;
-            cellValueH17 = worksheet.getCell('H17').value;
-            cellValueH18 = worksheet.getCell('H18').value;
-            // CASSAFORMA DOS PLANTAS + LTN-MATERIALES
-            cellValueI16 = worksheet.getCell('I16').value;
+            cellValueK13 = worksheet.getCell('K13').value;
+            // CASSAFORMA + TECHO LTN SERVICIOS
+            cellValueL11 = worksheet.getCell('L11').value;
+            cellValueL12 = worksheet.getCell('L12').value;
+            cellValueL13 = worksheet.getCell('L13').value;
+            // CASSAFORMA + TECHO LTN-M.O.
+            cellValueM11 = worksheet.getCell('M11').value;
+            cellValueM12 = worksheet.getCell('M12').value;
+            cellValueM13 = worksheet.getCell('M13').value;
+            // CASSAFORMA + TECHO LTN-TERMINACIONES
+            cellValueN11 = worksheet.getCell('N11').value;
+            cellValueN12 = worksheet.getCell('N12').value;
+            cellValueN13 = worksheet.getCell('N13').value;
+
+            // CASSAFORMA + LTN (DOS PLANTAS) TOTAL
             cellValueI17 = worksheet.getCell('I17').value;
             cellValueI18 = worksheet.getCell('I18').value;
-            // CASSAFORMA DOS PLANTAS + LTN-M.O.
-            cellValueJ16 = worksheet.getCell('J16').value;
-            cellValueJ17 = worksheet.getCell('J17').value;
-            cellValueJ18 = worksheet.getCell('J18').value;
-            // CASSAFORMA DOS PLANTAS + LTN-TERMINACIONES
-            cellValueK16 = worksheet.getCell('K16').value;
+            cellValueI19 = worksheet.getCell('I19').value;
+            // CASSAFORMA + LTN (DOS PLANTAS) MATERIALES
             cellValueK17 = worksheet.getCell('K17').value;
             cellValueK18 = worksheet.getCell('K18').value;
-            // CASSASIP-TOTAL
-            cellValueH22 = worksheet.getCell('H22').value;
-            cellValueH23 = worksheet.getCell('H23').value;
-            cellValueH24 = worksheet.getCell('H24').value;
-            // CASSASIP-MATERIALES
-            cellValueI22 = worksheet.getCell('I22').value;
+            cellValueK19 = worksheet.getCell('K19').value;
+            // CASSAFORMA + LTN (DOS PLANTAS) SERVICIOS
+            cellValueL17 = worksheet.getCell('L17').value;
+            cellValueL18 = worksheet.getCell('L18').value;
+            cellValueL19 = worksheet.getCell('L19').value;
+            // CASSAFORMA + LTN (DOS PLANTAS) M.O.
+            cellValueM17 = worksheet.getCell('M17').value;
+            cellValueM18 = worksheet.getCell('M18').value;
+            cellValueM19 = worksheet.getCell('M19').value;
+            // CASSAFORMA + LTN (DOS PLANTAS) TERMINACIONES
+            cellValueN17 = worksheet.getCell('N17').value;
+            cellValueN18 = worksheet.getCell('N18').value;
+            cellValueN19 = worksheet.getCell('N19').value;
+
+            // CASSASIP (UNA PLANTA) TOTAL
             cellValueI23 = worksheet.getCell('I23').value;
             cellValueI24 = worksheet.getCell('I24').value;
-            // CASSASIP-M.O.
-            cellValueJ22 = worksheet.getCell('J22').value;
-            cellValueJ23 = worksheet.getCell('J23').value;
-            cellValueJ24 = worksheet.getCell('J24').value;
-            // CASSASIP-TERMINACIONES
-            cellValueK22 = worksheet.getCell('K22').value;
+            cellValueI25 = worksheet.getCell('I25').value;
+            // CASSASIP (UNA PLANTA) MATERIALES
             cellValueK23 = worksheet.getCell('K23').value;
             cellValueK24 = worksheet.getCell('K24').value;
-            // SEELFRAMING-TOTAL
-            cellValueH28 = worksheet.getCell('H28').value;
-            cellValueH29 = worksheet.getCell('H29').value;
-            cellValueH30 = worksheet.getCell('H30').value;
-            // SEELFRAMING-MATERIALES
-            cellValueI28 = worksheet.getCell('I28').value;
-            cellValueI29 = worksheet.getCell('I29').value;
-            cellValueI30 = worksheet.getCell('I30').value;
-            // SEELFRAMING-M.O.
-            cellValueJ28 = worksheet.getCell('J28').value;
-            cellValueJ29 = worksheet.getCell('J29').value;
-            cellValueJ30 = worksheet.getCell('J30').value;
-            // SEELFRAMING-TERMINACIONES
-            cellValueK28 = worksheet.getCell('K28').value;
+            cellValueK25 = worksheet.getCell('K25').value;
+            // CASSASIP (UNA PLANTA) SERVICIOS
+            cellValueL23 = worksheet.getCell('L23').value;
+            cellValueL24 = worksheet.getCell('L24').value;
+            cellValueL25 = worksheet.getCell('L25').value;
+            // CASSASIP (UNA PLANTA) M.O.
+            cellValueM23 = worksheet.getCell('M23').value;
+            cellValueM24 = worksheet.getCell('M24').value;
+            cellValueM25 = worksheet.getCell('M25').value;
+            // CASSASIP (UNA PLANTA) TERMINACIONES
+            cellValueN23 = worksheet.getCell('N23').value;
+            cellValueN24 = worksheet.getCell('N24').value;
+            cellValueN25 = worksheet.getCell('N25').value;
+
+            // CASSASIP (DOS PLANTAS) TOTAL
+            cellValueI29 = worksheet.getCell('H22').value;
+            cellValueI30 = worksheet.getCell('H23').value;
+            cellValueI31 = worksheet.getCell('H24').value;
+            // CASSASIP (DOS PLANTAS) MATERIALES
             cellValueK29 = worksheet.getCell('K29').value;
             cellValueK30 = worksheet.getCell('K30').value;
-            // LADRILLO-TOTAL
-            cellValueH34 = worksheet.getCell('H34').value;
-            cellValueH35 = worksheet.getCell('H35').value;
-            cellValueH36 = worksheet.getCell('H36').value;
-            // LADRILLO-MATERIALES
-            cellValueI34 = worksheet.getCell('I34').value;
+            cellValueK31 = worksheet.getCell('K31').value;
+            // CASSASIP (DOS PLANTAS) SERVICIOS
+            cellValueL29 = worksheet.getCell('L29').value;
+            cellValueL30 = worksheet.getCell('L30').value;
+            cellValueL31 = worksheet.getCell('L31').value;
+            // CASSASIP (DOS PLANTAS) M.O.
+            cellValueM29 = worksheet.getCell('M29').value;
+            cellValueM30 = worksheet.getCell('M30').value;
+            cellValueM31 = worksheet.getCell('M31').value;
+            // CASSASIP (DOS PLANTAS) TERMINACIONES
+            cellValueN29 = worksheet.getCell('N29').value;
+            cellValueN30 = worksheet.getCell('N30').value;
+            cellValueN31 = worksheet.getCell('N31').value;
+
+            // SEELFRAMING TOTAL
             cellValueI35 = worksheet.getCell('I35').value;
             cellValueI36 = worksheet.getCell('I36').value;
-            // LADRILLO-M.O.
-            cellValueJ34 = worksheet.getCell('J34').value;
-            cellValueJ35 = worksheet.getCell('J35').value;
-            cellValueJ36 = worksheet.getCell('J36').value;
-            // LADRILLO-TERMINACIONES
-            cellValueK34 = worksheet.getCell('K34').value;
+            cellValueI37 = worksheet.getCell('I37').value;
+            // SEELFRAMING MATERIALES
             cellValueK35 = worksheet.getCell('K35').value;
             cellValueK36 = worksheet.getCell('K36').value;
+            cellValueK37 = worksheet.getCell('K37').value;
+            // SEELFRAMING SERVICIOS
+            cellValueL35 = worksheet.getCell('L35').value;
+            cellValueL36 = worksheet.getCell('L36').value;
+            cellValueL37 = worksheet.getCell('L37').value;
+            // SEELFRAMING M.O.
+            cellValueM35 = worksheet.getCell('M35').value;
+            cellValueM36 = worksheet.getCell('M36').value;
+            cellValueM37 = worksheet.getCell('M37').value;
+            // SEELFRAMING TERMINACIONES
+            cellValueN35 = worksheet.getCell('N35').value;
+            cellValueN36 = worksheet.getCell('N36').value;
+            cellValueN37 = worksheet.getCell('N37').value;
+
+            // LADRILLO TOTAL
+            cellValueI41 = worksheet.getCell('I41').value;
+            cellValueI42 = worksheet.getCell('I42').value;
+            cellValueI43 = worksheet.getCell('I43').value;
+            // LADRILLO MATERIALES
+            cellValueK41 = worksheet.getCell('K41').value;
+            cellValueK42 = worksheet.getCell('K42').value;
+            cellValueK43 = worksheet.getCell('K43').value;
+            // LADRILLO SERVICIOS
+            cellValueL41 = worksheet.getCell('L41').value;
+            cellValueL42 = worksheet.getCell('L42').value;
+            cellValueL43 = worksheet.getCell('L43').value;
+            // LADRILLO M.O.
+            cellValueM41 = worksheet.getCell('M41').value;
+            cellValueM42 = worksheet.getCell('M42').value;
+            cellValueM43 = worksheet.getCell('M43').value;
+            // LADRILLO TERMINACIONES
+            cellValueN41 = worksheet.getCell('N41').value;
+            cellValueN42 = worksheet.getCell('N42').value;
+            cellValueN43 = worksheet.getCell('N43').value;
         }
 
         return NextResponse.json({
-            cellValueH4,
-            cellValueH5,
-            cellValueH6,
-            cellValueI4,
-            cellValueI5,
-            cellValueI6,
-            cellValueJ4,
-            cellValueJ5,
-            cellValueJ6,
-            cellValueK4,
-            cellValueK5,
-            cellValueK6,
-            cellValueH10,
-            cellValueH11,
-            cellValueH12,
-            cellValueI10,
-            cellValueI11,
-            cellValueI12,
-            cellValueJ10,
-            cellValueJ11,
-            cellValueJ12,
-            cellValueK10,
-            cellValueK11,
-            cellValueK12,
-            cellValueH16,
-            cellValueH17,
-            cellValueH18,
-            cellValueI16,
-            cellValueI17,
-            cellValueI18,
-            cellValueJ16,
-            cellValueJ17,
-            cellValueJ18,
-            cellValueK16,
-            cellValueK17,
-            cellValueK18,
-            cellValueH22,
-            cellValueH23,
-            cellValueH24,
-            cellValueI22,
-            cellValueI23,
-            cellValueI24,
-            cellValueJ22,
-            cellValueJ23,
-            cellValueJ24,
-            cellValueK22,
-            cellValueK23,
-            cellValueK24,
-            cellValueH28,
-            cellValueH29,
-            cellValueH30,
-            cellValueI28,
-            cellValueI29,
-            cellValueI30,
-            cellValueJ28,
-            cellValueJ29,
-            cellValueJ30,
-            cellValueK28,
-            cellValueK29,
-            cellValueK30,
-            cellValueH34,
-            cellValueH35,
-            cellValueH36,
-            cellValueI34,
-            cellValueI35,
-            cellValueI36,
-            cellValueJ34,
-            cellValueJ35,
-            cellValueJ36,
-            cellValueK34,
-            cellValueK35,
-            cellValueK36,
+            cellValueI5, cellValueI6, cellValueI7,
+            cellValueK5, cellValueK6, cellValueK7,
+            cellValueL5, cellValueL6, cellValueL7,
+            cellValueM5, cellValueM6, cellValueM7,
+            cellValueN5, cellValueN6, cellValueN7,
+
+            cellValueI11, cellValueI12, cellValueI13,
+            cellValueK11, cellValueK12, cellValueK13,
+            cellValueL11, cellValueL12, cellValueL13,
+            cellValueM11, cellValueM12, cellValueM13,
+            cellValueN11, cellValueN12, cellValueN13,
+
+            cellValueI17, cellValueI18, cellValueI19,
+            cellValueK17, cellValueK18, cellValueK19,
+            cellValueL17, cellValueL18, cellValueL19,
+            cellValueM17, cellValueM18, cellValueM19,
+            cellValueN17, cellValueN18, cellValueN19,
+
+            cellValueI23, cellValueI24, cellValueI25,
+            cellValueK23, cellValueK24, cellValueK25,
+            cellValueL23, cellValueL24, cellValueL25,
+            cellValueM23, cellValueM24, cellValueM25,
+            cellValueN23, cellValueN24, cellValueN25,
+
+            cellValueI29, cellValueI30, cellValueI31,
+            cellValueK29, cellValueK30, cellValueK31,
+            cellValueL29, cellValueL30, cellValueL31,
+            cellValueM29, cellValueM30, cellValueM31,
+            cellValueN29, cellValueN30, cellValueN31,
+
+            cellValueI35, cellValueI36, cellValueI37,
+            cellValueK35, cellValueK36, cellValueK37,
+            cellValueL35, cellValueL36, cellValueL37,
+            cellValueM35, cellValueM36, cellValueM37,
+            cellValueN35, cellValueN36, cellValueN37,
+
+            cellValueI41, cellValueI42, cellValueI43,
+            cellValueK41, cellValueK42, cellValueK43,
+            cellValueL41, cellValueL42, cellValueL43,
+            cellValueM41, cellValueM42, cellValueM43,
+            cellValueN41, cellValueN42, cellValueN43,
         });
     } catch (error: any) {
         return NextResponse.json({ message: "Ocurrió un error", error: error.message });

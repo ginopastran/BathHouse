@@ -65,7 +65,6 @@ export default function ProfileForm() {
   "nombre-obra":"",
   ubicacion: "",
   //datos plano municipal
-  
   "metros-cuadrados-de-planta-baja": 0,
   "metros-cuadrados-de-planta-alta": 0,
   "superficie-p-rgolas-cubiertas-techado": 0,
