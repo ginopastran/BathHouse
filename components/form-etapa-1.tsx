@@ -123,6 +123,12 @@ function FormEtapa1() {
   "altura-de-muro-planta-alta": 0,
   //form 2
   "tabique-durlock-pb-pa": 0,
+  "balcon-porcelanato": 0,
+  "hormigon-visto": 0,
+  "cantidad-encuentros-PB": 0,
+  "cantidad-encuentros-PA": 0,
+  "espesor-muro-SIP":90,
+  "tipo-techo":"Chapa",
   //abertura
 
   "puerta-principal-tipo": "MADERA",// le agreto tipo de puerta madera o chapa
