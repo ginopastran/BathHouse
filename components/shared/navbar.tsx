@@ -33,7 +33,7 @@ export default function MainNavbar() {
   //Esta es una navbar que se carga sin el boton de login o logout porque espera a que las funciones que reciben la session se ejecuten
   if (status === "loading") {
     return (
-      <Navbar onMenuOpenChange={setIsMenuOpen}>
+      <Navbar onMenuOpenChange={setIsMenuOpen} className=" z-50">
         <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -148,7 +148,7 @@ export default function MainNavbar() {
   }
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar onMenuOpenChange={setIsMenuOpen} className=" z-50">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -238,7 +238,9 @@ export default function MainNavbar() {
                     <p className="font-semibold">{`${session.user?.email}`}</p>
                   </DropdownItem>
                   {/* AÑADIR RUTA HACIA EL HISTORIAL */}
-                  <DropdownItem key="historial">Historial</DropdownItem>
+                  <DropdownItem key="historial" href="/historial">
+                    Historial
+                  </DropdownItem>
                   <DropdownItem key="logout" color="danger" onClick={onClick}>
                     Cerrar Sesión
                   </DropdownItem>
