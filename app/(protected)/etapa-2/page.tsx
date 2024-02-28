@@ -10,7 +10,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { auth } from "@/auth";
-import readJsonFromS3 from "@/lib/xlsx/readJsonFromS3";
+import readJsonFromS3 from "@/lib/json/readJsonFromS3";
 import { Loader2 } from "lucide-react";
 import AWS from "aws-sdk";
 import { useSession } from "next-auth/react";

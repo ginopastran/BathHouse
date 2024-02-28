@@ -14,101 +14,151 @@ const Popoverdata = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [cellValues, setCellValues] = useState<{
       // CASSAFORMA-TOTAL
-      cellValueH4: string;
-      cellValueH5: string;
-      cellValueH6: string;
-      // CASSAFORMA-MATERIALES
-      cellValueI4: string;
       cellValueI5: string;
       cellValueI6: string;
-      // CASSAFORMA M.O.
-      cellValueJ4: string;
-      cellValueJ5: string;
-      cellValueJ6: string;
-      // CASSAFORMA TERMINACIONES
-      cellValueK4: string;
+      cellValueI7: string;
+      // CASSAFORMA-MATERIALES
       cellValueK5: string;
       cellValueK6: string;
+      cellValueK7: string;
+      // CASSAFORMA-SERVICIOS
+      cellValueL5: string;
+      cellValueL6: string;
+      cellValueL7: string;
+      // CASSAFORMA M.O.
+      cellValueM5: string;
+      cellValueM6: string;
+      cellValueM7: string;
+      // CASSAFORMA TERMINACIONES
+      cellValueN5: string;
+      cellValueN6: string;
+      cellValueN7: string;
+
       // CASSAFORMA+TECHO LTN-TOTAL
-      cellValueH10: string;
-      cellValueH11: string;
-      cellValueH12: string;
-      // CASSAFORMA+TECHO LTN-MATERIALES
-      cellValueI10: string;
       cellValueI11: string;
       cellValueI12: string;
-      // CASSAFORMA+TECHO LTN M.O.
-      cellValueJ10: string;
-      cellValueJ11: string;
-      cellValueJ12: string;
-      // CASSAFORMA+TECHO LTN TERMINACIONES
-      cellValueK10: string;
+      cellValueI13: string;
+      // CASSAFORMA+TECHO LTN-MATERIALES
       cellValueK11: string;
       cellValueK12: string;
-      //CASSAFORMA DOS PLANTAS + LTN-TOTAL
-      cellValueH16: string;
-      cellValueH17: string;
-      cellValueH18: string;
-      // CASSAFORMA DOS PLANTAS + LTN-MATERIALES
-      cellValueI16: string;
+      cellValueK13: string;
+      // CASSAFORMA+TECHO LTN-SERVICIOS
+      cellValueL11: string;
+      cellValueL12: string;
+      cellValueL13: string;
+      // CASSAFORMA+TECHO LTN M.O.
+      cellValueM11: string;
+      cellValueM12: string;
+      cellValueM13: string;
+      // CASSAFORMA+TECHO LTN TERMINACIONES
+      cellValueN11: string;
+      cellValueN12: string;
+      cellValueN13: string;
+
+      // CASSAFORMA + LTN (DOS PLANTAS) TOTAL
       cellValueI17: string;
       cellValueI18: string;
-      // CASSAFORMA DOS PLANTAS + LTN-M.O.
-      cellValueJ16: string;
-      cellValueJ17: string;
-      cellValueJ18: string;
-      // CASSAFORMA DOS PLANTAS + LTN-TERMINACIONES
-      cellValueK16: string;
+      cellValueI19: string;
+      // CASSAFORMA DOS PLANTAS + LTN-MATERIALES
       cellValueK17: string;
       cellValueK18: string;
-      // CASSASIP-TOTAL
-      cellValueH22: string;
-      cellValueH23: string;
-      cellValueH24: string;
-      // CASSASIP-MATERIALES
-      cellValueI22: string;
+      cellValueK19: string;
+      // CASSAFORMA DOS PLANTAS + LTN-SERVICIOS
+      cellValueL17: string;
+      cellValueL18: string;
+      cellValueL19: string;
+      // CASSAFORMA DOS PLANTAS + LTN-M.O.
+      cellValueM17: string;
+      cellValueM18: string;
+      cellValueM19: string;
+      // CASSAFORMA DOS PLANTAS + LTN-TERMINACIONES
+      cellValueN17: string;
+      cellValueN18: string;
+      cellValueN19: string;
+
+      // CASSASIP (UNA PLANTA) TOTAL
       cellValueI23: string;
       cellValueI24: string;
-      // CASSASIP-M.O.
-      cellValueJ22: string;
-      cellValueJ23: string;
-      cellValueJ24: string;
-      // CASSASIP-TERMINACIONES
-      cellValueK22: string;
+      cellValueI25: string;
+      // CASSASIP (UNA PLANTA) MATERIALES
       cellValueK23: string;
       cellValueK24: string;
-      // SEELFRAMING-TOTAL
-      cellValueH28: string;
-      cellValueH29: string;
-      cellValueH30: string;
-      // SEELFRAMING-MATERIALES
-      cellValueI28: string;
+      cellValueK25: string;
+      // CASSASIP (UNA PLANTA) SERVICIOS
+      cellValueL23: string;
+      cellValueL24: string;
+      cellValueL25: string;
+      // CASSASIP (UNA PLANTA) M.O.
+      cellValueM23: string;
+      cellValueM24: string;
+      cellValueM25: string;
+      // CASSASIP (UNA PLANTA) TERMINACIONES
+      cellValueN23: string;
+      cellValueN24: string;
+      cellValueN25: string;
+
+      // CASSASIP (DOS PLANTAS) TOTAL
       cellValueI29: string;
       cellValueI30: string;
-      // SEELFRAMING-M.O.
-      cellValueJ28: string;
-      cellValueJ29: string;
-      cellValueJ30: string;
-      // SEELFRAMING-TERMINACIONES
-      cellValueK28: string;
+      cellValueI31: string;
+      // CASSASIP (DOS PLANTAS) MATERIALES
       cellValueK29: string;
       cellValueK30: string;
-      // LADRILLO-TOTAL
-      cellValueH34: string;
-      cellValueH35: string;
-      cellValueH36: string;
-      // LADRILLO-MATERIALES
-      cellValueI34: string;
+      cellValueK31: string;
+      // CASSASIP (DOS PLANTAS) SERVICIOS
+      cellValueL29: string;
+      cellValueL30: string;
+      cellValueL31: string;
+      // CASSASIP (DOS PLANTAS) SERVICIOS
+      cellValueM29: string;
+      cellValueM30: string;
+      cellValueM31: string;
+      // CASSASIP (DOS PLANTAS) TERMINACIONES
+      cellValueN29: string;
+      cellValueN30: string;
+      cellValueN31: string;
+
+      // SEELFRAMING-TOTAL
       cellValueI35: string;
       cellValueI36: string;
-      // LADRILLO-M.O.
-      cellValueJ34: string;
-      cellValueJ35: string;
-      cellValueJ36: string;
-      // LADRILLO-TERMINACIONES
-      cellValueK34: string;
+      cellValueI37: string;
+      // SEELFRAMING-MATERIALES
       cellValueK35: string;
       cellValueK36: string;
+      cellValueK37: string;
+      // SEELFRAMING-SERVICIOS
+      cellValueL35: string;
+      cellValueL36: string;
+      cellValueL37: string;
+      // SEELFRAMING-M.O.
+      cellValueM35: string;
+      cellValueM36: string;
+      cellValueM37: string;
+      // SEELFRAMING-TERMINACIONES
+      cellValueN35: string;
+      cellValueN36: string;
+      cellValueN37: string;
+
+      // LADRILLO-TOTAL
+      cellValueI41: string;
+      cellValueI42: string;
+      cellValueI43: string;
+      // LADRILLO-MATERIALES
+      cellValueK41: string;
+      cellValueK42: string;
+      cellValueK43: string;
+      // LADRILLO-SERVICIOS
+      cellValueL41: string;
+      cellValueL42: string;
+      cellValueL43: string;
+      // LADRILLO-M.O.
+      cellValueM41: string;
+      cellValueM42: string;
+      cellValueM43: string;
+      // LADRILLO-TERMINACIONES
+      cellValueN41: string;
+      cellValueN42: string;
+      cellValueN43: string;
     } | null>(null);
     const [opcionSeleccionada, setOpcionSeleccionada] = useState<string>("");
 
@@ -125,246 +175,156 @@ const Popoverdata = () => {
 
           // console.log(data);
 
+          const roundAndFormat = (value: number | null | undefined): string => {
+            return value != null ? Math.round(value).toLocaleString() : "";
+          };
+
           // CASSAFORMA-TOTAL
-          data.cellValueH4 = Math.round(
-            data.cellValueH4.result
-          ).toLocaleString();
-          data.cellValueH5 = Math.round(
-            data.cellValueH5.result
-          ).toLocaleString();
-          data.cellValueH6 = Math.round(
-            data.cellValueH6.result
-          ).toLocaleString();
+          data.cellValueI5 = roundAndFormat(data.cellValueI5?.result);
+          data.cellValueI6 = roundAndFormat(data.cellValueI6?.result);
+          data.cellValueI7 = roundAndFormat(data.cellValueI7?.result);
           // CASSAFORMA-MATERIALES
-          data.cellValueI4 = Math.round(
-            data.cellValueI4.result
-          ).toLocaleString();
-          data.cellValueI5 = Math.round(
-            data.cellValueI5.result
-          ).toLocaleString();
-          data.cellValueI6 = Math.round(
-            data.cellValueI6.result
-          ).toLocaleString();
+          data.cellValueK5 = roundAndFormat(data.cellValueK5?.result);
+          data.cellValueK6 = roundAndFormat(data.cellValueK6?.result);
+          data.cellValueK7 = roundAndFormat(data.cellValueK7?.result);
+          // CASSAFORMA-SERVICIOS
+          data.cellValueL5 = roundAndFormat(data.cellValueL5?.result);
+          data.cellValueL6 = roundAndFormat(data.cellValueL6?.result);
+          data.cellValueL7 = roundAndFormat(data.cellValueL7?.result);
           // CASSAFORMA-M.O.
-          data.cellValueJ4 = Math.round(
-            data.cellValueJ4.result
-          ).toLocaleString();
-          data.cellValueJ5 = Math.round(
-            data.cellValueJ5.result
-          ).toLocaleString();
-          data.cellValueJ6 = Math.round(
-            data.cellValueJ6.result
-          ).toLocaleString();
+          data.cellValueM5 = roundAndFormat(data.cellValueM5?.result);
+          data.cellValueM6 = roundAndFormat(data.cellValueM6?.result);
+          data.cellValueM7 = roundAndFormat(data.cellValueM7?.result);
           // CASSAFORMA-TERMINACIONES
-          data.cellValueK4 = Math.round(
-            data.cellValueK4.result
-          ).toLocaleString();
-          data.cellValueK5 = Math.round(
-            data.cellValueK5.result
-          ).toLocaleString();
-          data.cellValueK6 = Math.round(
-            data.cellValueK6.result
-          ).toLocaleString();
+          data.cellValueN5 = roundAndFormat(data.cellValueN5?.result);
+          data.cellValueN6 = roundAndFormat(data.cellValueN6?.result);
+          data.cellValueN7 = roundAndFormat(data.cellValueN7?.result);
+
           // CASSAFORMA+TECHO LTN-TOTAL
-          data.cellValueH10 = Math.round(
-            data.cellValueH10.result
-          ).toLocaleString();
-          data.cellValueH11 = Math.round(
-            data.cellValueH11.result
-          ).toLocaleString();
-          data.cellValueH12 = Math.round(
-            data.cellValueH12.result
-          ).toLocaleString();
+          data.cellValueI11 = roundAndFormat(data.cellValueI11?.result);
+          data.cellValueI12 = roundAndFormat(data.cellValueI12?.result);
+          data.cellValueI13 = roundAndFormat(data.cellValueI13?.result);
           // CASSAFORMA+TECHO LTN-MATERIALES
-          data.cellValueI10 = Math.round(
-            data.cellValueI10.result
-          ).toLocaleString();
-          data.cellValueI11 = Math.round(
-            data.cellValueI11.result
-          ).toLocaleString();
-          data.cellValueI12 = Math.round(
-            data.cellValueI12.result
-          ).toLocaleString();
+          data.cellValueK11 = roundAndFormat(data.cellValueK11?.result);
+          data.cellValueK12 = roundAndFormat(data.cellValueK12?.result);
+          data.cellValueK13 = roundAndFormat(data.cellValueK13?.result);
+          // CASSAFORMA+TECHO LTN-SERVICIOS
+          data.cellValueL11 = roundAndFormat(data.cellValueL11?.result);
+          data.cellValueL12 = roundAndFormat(data.cellValueL12?.result);
+          data.cellValueL13 = roundAndFormat(data.cellValueL13?.result);
           // CASSAFORMA+TECHO LTN M.O.
-          data.cellValueJ10 = Math.round(
-            data.cellValueJ10.result
-          ).toLocaleString();
-          data.cellValueJ11 = Math.round(
-            data.cellValueJ11.result
-          ).toLocaleString();
-          data.cellValueJ12 = Math.round(
-            data.cellValueJ12.result
-          ).toLocaleString();
+          data.cellValueM11 = roundAndFormat(data.cellValueM11?.result);
+          data.cellValueM12 = roundAndFormat(data.cellValueM12?.result);
+          data.cellValueM13 = roundAndFormat(data.cellValueM13?.result);
           // CASSAFORMA+TECHO LTN TERMINACIONES
-          data.cellValueK10 = Math.round(
-            data.cellValueK10.result
-          ).toLocaleString();
-          data.cellValueK11 = Math.round(
-            data.cellValueK11.result
-          ).toLocaleString();
-          data.cellValueK12 = Math.round(
-            data.cellValueK12.result
-          ).toLocaleString();
-          //CASSAFORMA DOS PLANTAS + LTN-TOTAL
-          data.cellValueH16 = Math.round(
-            data.cellValueH16.result
-          ).toLocaleString();
-          data.cellValueH17 = Math.round(
-            data.cellValueH17.result
-          ).toLocaleString();
-          data.cellValueH18 = Math.round(
-            data.cellValueH18.result
-          ).toLocaleString();
-          // CASSAFORMA DOS PLANTAS + LTN-MATERIALES
-          data.cellValueI16 = Math.round(
-            data.cellValueI16.result
-          ).toLocaleString();
-          data.cellValueI17 = Math.round(
-            data.cellValueI17.result
-          ).toLocaleString();
-          data.cellValueI18 = Math.round(
-            data.cellValueI18.result
-          ).toLocaleString();
-          // CASSAFORMA DOS PLANTAS + LTN-M.O.
-          data.cellValueJ16 = Math.round(
-            data.cellValueJ16.result
-          ).toLocaleString();
-          data.cellValueJ17 = Math.round(
-            data.cellValueJ17.result
-          ).toLocaleString();
-          data.cellValueJ18 = Math.round(
-            data.cellValueJ18.result
-          ).toLocaleString();
-          // CASSAFORMA DOS PLANTAS + LTN-TERMINACIONES
-          data.cellValueK16 = Math.round(
-            data.cellValueK16.result
-          ).toLocaleString();
-          data.cellValueK17 = Math.round(
-            data.cellValueK17.result
-          ).toLocaleString();
-          data.cellValueK18 = Math.round(
-            data.cellValueK18.result
-          ).toLocaleString();
-          // CASSASIP-TOTAL
-          data.cellValueH22 = Math.round(
-            data.cellValueH22.result
-          ).toLocaleString();
-          data.cellValueH23 = Math.round(
-            data.cellValueH23.result
-          ).toLocaleString();
-          data.cellValueH24 = Math.round(
-            data.cellValueH24.result
-          ).toLocaleString();
-          // CASSASIP-MATERIALES
-          data.cellValueI22 = Math.round(
-            data.cellValueI22.result
-          ).toLocaleString();
-          data.cellValueI23 = Math.round(
-            data.cellValueI23.result
-          ).toLocaleString();
-          data.cellValueI24 = Math.round(
-            data.cellValueI24.result
-          ).toLocaleString();
-          // CASSASIP-M.O.
-          data.cellValueJ22 = Math.round(
-            data.cellValueJ22.result
-          ).toLocaleString();
-          data.cellValueJ23 = Math.round(
-            data.cellValueJ23.result
-          ).toLocaleString();
-          data.cellValueJ24 = Math.round(
-            data.cellValueJ24.result
-          ).toLocaleString();
-          // CASSASIP-TERMINACIONES
-          data.cellValueK22 = Math.round(
-            data.cellValueK22.result
-          ).toLocaleString();
-          data.cellValueK23 = Math.round(
-            data.cellValueK23.result
-          ).toLocaleString();
-          data.cellValueK24 = Math.round(
-            data.cellValueK24.result
-          ).toLocaleString();
+          data.cellValueN11 = roundAndFormat(data.cellValueN11?.result);
+          data.cellValueN12 = roundAndFormat(data.cellValueN12?.result);
+          data.cellValueN13 = roundAndFormat(data.cellValueN13?.result);
+
+          // CASSAFORMA + LTN (DOS PLANTAS) TOTAL
+          data.cellValueI17 = roundAndFormat(data.cellValueI17?.result);
+          data.cellValueI18 = roundAndFormat(data.cellValueI18?.result);
+          data.cellValueI19 = roundAndFormat(data.cellValueI19?.result);
+          // CASSAFORMA + LTN (DOS PLANTAS) MATERIALES
+          data.cellValueK17 = roundAndFormat(data.cellValueK17?.result);
+          data.cellValueK18 = roundAndFormat(data.cellValueK18?.result);
+          data.cellValueK19 = roundAndFormat(data.cellValueK19?.result);
+          // CASSAFORMA + LTN (DOS PLANTAS) SERVICIOS
+          data.cellValueL17 = roundAndFormat(data.cellValueL17?.result);
+          data.cellValueL18 = roundAndFormat(data.cellValueL18?.result);
+          data.cellValueL19 = roundAndFormat(data.cellValueL19?.result);
+          // CASSAFORMA + LTN (DOS PLANTAS) M.O.
+          data.cellValueM17 = roundAndFormat(data.cellValueM17?.result);
+          data.cellValueM18 = roundAndFormat(data.cellValueM18?.result);
+          data.cellValueM19 = roundAndFormat(data.cellValueM19?.result);
+          // CASSAFORMA + LTN (DOS PLANTAS) TERMINACIONES
+          data.cellValueN17 = roundAndFormat(data.cellValueN17?.result);
+          data.cellValueN18 = roundAndFormat(data.cellValueN18?.result);
+          data.cellValueN19 = roundAndFormat(data.cellValueN19?.result);
+
+          // CASSASIP (UNA PLANTA) TOTAL
+          data.cellValueI23 = roundAndFormat(data.cellValueI23?.result);
+          data.cellValueI24 = roundAndFormat(data.cellValueI24?.result);
+          data.cellValueI25 = roundAndFormat(data.cellValueI25?.result);
+          // CASSASIP (UNA PLANTA) MATERIALES
+          data.cellValueK23 = roundAndFormat(data.cellValueK23?.result);
+          data.cellValueK24 = roundAndFormat(data.cellValueK24?.result);
+          data.cellValueK25 = roundAndFormat(data.cellValueK25?.result);
+          // CASSASIP (UNA PLANTA) SERVICIOS
+          data.cellValueL23 = roundAndFormat(data.cellValueL23?.result);
+          data.cellValueL24 = roundAndFormat(data.cellValueL24?.result);
+          data.cellValueL25 = roundAndFormat(data.cellValueL25?.result);
+          // CASSASIP (UNA PLANTA) M.O.
+          data.cellValueM23 = roundAndFormat(data.cellValueM23?.result);
+          data.cellValueM24 = roundAndFormat(data.cellValueM24?.result);
+          data.cellValueM25 = roundAndFormat(data.cellValueM25?.result);
+          // CASSASIP (UNA PLANTA) TERMINACIONES
+          data.cellValueN23 = roundAndFormat(data.cellValueN23?.result);
+          data.cellValueN24 = roundAndFormat(data.cellValueN24?.result);
+          data.cellValueN25 = roundAndFormat(data.cellValueN25?.result);
+
+          // CASSASIP (DOS PLANTAS) TOTAL
+          data.cellValueI29 = roundAndFormat(data.cellValueI29?.result);
+          data.cellValueI30 = roundAndFormat(data.cellValueI30?.result);
+          data.cellValueI31 = roundAndFormat(data.cellValueI31?.result);
+          // CASSASIP (DOS PLANTAS) MATERIALES
+          data.cellValueK29 = roundAndFormat(data.cellValueK29?.result);
+          data.cellValueK30 = roundAndFormat(data.cellValueK30?.result);
+          data.cellValueK31 = roundAndFormat(data.cellValueK31?.result);
+          // CASSASIP (DOS PLANTAS) SERVICIOS
+          data.cellValueL29 = roundAndFormat(data.cellValueL29?.result);
+          data.cellValueL30 = roundAndFormat(data.cellValueL30?.result);
+          data.cellValueL31 = roundAndFormat(data.cellValueL31?.result);
+          // CASSASIP (DOS PLANTAS) M.O.
+          data.cellValueM29 = roundAndFormat(data.cellValueM29?.result);
+          data.cellValueM30 = roundAndFormat(data.cellValueM30?.result);
+          data.cellValueM31 = roundAndFormat(data.cellValueM31?.result);
+          // CASSASIP (DOS PLANTAS) TERMINACIONES
+          data.cellValueN29 = roundAndFormat(data.cellValueN29?.result);
+          data.cellValueN30 = roundAndFormat(data.cellValueN30?.result);
+          data.cellValueN31 = roundAndFormat(data.cellValueN31?.result);
+
           // SEELFRAMING-TOTAL
-          data.cellValueH28 = Math.round(
-            data.cellValueH28.result
-          ).toLocaleString();
-          data.cellValueH29 = Math.round(
-            data.cellValueH29.result
-          ).toLocaleString();
-          data.cellValueH30 = Math.round(
-            data.cellValueH30.result
-          ).toLocaleString();
+          data.cellValueI35 = roundAndFormat(data.cellValueI35?.result);
+          data.cellValueI36 = roundAndFormat(data.cellValueI36?.result);
+          data.cellValueI37 = roundAndFormat(data.cellValueI37?.result);
           // SEELFRAMING-MATERIALES
-          data.cellValueI28 = Math.round(
-            data.cellValueI28.result
-          ).toLocaleString();
-          data.cellValueI29 = Math.round(
-            data.cellValueI29.result
-          ).toLocaleString();
-          data.cellValueI30 = Math.round(
-            data.cellValueI30.result
-          ).toLocaleString();
+          data.cellValueK35 = roundAndFormat(data.cellValueK35?.result);
+          data.cellValueK36 = roundAndFormat(data.cellValueK36?.result);
+          data.cellValueK37 = roundAndFormat(data.cellValueK37?.result);
+          // SEELFRAMING-SERVICIOS
+          data.cellValueL35 = roundAndFormat(data.cellValueL35?.result);
+          data.cellValueL36 = roundAndFormat(data.cellValueL36?.result);
+          data.cellValueL37 = roundAndFormat(data.cellValueL37?.result);
           // SEELFRAMING-M.O.
-          data.cellValueJ28 = Math.round(
-            data.cellValueJ28.result
-          ).toLocaleString();
-          data.cellValueJ29 = Math.round(
-            data.cellValueJ29.result
-          ).toLocaleString();
-          data.cellValueJ30 = Math.round(
-            data.cellValueJ30.result
-          ).toLocaleString();
+          data.cellValueM35 = roundAndFormat(data.cellValueM35?.result);
+          data.cellValueM36 = roundAndFormat(data.cellValueM36?.result);
+          data.cellValueM37 = roundAndFormat(data.cellValueM37?.result);
           // SEELFRAMING-TERMINACIONES
-          data.cellValueK28 = Math.round(
-            data.cellValueK28.result
-          ).toLocaleString();
-          data.cellValueK29 = Math.round(
-            data.cellValueK29.result
-          ).toLocaleString();
-          data.cellValueK30 = Math.round(
-            data.cellValueK30.result
-          ).toLocaleString();
+          data.cellValueN35 = roundAndFormat(data.cellValueN35?.result);
+          data.cellValueN36 = roundAndFormat(data.cellValueN36?.result);
+          data.cellValueN37 = roundAndFormat(data.cellValueN37?.result);
+
           // LADRILLO-TOTAL
-          data.cellValueH34 = Math.round(
-            data.cellValueH34.result
-          ).toLocaleString();
-          data.cellValueH35 = Math.round(
-            data.cellValueH35.result
-          ).toLocaleString();
-          data.cellValueH36 = Math.round(
-            data.cellValueH36.result
-          ).toLocaleString();
+          data.cellValueI41 = roundAndFormat(data.cellValueI41?.result);
+          data.cellValueI42 = roundAndFormat(data.cellValueI42?.result);
+          data.cellValueI43 = roundAndFormat(data.cellValueI43?.result);
           // LADRILLO-MATERIALES
-          data.cellValueI34 = Math.round(
-            data.cellValueI34.result
-          ).toLocaleString();
-          data.cellValueI35 = Math.round(
-            data.cellValueI35.result
-          ).toLocaleString();
-          data.cellValueI36 = Math.round(
-            data.cellValueI36.result
-          ).toLocaleString();
+          data.cellValueK41 = roundAndFormat(data.cellValueK41?.result);
+          data.cellValueK42 = roundAndFormat(data.cellValueK42?.result);
+          data.cellValueK43 = roundAndFormat(data.cellValueK43?.result);
+          // LADRILLO-SERVICIOS
+          data.cellValueL41 = roundAndFormat(data.cellValueL41?.result);
+          data.cellValueL42 = roundAndFormat(data.cellValueL42?.result);
+          data.cellValueL43 = roundAndFormat(data.cellValueL43?.result);
           // LADRILLO-M.O.
-          data.cellValueJ34 = Math.round(
-            data.cellValueJ34.result
-          ).toLocaleString();
-          data.cellValueJ35 = Math.round(
-            data.cellValueJ35.result
-          ).toLocaleString();
-          data.cellValueJ36 = Math.round(
-            data.cellValueJ36.result
-          ).toLocaleString();
+          data.cellValueM41 = roundAndFormat(data.cellValueM41?.result);
+          data.cellValueM42 = roundAndFormat(data.cellValueM42?.result);
+          data.cellValueM43 = roundAndFormat(data.cellValueM43?.result);
           // LADRILLO-TERMINACIONES
-          data.cellValueK34 = Math.round(
-            data.cellValueK34.result
-          ).toLocaleString();
-          data.cellValueK35 = Math.round(
-            data.cellValueK35.result
-          ).toLocaleString();
-          data.cellValueK36 = Math.round(
-            data.cellValueK36.result
-          ).toLocaleString();
+          data.cellValueN41 = roundAndFormat(data.cellValueN41?.result);
+          data.cellValueN42 = roundAndFormat(data.cellValueN42?.result);
+          data.cellValueN43 = roundAndFormat(data.cellValueN43?.result);
 
           setCellValues(data);
         } catch (error) {
@@ -466,21 +426,21 @@ const Popoverdata = () => {
                   <div className="flex">
                     <h3 className=" font-semibold w-1">Pesos:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueH4}
+                      {cellValues?.cellValueI5}
                     </p>
                   </div>
 
                   <div className="flex">
                     <h3 className=" font-semibold w-1">Dolares:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueH5}
+                      {cellValues?.cellValueI6}
                     </p>
                   </div>
 
                   <div className="flex">
                     <h3 className=" font-semibold w-1">USD:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueH6}
+                      {cellValues?.cellValueI7}
                     </p>
                   </div>
                 </div>
@@ -491,21 +451,21 @@ const Popoverdata = () => {
                   <div className="flex">
                     <h3 className=" font-semibold w-1">Pesos:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueI4}
+                      {cellValues?.cellValueK5}
                     </p>
                   </div>
 
                   <div className="flex">
                     <h3 className=" font-semibold w-1">Dolares:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueI5}
+                      {cellValues?.cellValueK6}
                     </p>
                   </div>
 
                   <div className="flex">
                     <h3 className=" font-semibold w-1">USD:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueI6}
+                      {cellValues?.cellValueK7}
                     </p>
                   </div>
                 </div>
@@ -516,21 +476,21 @@ const Popoverdata = () => {
                   <div className="flex">
                     <h3 className=" font-semibold w-1">Pesos:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueJ4}
+                      {cellValues?.cellValueM5}
                     </p>
                   </div>
 
                   <div className="flex">
                     <h3 className=" font-semibold w-1">Dolares:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueJ5}
+                      {cellValues?.cellValueM6}
                     </p>
                   </div>
 
                   <div className="flex">
                     <h3 className=" font-semibold w-1">USD:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueJ6}
+                      {cellValues?.cellValueM7}
                     </p>
                   </div>
                 </div>
@@ -541,27 +501,27 @@ const Popoverdata = () => {
                   <div className="flex">
                     <h3 className=" font-semibold w-1">Pesos:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueK4}
+                      {cellValues?.cellValueN5}
                     </p>
                   </div>
 
                   <div className="flex">
                     <h3 className=" font-semibold w-1">Dolares:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueK5}
+                      {cellValues?.cellValueN6}
                     </p>
                   </div>
 
                   <div className="flex">
                     <h3 className=" font-semibold w-1">USD:</h3>
                     <p className="flex justify-center flex-grow">
-                      {cellValues?.cellValueK6}
+                      {cellValues?.cellValueN7}
                     </p>
                   </div>
                 </div>
               </div>
             </TabsContent>
-            <TabsContent
+            {/* <TabsContent
               value="casaformartecho"
               className="flex justify-center items-center"
             >
@@ -1083,7 +1043,7 @@ const Popoverdata = () => {
                   </div>
                 </div>
               </div>
-            </TabsContent>
+            </TabsContent> */}
           </>
         )}
       </Tabs>

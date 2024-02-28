@@ -7,7 +7,7 @@ import { google } from 'googleapis';
 import { auth } from '@/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import readExcelFromS3 from '@/lib/xlsx/readExcelFromS3';
-import readJsonFromS3 from '@/lib/xlsx/readJsonFromS3';
+import readJsonFromS3 from '@/lib/json/readJsonFromS3';
 import { exportAndUploadToS3 } from '@/lib/exportAndUploadToS3';
 import getLastJsonFile from '@/lib/json/getLastJsonFile';
 import getLastXlsx2File from '@/lib/xlsx/getLastXlsx2File';
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
         console.log(data);
 
         const fileName = `${session?.user?.email}.xlsx`;
-        const fileName2 = `${session?.user?.email}/` + `${data["nombre-obra"]}.xlsx`;
+        const fileName2 = `${session?.user?.email}/` + `${jsonData["nombre-obra"]}2.xlsx`;
 
         const jwtClient = new google.auth.JWT(
             clientEmail,
@@ -184,6 +184,9 @@ export async function GET(req: NextRequest) {
         }
 
         const excelData = await readExcelFromS3(bucketName, lastModifiedFileName);
+
+        // console.log(excelData);
+
 
         if (!excelData) {
             return NextResponse.json({ message: "No se pudo leer el archivo Excel desde S3" });
