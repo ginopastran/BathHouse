@@ -6,8 +6,8 @@ import path from 'path';
 import { google } from 'googleapis';
 import { auth } from '@/auth';
 import { NextRequest, NextResponse } from 'next/server';
-import readExcelFromS3 from '@/lib/readExcelFromS3';
-import readJsonFromS3 from '@/lib/readJsonFromS3';
+import readExcelFromS3 from '@/lib/xlsx/readExcelFromS3';
+import readJsonFromS3 from '@/lib/xlsx/readJsonFromS3';
 import { exportAndUploadToS3 } from '@/lib/exportAndUploadToS3';
 
 const corsHeaders = {
