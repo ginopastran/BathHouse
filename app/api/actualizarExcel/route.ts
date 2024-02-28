@@ -6,11 +6,11 @@ import AWS from "aws-sdk"
 import * as fs from 'fs';
 import os from 'os';
 import { Readable } from 'stream';
-import readExcelFromS3 from '@/lib/readExcelFromS3';
+import readExcelFromS3 from '@/lib/xlsx/readExcelFromS3';
 import { google } from "googleapis"
 import { GoogleAuth } from "google-auth-library"
 import { exportAndUploadToS3 } from '@/lib/exportAndUploadToS3';
-import getLastXlsxFile from '@/lib/getLastXlsxFile'
+import getLastXlsxFile from '@/lib/xlsx/getLastXlsxFile'
 
 
 const corsHeaders = {
@@ -45,6 +45,8 @@ export async function POST(req: NextRequest) {
     const session = await auth();
     try {
         const data = await req.json();
+
+        data.fecha = new Date().toISOString();
 
         const jsonData = JSON.stringify(data);
         const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}.json`;
@@ -153,20 +155,6 @@ export async function POST(req: NextRequest) {
     }
 }
 
-
-// export async function GET(req: NextRequest) {
-//     try {
-//         const filePath = path.resolve(`./public/${fileNameGlobal}`);
-
-//         const buffer = await fs.promises.readFile(filePath);
-
-//         const response = new NextResponse(buffer);
-
-//         return response;
-//     } catch (error: any) {
-//         return NextResponse.json({ message: "An error ocurred", error: error.message });
-//     }
-// }
 
 export async function GET(req: NextRequest) {
 

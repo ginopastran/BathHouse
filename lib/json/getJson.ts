@@ -1,7 +1,7 @@
 "use server"
 
 import { auth } from "@/auth";
-import readJsonFromS3 from "./readJsonFromS3"
+import readJsonFromS3 from "../xlsx/readJsonFromS3"
 import AWS from "aws-sdk";
 
 AWS.config.update({

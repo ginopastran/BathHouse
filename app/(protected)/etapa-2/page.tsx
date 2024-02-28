@@ -10,13 +10,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { auth } from "@/auth";
-import readJsonFromS3 from "@/lib/readJsonFromS3";
+import readJsonFromS3 from "@/lib/xlsx/readJsonFromS3";
 import { Loader2 } from "lucide-react";
 import AWS from "aws-sdk";
 import { useSession } from "next-auth/react";
 import { FormError } from "@/components/form-error";
 import { BsExclamationTriangle } from "react-icons/bs";
-import getLastJsonFile from "@/lib/getLastJsonFile";
+import getLastJsonFile from "@/lib/json/getLastJsonFile";
 import axios from "axios";
 
 export default function Etapa2() {

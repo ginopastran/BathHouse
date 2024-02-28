@@ -32,14 +32,14 @@ import {
 import Popoverdata from "@/components/popover-data";
 import { useEffect, useState } from "react";
 
-import { getJson } from "@/lib/getJson";
+import { getJson } from "@/lib/json/getJson";
 import { ReloadIcon } from "@radix-ui/react-icons";
 
 interface Datos {
   //datos cliente
   "nombre-completo": string;
   ubicacion: string;
-  "nombre-obra": string,
+  "nombre-obra": string;
 
   "metros-cuadrados-de-planta-baja": number;
   "metros-cuadrados-de-planta-alta": number;
@@ -51,11 +51,11 @@ interface Datos {
   "altura-de-muro-planta-baja": number;
   "altura-de-muro-planta-alta": number;
   "pb-muros-pb-perimetro": number;
-  "pb-muros-pb-interiores-churrasquera-otros": number,
-  "pa-muros-pa-perimetro": number,
-  "pa-muros-pa-interiores": number,
+  "pb-muros-pb-interiores-churrasquera-otros": number;
+  "pa-muros-pa-perimetro": number;
+  "pa-muros-pa-interiores": number;
 
-/*  codigo comentado no utilizado en la etapa 1
+  /*  codigo comentado no utilizado en la etapa 1
   "tabique-durlock-pb-pa": number;
   "aires-acondicionados": number;
   churrasquera: number;
@@ -88,7 +88,7 @@ interface FormEtapa1EditProps {
 }
 
 const formSchema = z.object({
-/*   "nombre-completo": z.string().min(3),
+  /*   "nombre-completo": z.string().min(3),
   ubicacion: z.string(),
   "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
@@ -122,25 +122,25 @@ const formSchema = z.object({
   pileta: z.string(),
   "cuenta-con-arquitecto": z.string(),
   "cuenta-con-proyecto": z.string(), */
-   //datos cliente
-   "nombre-completo": z.string().min(3),
-   "nombre-obra": z.string().min(3),
-   ubicacion: z.string(),
-   //datos plano municipal
-   
-   "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
-   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
-   "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
-   "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
-   "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce.number().min(0),
-   "sup-alero":z.coerce.number().min(0),
-   //cerramiento
-   "pb-muros-pb-perimetro": z.coerce.number().min(0),
-   "pb-muros-pb-interiores-churrasquera-otros": z.coerce.number().min(0),
-   "pa-muros-pa-perimetro": z.coerce.number().min(0),
-   "pa-muros-pa-interiores": z.coerce.number().min(0),
-   "altura-de-muro-planta-baja": z.coerce.number().min(0),
-   "altura-de-muro-planta-alta": z.coerce.number().min(0),
+  //datos cliente
+  "nombre-completo": z.string().min(3),
+  "nombre-obra": z.string().min(3),
+  ubicacion: z.string(),
+  //datos plano municipal
+
+  "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
+  "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
+  "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
+  "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce.number().min(0),
+  "sup-alero": z.coerce.number().min(0),
+  //cerramiento
+  "pb-muros-pb-perimetro": z.coerce.number().min(0),
+  "pb-muros-pb-interiores-churrasquera-otros": z.coerce.number().min(0),
+  "pa-muros-pa-perimetro": z.coerce.number().min(0),
+  "pa-muros-pa-interiores": z.coerce.number().min(0),
+  "altura-de-muro-planta-baja": z.coerce.number().min(0),
+  "altura-de-muro-planta-alta": z.coerce.number().min(0),
 });
 
 function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
@@ -155,7 +155,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
     resolver: zodResolver(formSchema),
     defaultValues: data
       ? {
-         /*  "nombre-completo": data["nombre-completo"],
+          /*  "nombre-completo": data["nombre-completo"],
           ubicacion: data["ubicacion"],
           "metros-cuadrados-de-planta-baja":
             data["metros-cuadrados-de-planta-baja"],
@@ -191,25 +191,31 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
             data["churrasquera-de-ladrillo-y-o-hogar"],
           "cuenta-con-arquitecto": data["cuenta-con-arquitecto"],
           "cuenta-con-proyecto": data["cuenta-con-proyecto"], */
-             //datos cliente
-   "nombre-completo": data["nombre-completo"],
-   "nombre-obra": data["nombre-obra"],
-   ubicacion: data["ubicacion"],
-   //datos plano municipal
-   
-   "metros-cuadrados-de-planta-baja": data["metros-cuadrados-de-planta-baja"],
-   "metros-cuadrados-de-planta-alta": data["metros-cuadrados-de-planta-alta"],
-   "superficie-p-rgolas-cubiertas-techado": data["superficie-p-rgolas-cubiertas-techado"],
-   "superficie-p-rgolas-semi-cubierta-p-rgola": data["superficie-p-rgolas-semi-cubierta-p-rgola"],
-   "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"],
-   "sup-alero":data["sup-alero"],
-   //cerramiento
-   "pb-muros-pb-perimetro": data["pb-muros-pb-perimetro"],
-   "pb-muros-pb-interiores-churrasquera-otros": data["pb-muros-pb-interiores-churrasquera-otros"],
-   "pa-muros-pa-perimetro": data["pa-muros-pa-perimetro"],
-   "pa-muros-pa-interiores": data["pa-muros-pa-interiores"],
-   "altura-de-muro-planta-baja": data["altura-de-muro-planta-baja"],
-   "altura-de-muro-planta-alta": data["altura-de-muro-planta-alta"],
+          //datos cliente
+          "nombre-completo": data["nombre-completo"],
+          "nombre-obra": data["nombre-obra"],
+          ubicacion: data["ubicacion"],
+          //datos plano municipal
+
+          "metros-cuadrados-de-planta-baja":
+            data["metros-cuadrados-de-planta-baja"],
+          "metros-cuadrados-de-planta-alta":
+            data["metros-cuadrados-de-planta-alta"],
+          "superficie-p-rgolas-cubiertas-techado":
+            data["superficie-p-rgolas-cubiertas-techado"],
+          "superficie-p-rgolas-semi-cubierta-p-rgola":
+            data["superficie-p-rgolas-semi-cubierta-p-rgola"],
+          "superficie-p-rgolas-semi-cochera-cubierta-p-rgola":
+            data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"],
+          "sup-alero": data["sup-alero"],
+          //cerramiento
+          "pb-muros-pb-perimetro": data["pb-muros-pb-perimetro"],
+          "pb-muros-pb-interiores-churrasquera-otros":
+            data["pb-muros-pb-interiores-churrasquera-otros"],
+          "pa-muros-pa-perimetro": data["pa-muros-pa-perimetro"],
+          "pa-muros-pa-interiores": data["pa-muros-pa-interiores"],
+          "altura-de-muro-planta-baja": data["altura-de-muro-planta-baja"],
+          "altura-de-muro-planta-alta": data["altura-de-muro-planta-alta"],
         }
       : {},
   });
@@ -321,7 +327,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                       typeof data["ubicacion"] === "string"
                         ? data["ubicacion"]
                         : ""
-                    } 
+                    }
                     disabled={!editing}
                   >
                     <FormControl>
@@ -726,7 +732,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
 }
 
 export default FormEtapa1Edit;
-{/* <div className="gap-4 grid mx-4   grid-flow-row-dense grid-cols-2 grid-rows-3 xl:grid-cols-3 2xl:grid-cols-3 ">
+{
+  /* <div className="gap-4 grid mx-4   grid-flow-row-dense grid-cols-2 grid-rows-3 xl:grid-cols-3 2xl:grid-cols-3 ">
 <FormField
   control={form.control}
   name="agua"
@@ -1270,4 +1277,5 @@ export default FormEtapa1Edit;
     </FormItem>
   )}
 />
-</div> */}
+</div> */
+}

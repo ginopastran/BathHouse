@@ -33,32 +33,32 @@ const formSchema = z.object({
   "hormigon-visto": z.coerce.number().min(0),
   "cantidad-encuentros-PB": z.coerce.number().min(0),
   "cantidad-encuentros-PA": z.coerce.number().min(0),
-  "espesor-muro-SIP":z.string(),
+  "espesor-muro-SIP": z.string(),
   "tipo-techo": z.string(),
   //abertura
-  
-/*   "puerta-principal-tipo": z.string(),// le agreto tipo de puerta madera o chapa
- */  "puerta-principal-cantidad": z.coerce.number().min(0),
+
+  /*   "puerta-principal-tipo": z.string(),// le agreto tipo de puerta madera o chapa
+   */ "puerta-principal-cantidad": z.coerce.number().min(0),
   "puerta-interior": z.coerce.number().min(0),
   "ventana-habitacion": z.coerce.number().min(0),
   "puerta-ventana-habitacion": z.coerce.number().min(0),
   "ventana-bano": z.coerce.number().min(0),
   "puerta-ventana-living": z.coerce.number().min(0),
   "puerta-lavanderia": z.coerce.number().min(0),
-  "vidrio-simple-dvh":z.string(),
+  "vidrio-simple-dvh": z.string(),
   //electricidad
   "bocas-electricas": z.coerce.number().min(0),
-  
+
   //preguntas
   "con-cocina": z.coerce.number().min(0),
   "con-lavanderia": z.coerce.number().min(0),
   "banos-visita": z.coerce.number().min(0),
-  "banos": z.coerce.number().min(0),
+  banos: z.coerce.number().min(0),
   "aires-acondicionados": z.coerce.number().min(0),
   churrasquera: z.coerce.number().min(0),
-  
+
   //otros
-  "pozo-septico": z.string(), 
+  "pozo-septico": z.string(),
   "cisterna-enterrada": z.string(),
   "con-pluviales": z.string(),
   agua: z.string(),
@@ -74,8 +74,8 @@ const formSchema = z.object({
   "rayado-o-fino-de-muros": z.string(),
   "vereda-vehiculo": z.string(),
   "vereda-peatonal-PAR-calle": z.string(),
-  "cierre-provisorio":z.string(),
-  "cierre-definitivo":z.string(),
+  "cierre-provisorio": z.string(),
+  "cierre-definitivo": z.string(),
   "churrasquera-de-ladrillo-y-o-hogar": z.string(),
   pileta: z.string(),
   "cuenta-con-proyecto": z.string(),
@@ -97,48 +97,48 @@ export default function FormEtapa2() {
   "tipo-techo":"Chapa",
   //abertura
 
-  /* "puerta-principal-tipo": "Madera",// le agreto tipo de puerta madera o chapa */
-  "puerta-principal-cantidad": undefined,
-  "puerta-interior": undefined,
-  "ventana-habitacion": undefined,
-  "puerta-ventana-habitacion": undefined,
-  "ventana-bano": undefined,
-  "puerta-ventana-living": undefined,
-  "puerta-lavanderia": undefined,
-  "vidrio-simple-dvh":undefined,
-  //electricidad
-  "bocas-electricas": undefined,
-  //preguntas
-  "con-cocina": undefined,
-  "con-lavanderia": undefined,
-  "banos-visita": undefined,
-  "banos": undefined,
-  "aires-acondicionados": undefined,
-  churrasquera: undefined,
-  
-  //otros
-  "pozo-septico": "SI", 
-  "cisterna-enterrada": "SI",
-  "con-pluviales": "SI",
-  agua: "SI",
-  cloaca: "SI",
-  gas: "SI",
-  luz: "SI",
-  "pozo-filtrante": "SI",
-  "tipo-calefaccion": "Eléctrica",
-  "molduras-de-cumbrera": "SI",
-  "moldura-de-ventanas": "SI",
-  "tipo-cielorraso": "Placa",
-  porcelanato: "SI",
-  "rayado-o-fino-de-muros": "SI",
-  "vereda-vehiculo": "SI",
-  "vereda-peatonal-PAR-calle": "SI",
-  "cierre-provisorio":"Si",
-  "cierre-definitivo":"Si",
-  "churrasquera-de-ladrillo-y-o-hogar": "SI",
-  pileta: "NO",
-  "cuenta-con-proyecto": "SI",
-  "pago-aforos": "SI",
+      /* "puerta-principal-tipo": "Madera",// le agreto tipo de puerta madera o chapa */
+      "puerta-principal-cantidad": undefined,
+      "puerta-interior": undefined,
+      "ventana-habitacion": undefined,
+      "puerta-ventana-habitacion": undefined,
+      "ventana-bano": undefined,
+      "puerta-ventana-living": undefined,
+      "puerta-lavanderia": undefined,
+      "vidrio-simple-dvh": undefined,
+      //electricidad
+      "bocas-electricas": undefined,
+      //preguntas
+      "con-cocina": undefined,
+      "con-lavanderia": undefined,
+      "banos-visita": undefined,
+      banos: undefined,
+      "aires-acondicionados": undefined,
+      churrasquera: undefined,
+
+      //otros
+      "pozo-septico": "SI",
+      "cisterna-enterrada": "SI",
+      "con-pluviales": "SI",
+      agua: "SI",
+      cloaca: "SI",
+      gas: "SI",
+      luz: "SI",
+      "pozo-filtrante": "SI",
+      "tipo-calefaccion": "Eléctrica",
+      "molduras-de-cumbrera": "SI",
+      "moldura-de-ventanas": "SI",
+      "tipo-cielorraso": "Placa",
+      porcelanato: "SI",
+      "rayado-o-fino-de-muros": "SI",
+      "vereda-vehiculo": "SI",
+      "vereda-peatonal-PAR-calle": "SI",
+      "cierre-provisorio": "Si",
+      "cierre-definitivo": "Si",
+      "churrasquera-de-ladrillo-y-o-hogar": "SI",
+      pileta: "NO",
+      "cuenta-con-proyecto": "SI",
+      "pago-aforos": "SI",
     },
   });
 
@@ -253,7 +253,7 @@ export default function FormEtapa2() {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="espesor-muro-SIP"
@@ -284,13 +284,13 @@ export default function FormEtapa2() {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
-              name="espesor-muro-SIP"
+              name="tipo-techo"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Cierre Provisorio</FormLabel>
+                  <FormLabel>Tipo de techo SIP</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -776,7 +776,7 @@ export default function FormEtapa2() {
               name="tipo-calefaccion"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Pozo filtrante</FormLabel>
+                  <FormLabel>Tipo de calefacción</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -807,7 +807,7 @@ export default function FormEtapa2() {
                 </FormItem>
               )}
             />
-             <FormField
+            <FormField
               control={form.control}
               name="molduras-de-cumbrera"
               render={({ field }) => (
@@ -837,372 +837,372 @@ export default function FormEtapa2() {
                 </FormItem>
               )}
             />
-              <FormField
-                control={form.control}
-                name="moldura-de-ventanas"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Pozo filtrante</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="tipo-cielorraso"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Tipo de Cielorraso</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Placa" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Placa</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Yeso" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Yeso</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">NO</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="porcelanato"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Porcelanato</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="rayado-o-fino-de-muros"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Rayado fino de muros</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="vereda-vehiculo"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Vereda Vehicular y peatonar per. calle</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="vereda-peatonal-PAR-calle"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Vereda peatonal PAR calle</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="cierre-provisorio"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Cierre Provisorio</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="cierre-definitivo"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Cierre Definitivo</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="churrasquera-de-ladrillo-y-o-hogar"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Churrasquera de ladrillo y/o hogar</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pileta"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Pileta</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="cuenta-con-proyecto"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Parrilla</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pago-aforos"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Parrilla</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="SI" />
-                          </FormControl>
-                          <FormLabel className="font-normal">Si</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="NO" />
-                          </FormControl>
-                          <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <FormField
+              control={form.control}
+              name="moldura-de-ventanas"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Pozo filtrante</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="tipo-cielorraso"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Tipo de Cielorraso</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="Placa" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Placa</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="Yeso" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Yeso</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">NO</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="porcelanato"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Porcelanato</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="rayado-o-fino-de-muros"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Rayado fino de muros</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="vereda-vehiculo"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Vereda Vehicular y peatonar per. calle</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="vereda-peatonal-PAR-calle"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Vereda peatonal PAR calle</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cierre-provisorio"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Cierre Provisorio</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cierre-definitivo"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Cierre Definitivo</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="churrasquera-de-ladrillo-y-o-hogar"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Churrasquera de ladrillo y/o hogar</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pileta"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Pileta</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cuenta-con-proyecto"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Parrilla</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pago-aforos"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Parrilla</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <div className="flex justify-center pt-5 pb-6 ">
             <Button
