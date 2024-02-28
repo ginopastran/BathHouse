@@ -1,7 +1,29 @@
-import HistoryCard from "@/components/history-card";
-import Link from "next/link";
+"use client";
 
-export default function HistoryPage() {
+import HistoryCard from "@/components/history-card";
+import { getAllJsonFiles } from "@/lib/json/getAllJsonFiles";
+import { formatDateString } from "@/lib/utils";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+interface JsonData {
+  "nombre-obra": string;
+  fecha: string;
+}
+
+function HistoryPage() {
+  const [data, setData] = useState<JsonData[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const jsonFiles = await getAllJsonFiles();
+      setData(jsonFiles);
+      console.log(jsonFiles);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="flex flex-col h-screen dark z-40 relative pt-8">
       <main className="flex-1 overflow-auto p-4 text-white">
@@ -13,16 +35,14 @@ export default function HistoryPage() {
             </div>
           </div>
           <div className="grid gap-8">
-            <div className="flex items-center space-x-4">
-              <div className="w-14">
-                <div className="relative w-4 h-4 rounded-full border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950" />
+            {data.map((item, index) => (
+              <div className="flex items-center space-x-4" key={index}>
+                <HistoryCard
+                  requestNumber={item["nombre-obra"]}
+                  date={formatDateString(item["fecha"])}
+                />
               </div>
-              <HistoryCard />
-              <div className="space-y-1">
-                <h3 className="font-bold">Request #1</h3>
-                <p className="text-sm text-gray-500">January 1, 2020</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </main>
@@ -30,3 +50,5 @@ export default function HistoryPage() {
     </div>
   );
 }
+
+export default HistoryPage;

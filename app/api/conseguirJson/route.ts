@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import AWS from "aws-sdk"
-import getLastJsonFile from '@/lib/getLastJsonFile';
-import readJsonFromS3 from '@/lib/readJsonFromS3';
+import getLastJsonFile from '@/lib/json/getLastJsonFile';
+import readJsonFromS3 from '@/lib/xlsx/readJsonFromS3';
 
 
 const corsHeaders = {

@@ -1,10 +1,8 @@
-import { auth } from '@/auth';
 import { S3 } from 'aws-sdk';
 
 const s3 = new S3();
 
 const getLastXlsxFile = async (bucketName: string, userFolder: string): Promise<string | undefined> => {
-    const session = await auth()
     const params = {
         Bucket: bucketName,
         Prefix: userFolder,
