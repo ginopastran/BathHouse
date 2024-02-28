@@ -53,7 +53,7 @@ const formSchema = z.object({
   "altura-de-muro-planta-baja": z.coerce.number().min(0),
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
 
-  //forma 2
+ /*  //forma 2
   "tabique-durlock-pb-pa": z.coerce.number().min(0),
   //abertura
   
@@ -95,7 +95,7 @@ const formSchema = z.object({
   "churrasquera-de-ladrillo-y-o-hogar": z.string(),
   pileta: z.string(),
   "cuenta-con-proyecto": z.string(),
-  "pago-aforos": z.string(),
+  "pago-aforos": z.string(), */
 });
 
 function FormEtapa1() {
@@ -121,7 +121,7 @@ function FormEtapa1() {
   "pa-muros-pa-interiores": 0,
   "altura-de-muro-planta-baja": 0,
   "altura-de-muro-planta-alta": 0,
-  //form 2
+ /*  //form 2
   "tabique-durlock-pb-pa": 0,
   "balcon-con-porcelanato": 0,
   "hormigon-visto": 0,
@@ -168,7 +168,7 @@ function FormEtapa1() {
   "churrasquera-de-ladrillo-y-o-hogar": "NO",
   pileta: "NO",
   "cuenta-con-proyecto": "NO",
-  "pago-aforos": "NO",
+  "pago-aforos": "NO", */
     },
   });
 
