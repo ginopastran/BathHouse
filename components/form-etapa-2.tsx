@@ -29,7 +29,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 const formSchema = z.object({
   //forma 2
   "tabique-durlock-pb-pa": z.coerce.number().min(0),
-  "balcon-porcelanato": z.coerce.number().min(0),
+  "balcon-con-porcelanato": z.coerce.number().min(0),
   "hormigon-visto": z.coerce.number().min(0),
   "cantidad-encuentros-PB": z.coerce.number().min(0),
   "cantidad-encuentros-PA": z.coerce.number().min(0),
@@ -89,7 +89,7 @@ export default function FormEtapa2() {
     defaultValues: {
    //form 2
   "tabique-durlock-pb-pa": undefined,
-  "balcon-porcelanato": undefined,
+  "balcon-con-porcelanato": undefined,
   "hormigon-visto": undefined,
   "cantidad-encuentros-PB": 0,
   "cantidad-encuentros-PA": 0,
@@ -190,7 +190,7 @@ export default function FormEtapa2() {
             />
             <FormField
               control={form.control}
-              name="balcon-porcelanato"
+              name="balcon-con-porcelanato"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>¿Balcon con porcelanato? </FormLabel>

@@ -88,7 +88,7 @@ const formSchema = z.object({
   "moldura-de-ventanas": z.string(),
   "cielorraso-de-placa-de-yeso": z.string(),
   "cielorraso-de-yeso": z.string(),
-  porcelanato: z.string(),
+  "balcon-con-porcelanato": z.string(),
   "rayado-o-fino-de-muros": z.string(),
   "vereda-vehiculo": z.string(),
   "vereda-peatonal-PAR-calle": z.string(),
@@ -123,7 +123,7 @@ function FormEtapa1() {
   "altura-de-muro-planta-alta": 0,
   //form 2
   "tabique-durlock-pb-pa": 0,
-  "balcon-porcelanato": 0,
+  "balcon-con-porcelanato": 0,
   "hormigon-visto": 0,
   "cantidad-encuentros-PB": 0,
   "cantidad-encuentros-PA": 0,
