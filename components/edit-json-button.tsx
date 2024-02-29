@@ -32,7 +32,7 @@ export const EditJsonButton = ({ children, jsonData }: EditJsonButtonProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="p-0 bg-transparent border-none h-full">
+      <DialogContent className="p-0 bg-transparent border-none h-full md:h-auto">
         <FormJson1Edit data={jsonData} />
       </DialogContent>
     </Dialog>

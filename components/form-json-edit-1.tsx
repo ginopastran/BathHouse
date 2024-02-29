@@ -269,99 +269,96 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
   };
 
   return (
-    <>
-      <FormWraper>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleGuardarClick)}>
-            <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2 md:grid-cols-3 md:grid-rows-3">
-              <FormField
-                control={form.control}
-                name="nombre-completo"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nombre Completo</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder=""
-                        {...field}
-                        /*    onChange={(e) =>
+    <FormWraper>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(handleGuardarClick)}>
+          <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2 md:grid-cols-3 md:grid-rows-3">
+            <FormField
+              control={form.control}
+              name="nombre-completo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre Completo</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder=""
+                      {...field}
+                      /*    onChange={(e) =>
                         handleInputChange("nombre-completo", e.target.value)
                       } */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="nombre-obra"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nombre Obra</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder=""
-                        {...field}
-                        /*    onChange={(e) =>
-                        handleInputChange("nombre-completo", e.target.value)
-                      } */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="ubicacion"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Ubicacion</FormLabel>
-                    <Select
-                      onValueChange={(value) => {
-                        handleInputChange("ubicacion", value);
-                        /*                       field.onChange(value);
-                         */
-                      }}
-                      defaultValue={
-                        data && typeof data["ubicacion"] === "string"
-                          ? data["ubicacion"]
-                          : ""
-                      }
                       disabled={!editing}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Seleccione Provincia" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Mendoza">Mendoza</SelectItem>
-                        <SelectItem value="Chaco">Chaco</SelectItem>
-                        <SelectItem value="Buenos Aires">
-                          Buenos Aires
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="metros-cuadrados-de-planta-baja"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Metros cuadrados de planta baja</FormLabel>
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="nombre-obra"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre Obra</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder=""
+                      {...field}
+                      /*    onChange={(e) =>
+                        handleInputChange("nombre-completo", e.target.value)
+                      } */
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="ubicacion"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Ubicacion</FormLabel>
+                  <Select
+                    onValueChange={(value) => {
+                      handleInputChange("ubicacion", value);
+                      /*                       field.onChange(value);
+                       */
+                    }}
+                    defaultValue={
+                      data && typeof data["ubicacion"] === "string"
+                        ? data["ubicacion"]
+                        : ""
+                    }
+                    disabled={!editing}
+                  >
                     <FormControl>
-                      <Input
-                        placeholder="m2"
-                        {...field}
-                        /*          onChange={(e) => {
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccione Provincia" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Mendoza">Mendoza</SelectItem>
+                      <SelectItem value="Chaco">Chaco</SelectItem>
+                      <SelectItem value="Buenos Aires">Buenos Aires</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="metros-cuadrados-de-planta-baja"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Metros cuadrados de planta baja</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m2"
+                      {...field}
+                      /*          onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -369,51 +366,49 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                           );
                         }} */
-                        disabled={!editing}
-                        type="number"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="metros-cuadrados-de-planta-alta"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Metros cuadrados de planta alta</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m2"
-                        type="number"
-                        {...field}
-                        /*  onChange={(e) =>
+                      disabled={!editing}
+                      type="number"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="metros-cuadrados-de-planta-alta"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Metros cuadrados de planta alta</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m2"
+                      type="number"
+                      {...field}
+                      /*  onChange={(e) =>
                         handleInputChange(
                           "metros_cuadrados_de_planta_alta",
                           e.target.value
                           )
                         } */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="superficie-p-rgolas-cubiertas-techado"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Superficie Pérgolas cubiertas (techado)
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m2"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="superficie-p-rgolas-cubiertas-techado"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Superficie Pérgolas cubiertas (techado)</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m2"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -421,27 +416,27 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                           );
                         }} */
-                        disabled={!editing}
-                        type="number"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="superficie-p-rgolas-semi-cubierta-p-rgola"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Superficie Pérgolas semi cubierta (pérgola)
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m2"
-                        {...field}
-                        /* onChange={(e) => {
+                      disabled={!editing}
+                      type="number"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="superficie-p-rgolas-semi-cubierta-p-rgola"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Superficie Pérgolas semi cubierta (pérgola)
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m2"
+                      {...field}
+                      /* onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -449,27 +444,27 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                        type="number"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="superficie-p-rgolas-semi-cochera-cubierta-p-rgola"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Superficie Pérgolas semi cubierta (pérgola)
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m2"
-                        {...field}
-                        /* onChange={(e) => {
+                      disabled={!editing}
+                      type="number"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="superficie-p-rgolas-semi-cochera-cubierta-p-rgola"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Superficie Pérgolas semi cubierta (pérgola)
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m2"
+                      {...field}
+                      /* onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -477,25 +472,25 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                        type="number"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="altura-de-muro-planta-baja"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Altura de muro planta baja</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*     onChange={(e) => {
+                      disabled={!editing}
+                      type="number"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="altura-de-muro-planta-baja"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Altura de muro planta baja</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*     onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -503,25 +498,25 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                        type="number"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="altura-de-muro-planta-alta"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Altura de muro planta alta</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                      type="number"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="altura-de-muro-planta-alta"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Altura de muro planta alta</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -529,24 +524,24 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="sup-alero"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Superficie de Aleros</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="sup-alero"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Superficie de Aleros</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -554,24 +549,24 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pb-muros-pb-perimetro"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Muros planta baja Perímetro</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pb-muros-pb-perimetro"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Muros planta baja Perímetro</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -579,26 +574,24 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pb-muros-pb-interiores-churrasquera-otros"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Muros interiores, churrasquera y otros
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pb-muros-pb-interiores-churrasquera-otros"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Muros interiores, churrasquera y otros</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -606,24 +599,24 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pa-muros-pa-perimetro"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Muro Planta Alta Perímetro</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pa-muros-pa-perimetro"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Muro Planta Alta Perímetro</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -631,24 +624,24 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pa-muros-pa-interiores"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Muro Planta Alta interiores</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pa-muros-pa-interiores"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Muro Planta Alta interiores</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -656,24 +649,24 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="altura-de-muro-planta-alta"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Muro Planta Alta interiores</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="altura-de-muro-planta-alta"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Muro Planta Alta interiores</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -681,24 +674,24 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="altura-de-muro-planta-baja"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Muro Planta Alta interiores</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="m"
-                        {...field}
-                        /*  onChange={(e) => {
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="altura-de-muro-planta-baja"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Muro Planta Alta interiores</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
                         const inputValue = e.target.value;
                         const parsedValue = parseFloat(inputValue);
                         handleInputChange(
@@ -706,38 +699,37 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                           isNaN(parsedValue) ? "" : parsedValue
                         );
                       }} */
-                        disabled={!editing}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex justify-center pt-5 pb-6 ">
-              <Button
-                type="submit"
-                className="w-[50%]"
-                disabled={isSubmitting}
-                onClick={editing ? handleGuardarClick : handleEditarClick}
-              >
-                {isSubmitting ? (
-                  <ReloadIcon
-                    className={`mr-2 h-4 w-4 ${
-                      isSubmitting ? "animate-spin" : ""
-                    }`}
-                  />
-                ) : editing ? (
-                  "Guardar"
-                ) : (
-                  "Editar"
-                )}
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </FormWraper>
-    </>
+                      disabled={!editing}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex justify-center pt-5 pb-6 ">
+            <Button
+              type="submit"
+              className="w-[50%]"
+              disabled={isSubmitting}
+              onClick={editing ? handleGuardarClick : handleEditarClick}
+            >
+              {isSubmitting ? (
+                <ReloadIcon
+                  className={`mr-2 h-4 w-4 ${
+                    isSubmitting ? "animate-spin" : ""
+                  }`}
+                />
+              ) : editing ? (
+                "Guardar"
+              ) : (
+                "Editar"
+              )}
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </FormWraper>
   );
 }
 
