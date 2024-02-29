@@ -1,13 +1,29 @@
 "use client";
 
+import { EditJsonButton } from "@/components/edit-json-button";
 import HistoryCard from "@/components/history-card";
 import { getAllJsonFiles } from "@/lib/json/getAllJsonFiles";
 import { formatDateString } from "@/lib/utils";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface JsonData {
+  "nombre-completo": string;
   "nombre-obra": string;
+  ubicacion: string;
+  "metros-cuadrados-de-planta-baja": number;
+  "metros-cuadrados-de-planta-alta": number;
+  "superficie-p-rgolas-cubiertas-techado": number;
+  "superficie-p-rgolas-semi-cubierta-p-rgola": number;
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": number;
+  "sup-alero": number;
+  "pb-muros-pb-perimetro": number;
+  "pb-muros-pb-interiores-churrasquera-otros": number;
+  "pa-muros-pa-perimetro": number;
+  "pa-muros-pa-interiores": number;
+  "altura-de-muro-planta-baja": number;
+  "altura-de-muro-planta-alta": number;
   fecha: string;
 }
 
@@ -17,15 +33,25 @@ function HistoryPage() {
   useEffect(() => {
     const fetchData = async () => {
       const jsonFiles = await getAllJsonFiles();
-      setData(jsonFiles);
-      console.log(jsonFiles);
+
+      // Ordena los archivos JSON por fecha en orden descendente
+      const sortedJsonFiles = jsonFiles.sort((a, b) => {
+        const dateA = new Date(a.fecha);
+        const dateB = new Date(b.fecha);
+
+        // Cambia el signo a '<' para un orden ascendente
+        return dateB.getTime() - dateA.getTime();
+      });
+
+      setData(sortedJsonFiles);
+      console.log(sortedJsonFiles);
     };
 
     fetchData();
   }, []);
 
   return (
-    <div className="flex flex-col h-screen dark z-40 relative pt-8">
+    <div className="flex flex-col h-screen dark relative pt-8 z-30">
       <main className="flex-1 overflow-auto p-4 text-white">
         <div className="container max-w-3xl space-y-8">
           <div className="flex flex-col items-center space-y-2 text-center">
@@ -40,6 +66,7 @@ function HistoryPage() {
                 <HistoryCard
                   requestNumber={item["nombre-obra"]}
                   date={formatDateString(item["fecha"])}
+                  jsonData={item}
                 />
               </div>
             ))}
