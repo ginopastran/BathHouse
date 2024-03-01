@@ -231,6 +231,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
       setIsSubmitting(true);
       const formData = form.getValues(); // Obtener los valores actuales del formulario
       const postResponse = await axios.post("/api/actualizarJson", formData); // Enviar los datos del formulario
+      console.log(postResponse);
       setIsSubmitComplete(true);
     } catch (error) {
       console.log(error);
