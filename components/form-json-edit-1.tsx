@@ -34,6 +34,8 @@ import { useEffect, useState } from "react";
 
 import { getJson } from "@/lib/json/getJson";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { CardWraper } from "./auth/card-wrapper";
+import { FormWraper } from "./form-wrapper";
 
 interface Datos {
   //datos cliente
@@ -143,7 +145,7 @@ const formSchema = z.object({
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
 });
 
-function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
+function FormJson1Edit({ data }: FormEtapa1EditProps) {
   const [isSubmitComplete, setIsSubmitComplete] = useState(false);
   const [informacionGeneral, setInformacionGeneral] = useState(null);
   const [editing, setEditing] = useState<boolean>(false);
@@ -231,7 +233,6 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
       setIsSubmitting(true);
       const formData = form.getValues(); // Obtener los valores actuales del formulario
       const postResponse = await axios.post("/api/actualizarJson", formData); // Enviar los datos del formulario
-      console.log(postResponse);
       setIsSubmitComplete(true);
     } catch (error) {
       console.log(error);
@@ -268,10 +269,10 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   };
 
   return (
-    <>
+    <FormWraper>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleGuardarClick)}>
-          <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
+          <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2 md:grid-cols-3 md:grid-rows-3">
             <FormField
               control={form.control}
               name="nombre-completo"
@@ -363,8 +364,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                         handleInputChange(
                           "metros-cuadrados-de-planta-baja",
                           isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
+                          );
+                        }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -388,8 +389,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                         handleInputChange(
                           "metros_cuadrados_de_planta_alta",
                           e.target.value
-                        )
-                      } */
+                          )
+                        } */
                       disabled={!editing}
                     />
                   </FormControl>
@@ -413,8 +414,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                         handleInputChange(
                           "superficie_pergolas_cubiertas_techado",
                           isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
+                          );
+                        }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -728,11 +729,11 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
           </div>
         </form>
       </Form>
-    </>
+    </FormWraper>
   );
 }
 
-export default FormEtapa1Edit;
+export default FormJson1Edit;
 {
   /* <div className="gap-4 grid mx-4   grid-flow-row-dense grid-cols-2 grid-rows-3 xl:grid-cols-3 2xl:grid-cols-3 ">
 <FormField

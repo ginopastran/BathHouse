@@ -40,24 +40,23 @@ export async function POST(req: NextRequest) {
 
         // console.log(jsonData);
 
-        try {
-            const params = {
-                Bucket: 'bathouse-excel-test',
-                Key: jsonFileName,
-                Body: jsonBuffer
-            };
+        // try {
+        //     const params = {
+        //         Bucket: 'bathouse-excel-test',
+        //         Key: jsonFileName,
+        //         Body: jsonBuffer
+        //     };
 
-            s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-                if (err) {
-                    throw err;
-                }
-                console.log(`JSON file uploaded successfully. ${data.Location}`);
-            });
+        //     s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+        //         if (err) {
+        //             throw err;
+        //         }
+        //         console.log(`JSON file uploaded successfully. ${data.Location}`);
+        //     });
 
-        } catch (error) {
-            console.log(error);
-
-        }
+        // } catch (error) {
+        //     console.log(error);
+        // }
 
         return NextResponse.json({ jsonFileName: jsonFileName });
     } catch (error: any) {
