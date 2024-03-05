@@ -5,6 +5,7 @@ import AWS from "aws-sdk"
 import * as fs from 'fs';
 import os from 'os';
 import { google } from "googleapis"
+import { exportAndUploadJson } from '@/lib/json/exportAndUploadJson';
 
 
 const corsHeaders = {
@@ -32,31 +33,17 @@ export async function POST(req: NextRequest) {
     try {
         const data = await req.json();
 
+        data.fecha = new Date().toISOString();
+
         const jsonData = JSON.stringify(data);
-        const jsonFileName = `${session?.user?.email}.json`;
+        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}.json`;
         const jsonBuffer = Buffer.from(jsonData, 'utf-8');
 
         console.log(data);
 
         // console.log(jsonData);
 
-        // try {
-        //     const params = {
-        //         Bucket: 'bathouse-excel-test',
-        //         Key: jsonFileName,
-        //         Body: jsonBuffer
-        //     };
-
-        //     s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-        //         if (err) {
-        //             throw err;
-        //         }
-        //         console.log(`JSON file uploaded successfully. ${data.Location}`);
-        //     });
-
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        await exportAndUploadJson(jsonFileName, jsonBuffer)
 
         return NextResponse.json({ jsonFileName: jsonFileName });
     } catch (error: any) {

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -222,9 +222,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
 
   // Función para manejar el botón de editar
 
-
   // Función para manejar el botón de guardar
-  
+
   const handleFormSubmit = async (formData: any) => {
     try {
       setIsSubmitting(true);
@@ -238,12 +237,11 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
       setIsSubmitting(false);
     }
   };
-  
 
   // useEffect para restaurar datos cuando no está editando
   useEffect(() => {
     if (!editing) {
-      setDatos({ ...datosOriginales }); 
+      setDatos({ ...datosOriginales });
     }
   }, [editing, datosOriginales]);
 
@@ -269,7 +267,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   return (
     <>
       <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleFormSubmit)}>
+        <form onSubmit={form.handleSubmit(handleFormSubmit)}>
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
             <FormField
               control={form.control}
@@ -304,7 +302,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                       /*    onChange={(e) =>
                         handleInputChange("nombre-completo", e.target.value)
                       } */
-                      disabled={!editing}
+                      disabled
                     />
                   </FormControl>
                   <FormMessage />
@@ -686,12 +684,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                 <FormItem>
                   <FormLabel>Muro Planta Alta interiores</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="m"
-                      {...field}
-                 
-                      disabled={!editing}
-                    />
+                    <Input placeholder="m" {...field} disabled={!editing} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -702,13 +695,18 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
           <div className="flex justify-center pt-5 pb-6">
             {editing ? (
               <>
-                <Button type="button" className="w-[50%]" disabled={isSubmitting}
-                onClick={
-                  ()=> setEditing(false)
-                }
+                <Button
+                  type="button"
+                  className="w-[50%]"
+                  disabled={isSubmitting}
+                  onClick={() => setEditing(false)}
                 >
                   {isSubmitting ? (
-                    <ReloadIcon className={`mr-2 h-4 w-4 ${isSubmitting ? "animate-spin" : ""}`} />
+                    <ReloadIcon
+                      className={`mr-2 h-4 w-4 ${
+                        isSubmitting ? "animate-spin" : ""
+                      }`}
+                    />
                   ) : (
                     "Guardar"
                   )}
@@ -730,7 +728,6 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                 Editar
               </Button>
             )}
-
           </div>
         </form>
       </Form>
