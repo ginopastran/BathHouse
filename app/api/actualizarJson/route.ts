@@ -43,7 +43,11 @@ export async function POST(req: NextRequest) {
 
         // console.log(jsonData);
 
-        await exportAndUploadJson(jsonFileName, jsonBuffer)
+        try {
+            await exportAndUploadJson(jsonFileName, jsonBuffer)
+        } catch (error) {
+            console.log(error);
+        }
 
         return NextResponse.json({ jsonFileName: jsonFileName });
     } catch (error: any) {
