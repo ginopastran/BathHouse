@@ -5,6 +5,7 @@ import HistoryCard from "@/components/history-card";
 import { getAllJsonFiles } from "@/lib/json/getAllJsonFiles";
 import { formatDateString } from "@/lib/utils";
 import { Button } from "@nextui-org/react";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -29,26 +30,41 @@ interface JsonData {
 
 function HistoryPage() {
   const [data, setData] = useState<JsonData[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const jsonFiles = await getAllJsonFiles();
+      try {
+        const jsonFiles = await getAllJsonFiles();
 
-      // Ordena los archivos JSON por fecha en orden descendente
-      const sortedJsonFiles = jsonFiles.sort((a, b) => {
-        const dateA = new Date(a.fecha);
-        const dateB = new Date(b.fecha);
+        // Ordena los archivos JSON por fecha en orden descendente
+        const sortedJsonFiles = jsonFiles.sort((a, b) => {
+          const dateA = new Date(a.fecha);
+          const dateB = new Date(b.fecha);
 
-        // Cambia el signo a '<' para un orden ascendente
-        return dateB.getTime() - dateA.getTime();
-      });
+          // Cambia el signo a '<' para un orden ascendente
+          return dateB.getTime() - dateA.getTime();
+        });
 
-      setData(sortedJsonFiles);
-      console.log(sortedJsonFiles);
+        setData(sortedJsonFiles);
+        console.log(sortedJsonFiles);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Loader2 className=" h-20 w-20 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-screen dark relative pt-8 z-30">

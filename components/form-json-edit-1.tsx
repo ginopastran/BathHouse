@@ -234,8 +234,10 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
       const formData = form.getValues(); // Obtener los valores actuales del formulario
       const postResponse = await axios.post("/api/actualizarJson", formData); // Enviar los datos del formulario
       setIsSubmitComplete(true);
-      // Recargar la página
-      window.location.reload();
+      // Esperar 2 segundos antes de recargar la página
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       console.log(error);
     } finally {
