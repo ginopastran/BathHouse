@@ -306,7 +306,7 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                       /*    onChange={(e) =>
                         handleInputChange("nombre-completo", e.target.value)
                       } */
-                      disabled={!editing}
+                      disabled
                     />
                   </FormControl>
                   <FormMessage />
