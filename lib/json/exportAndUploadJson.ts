@@ -22,33 +22,28 @@ if (!privateKey || !clientEmail) {
 
 
 export async function exportAndUploadJson(jsonFileName: string, jsonBuffer: any) {
+
+    const session = await auth()
+    if (!session?.user?.email) {
+        throw new Error('El correo electrónico del usuario no está definido');
+    }
+
     try {
-        const session = await auth()
-        if (!session?.user?.email) {
-            throw new Error('El correo electrónico del usuario no está definido');
-        }
+        const params = {
+            Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+            Key: jsonFileName,
+            Body: jsonBuffer
+        };
 
-        try {
-            const params = {
-                Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-                Key: jsonFileName,
-                Body: jsonBuffer
-            };
-
-            s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-                if (err) {
-                    throw err;
-                }
-                console.log(`JSON file uploaded successfully. ${data.Location}`);
-            });
-
-        } catch (error) {
-            console.log(error);
-        }
-
+        s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+            if (err) {
+                throw err;
+            }
+            console.log(`JSON file uploaded successfully. ${data.Location}`);
+        });
 
     } catch (error) {
-        console.log('Error al exportar el archivo de Google Sheets:', error);
-        throw error;
+        console.log(error);
     }
+
 }
