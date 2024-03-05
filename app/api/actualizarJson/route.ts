@@ -32,31 +32,33 @@ export async function POST(req: NextRequest) {
     try {
         const data = await req.json();
 
+        data.fecha = new Date().toISOString();
+
         const jsonData = JSON.stringify(data);
-        const jsonFileName = `${session?.user?.email}.json`;
+        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}.json`;
         const jsonBuffer = Buffer.from(jsonData, 'utf-8');
 
         console.log(data);
 
         // console.log(jsonData);
 
-        // try {
-        //     const params = {
-        //         Bucket: 'bathouse-excel-test',
-        //         Key: jsonFileName,
-        //         Body: jsonBuffer
-        //     };
+        try {
+            const params = {
+                Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+                Key: jsonFileName,
+                Body: jsonBuffer
+            };
 
-        //     s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-        //         if (err) {
-        //             throw err;
-        //         }
-        //         console.log(`JSON file uploaded successfully. ${data.Location}`);
-        //     });
+            s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+                if (err) {
+                    throw err;
+                }
+                console.log(`JSON file uploaded successfully. ${data.Location}`);
+            });
 
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        } catch (error) {
+            console.log(error);
+        }
 
         return NextResponse.json({ jsonFileName: jsonFileName });
     } catch (error: any) {

@@ -50,9 +50,9 @@ export async function POST(req: NextRequest) {
 
         const jsonData = await readJsonFromS3(bucketName, jsonFileName);
 
-        console.log(jsonData);
+        // console.log(jsonData);
 
-        console.log(data);
+        // console.log(data);
 
         const fileName = `${session?.user?.email}.xlsx`;
         const fileName2 = `${session?.user?.email}/` + `${jsonData["nombre-obra"]}2.xlsx`;
