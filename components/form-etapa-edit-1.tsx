@@ -221,32 +221,29 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   });
 
   // Función para manejar el botón de editar
-  const handleEditarClick = () => {
-    setEditing(true);
-  };
+
 
   // Función para manejar el botón de guardar
-  const handleGuardarClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();  // Evitar la recarga automática de la página al hacer clic en el botón
   
+  const handleFormSubmit = async (formData: any) => {
     try {
       setIsSubmitting(true);
-      const formData = form.getValues(); // Obtener los valores actuales del formulario
-      const postResponse = await axios.post("/api/actualizarJson", formData); // Enviar los datos del formulario
+      const postResponse = await axios.post("/api/actualizarJson", formData);
       console.log(postResponse);
       setIsSubmitComplete(true);
+      setEditing(false); // Cambiar a "Editar" después de guardar
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsSubmitting(false);
     }
-    setEditing(false);
   };
+  
 
   // useEffect para restaurar datos cuando no está editando
   useEffect(() => {
     if (!editing) {
-      setDatos({ ...datosOriginales });
+      setDatos({ ...datosOriginales }); 
     }
   }, [editing, datosOriginales]);
 
@@ -272,7 +269,7 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleGuardarClick)}>
+      <form onSubmit={form.handleSubmit(handleFormSubmit)}>
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
             <FormField
               control={form.control}
@@ -701,25 +698,39 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
               )}
             />
           </div>
-          <div className="flex justify-center pt-5 pb-6 ">
-            <Button
-              type="submit"
-              className="w-[50%]"
-              disabled={isSubmitting}
-              onClick={(e) => (editing ? handleGuardarClick(e) : handleEditarClick())}
-            >
-              {isSubmitting ? (
-                <ReloadIcon
-                  className={`mr-2 h-4 w-4 ${
-                    isSubmitting ? "animate-spin" : ""
-                  }`}
-                />
-              ) : editing ? (
-                "Guardar"
-              ) : (
-                "Editar"
-              )}
-            </Button>
+
+          <div className="flex justify-center pt-5 pb-6">
+            {editing ? (
+              <>
+                <Button type="button" className="w-[50%]" disabled={isSubmitting}
+                onClick={
+                  ()=> setEditing(false)
+                }
+                >
+                  {isSubmitting ? (
+                    <ReloadIcon className={`mr-2 h-4 w-4 ${isSubmitting ? "animate-spin" : ""}`} />
+                  ) : (
+                    "Guardar"
+                  )}
+                </Button>
+                <Button
+                  type="button"
+                  className="w-[50%] ml-2"
+                  onClick={() => setEditing(false)} // Cancelar edición
+                >
+                  Cancelar
+                </Button>
+              </>
+            ) : (
+              <Button
+                type="button"
+                className="w-[50%]"
+                onClick={() => setEditing(true)} // Entrar en modo de edición
+              >
+                Editar
+              </Button>
+            )}
+
           </div>
         </form>
       </Form>
