@@ -21,7 +21,7 @@ if (!privateKey || !clientEmail) {
 }
 
 
-export async function exportAndUploadJson(jsonFileName: string, jsonBuffer: any) {
+export async function exportAndUploadJson(jsonFileName: string, jsonBuffer: Buffer) {
 
     const session = await auth()
     if (!session?.user?.email) {

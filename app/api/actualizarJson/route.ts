@@ -41,24 +41,25 @@ export async function POST(req: NextRequest) {
 
         console.log(data);
 
-        // console.log(jsonData);
-
         try {
-            const params = {
-                Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-                Key: jsonFileName,
-                Body: jsonBuffer
-            };
-
-            s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-                if (err) {
-                    throw err;
-                }
-                console.log(`JSON file uploaded successfully. ${data.Location}`);
-            });
+            await exportAndUploadJson(jsonFileName, jsonBuffer)
         } catch (error) {
-            console.log(error);
+
         }
+        // console.log(jsonData);
+        const params = {
+            Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+            Key: jsonFileName,
+            Body: jsonBuffer
+        };
+
+        s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+            if (err) {
+                throw err;
+            }
+            console.log(`JSON file uploaded successfully. ${data.Location}`);
+        });
+
 
         return NextResponse.json({ jsonFileName: jsonFileName });
     } catch (error: any) {
