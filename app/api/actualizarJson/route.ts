@@ -5,6 +5,7 @@ import AWS from "aws-sdk"
 import * as fs from 'fs';
 import os from 'os';
 import { google } from "googleapis"
+import { exportAndUploadJson } from '@/lib/json/exportAndUploadJson';
 
 
 const corsHeaders = {
@@ -42,23 +43,7 @@ export async function POST(req: NextRequest) {
 
         // console.log(jsonData);
 
-        try {
-            const params = {
-                Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-                Key: jsonFileName,
-                Body: jsonBuffer
-            };
-
-            s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-                if (err) {
-                    throw err;
-                }
-                console.log(`JSON file uploaded successfully. ${data.Location}`);
-            });
-
-        } catch (error) {
-            console.log(error);
-        }
+        await exportAndUploadJson(jsonFileName, jsonBuffer)
 
         return NextResponse.json({ jsonFileName: jsonFileName });
     } catch (error: any) {
