@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         try {
             await exportAndUploadJson(jsonFileName, jsonBuffer)
         } catch (error) {
-
+            console.log(error);
         }
         // console.log(jsonData);
         const params = {
