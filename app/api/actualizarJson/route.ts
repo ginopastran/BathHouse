@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
 import { auth } from '@/auth';
-import AWS from "aws-sdk"
-import * as fs from 'fs';
-import os from 'os';
-import { google } from "googleapis"
 import { exportAndUploadJson } from '@/lib/json/exportAndUploadJson';
-
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -14,19 +8,9 @@ const corsHeaders = {
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
-let fileNameGlobal = '';
-
 export async function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders });
 }
-
-AWS.config.update({
-    accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
-    region: process.env.NEXT_PUBLIC_S3_REGION,
-});
-
-const s3 = new AWS.S3();
 
 export async function POST(req: NextRequest) {
     const session = await auth();
@@ -41,15 +25,11 @@ export async function POST(req: NextRequest) {
 
         console.log(data);
 
-        try {
-            await exportAndUploadJson(jsonFileName, jsonBuffer)
-        } catch (error) {
-            console.log(error);
-        }
+        await exportAndUploadJson(jsonFileName, jsonBuffer);
 
-
-        return NextResponse.json({ jsonFileName: jsonFileName });
+        // Recargar la página después de completar la carga del archivo JSON en S3
+        return NextResponse.json({ jsonFileName: jsonFileName, message: "File uploaded successfully" });
     } catch (error: any) {
-        return NextResponse.json({ message: "An error ocurred", error: error.message }, { headers: corsHeaders });
+        return NextResponse.json({ message: "An error occurred", error: error.message }, { headers: corsHeaders });
     }
 }
