@@ -9,6 +9,7 @@ import MainNavbar from "@/components/shared/navbar";
 import { useSession } from "next-auth/react";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -55,6 +56,7 @@ export default function RootLayout({
               {children}
             </Providers>
           </div>
+          <Toaster />
         </body>
       </html>
     </SessionProvider>

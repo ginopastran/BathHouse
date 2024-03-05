@@ -36,6 +36,8 @@ import { getJson } from "@/lib/json/getJson";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { CardWraper } from "./auth/card-wrapper";
 import { FormWraper } from "./form-wrapper";
+import { useToast } from "./ui/use-toast";
+import { BsCheckCircle } from "react-icons/bs";
 
 interface Datos {
   //datos cliente
@@ -153,6 +155,8 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
   const [datosOriginales, setDatosOriginales] = useState<any>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: data
@@ -234,6 +238,17 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
       const formData = form.getValues(); // Obtener los valores actuales del formulario
       const postResponse = await axios.post("/api/actualizarJson", formData); // Enviar los datos del formulario
       setIsSubmitComplete(true);
+      // Agregar superposición de página bloqueada
+      const overlay = document.createElement("div");
+      overlay.className = "page-overlay";
+      document.body.appendChild(overlay);
+      // Mostrar tarjeta de completado
+      toast({
+        title: "El presupuesto se editó correctamente",
+        description: "La página se recargará en 5 segundos.",
+        duration: 5000,
+        className: "bg-emerald-700 ",
+      });
       // Esperar 5 segundos antes de recargar la página
       setTimeout(() => {
         window.location.reload();
