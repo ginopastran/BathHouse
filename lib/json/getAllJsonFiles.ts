@@ -18,7 +18,6 @@ export async function getAllJsonFiles() {
     const params = {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
         Prefix: userFolder,
-        ResponseCacheControl: 'no-cache'
     };
 
     const data = await s3.listObjectsV2(params).promise();
