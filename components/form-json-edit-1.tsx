@@ -709,7 +709,7 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
           </div>
           <div className="flex justify-center pt-5 pb-6 ">
             <Button
-              type="submit"
+              type="button"
               className="w-[50%]"
               disabled={isSubmitting}
               onClick={editing ? handleGuardarClick : handleEditarClick}
