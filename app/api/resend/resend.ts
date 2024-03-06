@@ -1,20 +1,19 @@
-import { EmailTemplate } from '../../../components/email-template';
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-export async function POST() {
-  try {
-    const data = await resend.emails.send({
-      from: 'Acme <onboarding@resend.dev>',
-      to: ['delivered@resend.dev'],
-      subject: 'Hello world',
-      text: 'Hello world',
-      react: EmailTemplate({ firstName: 'John' }),
-    });
-
-    return Response.json(data);
-  } catch (error) {
-    return Response.json({ error });
-  }
-}
+var transporter = nodemailer.createTransport({ 
+  servicio: 'gmail', 
+  autenticación: { 
+          usuario: ' metralciro@gmail.com', 
+          contraseña: '35516414Ciro.' 
+      } 
+  });
+  const mailOptions = { 
+    from: 'sender@email.com', // dirección del remitente 
+    a: 'to@email.com', // lista de destinatarios 
+    asunto: 'Asunto de su correo electrónico', // Línea de asunto 
+    html: '< p>Tu html aquí</p>'// cuerpo de texto sin formato 
+  };
+  transporter.sendMail(mailOptions, function (err, info) { 
+    if(err) 
+      console.log(err) 
+    else 
+      console.log(info); 
+ });
