@@ -127,6 +127,7 @@ export async function POST(req: NextRequest) {
                         ["NO"], //71
                         ["SI"], //72
                         ["SI"], //73                        
+                        // [data[]], //74                        
                     ],
                 },
             });
