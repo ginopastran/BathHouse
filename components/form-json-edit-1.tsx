@@ -236,25 +236,16 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
     try {
       setIsSubmitting(true);
       const formData = form.getValues(); // Obtener los valores actuales del formulario
-      const postResponse = await axios.post("/api/actualizarJson", formData); // Enviar los datos del formulario
-      setTimeout(() => {
-        setIsSubmitComplete(true);
-      }, 3000);
-      // Agregar superposición de página bloqueada
-      const overlay = document.createElement("div");
-      overlay.className = "page-overlay";
-      document.body.appendChild(overlay);
-      // Mostrar tarjeta de completado
+      const postResponse = await axios.post("/api/actualizarExcel", formData); // Enviar los datos del formulario
+
+      setIsSubmitComplete(true);
+
       toast({
         title: "El presupuesto se editó correctamente",
-        description: "La página se recargará en 5 segundos.",
-        duration: 5000,
+        duration: 3000,
         className: "bg-emerald-700 ",
       });
-      // Esperar 5 segundos antes de recargar la página
-      setTimeout(() => {
-        window.location.reload();
-      }, 5000);
+      // Esperar 3 segundos antes de recargar la página
     } catch (error) {
       console.log(error);
     } finally {
@@ -729,24 +720,39 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
             />
           </div>
           <div className="flex justify-center pt-5 pb-6 ">
-            <Button
-              type="button"
-              className="w-[50%]"
-              disabled={isSubmitting}
-              onClick={editing ? handleGuardarClick : handleEditarClick}
-            >
-              {isSubmitting ? (
-                <ReloadIcon
-                  className={`mr-2 h-4 w-4 ${
-                    isSubmitting ? "animate-spin" : ""
-                  }`}
-                />
-              ) : editing ? (
-                "Guardar"
-              ) : (
-                "Editar"
-              )}
-            </Button>
+            {!isSubmitComplete && (
+              <Button
+                type="button"
+                className="w-[50%]"
+                disabled={isSubmitting}
+                onClick={editing ? handleGuardarClick : handleEditarClick}
+              >
+                {isSubmitting ? (
+                  <ReloadIcon
+                    className={`mr-2 h-4 w-4 ${
+                      isSubmitting ? "animate-spin" : ""
+                    }`}
+                  />
+                ) : editing ? (
+                  "Guardar"
+                ) : (
+                  "Editar"
+                )}
+              </Button>
+            )}
+
+            {isSubmitComplete && (
+              <Popover>
+                <div className="flex justify-center pb-6 w-full">
+                  <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
+                    Mirar el presupuesto
+                  </PopoverTrigger>
+                </div>
+                <PopoverContent className=" h-[70vh] w-[80vw]">
+                  <Popoverdata />
+                </PopoverContent>
+              </Popover>
+            )}
           </div>
         </form>
       </Form>

@@ -4,6 +4,7 @@ import { EditJsonButton } from "@/components/edit-json-button";
 import HistoryCard from "@/components/history-card";
 import { getAllJsonFiles } from "@/lib/json/getAllJsonFiles";
 import { formatDateString } from "@/lib/utils";
+import { getAllXlsxFiles } from "@/lib/xlsx/getAllXlsxFiles";
 import { Button } from "@nextui-org/react";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -42,7 +43,7 @@ function HistoryPage() {
           const dateA = new Date(a.fecha);
           const dateB = new Date(b.fecha);
 
-          // Cambia el signo a '<' para un orden ascendente
+          // Cambiar el signo a '<' para un orden ascendente
           return dateB.getTime() - dateA.getTime();
         });
 

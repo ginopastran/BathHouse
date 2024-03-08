@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
         data.fecha = new Date().toISOString();
 
         const jsonData = JSON.stringify(data);
-        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}.json`;
+        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}-1.json`;
         const jsonBuffer = Buffer.from(jsonData, 'utf-8');
 
 
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
 
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
-        const fileName = `${session?.user?.email}/` + `${data["nombre-obra"]}.xlsx`;
+        const fileName = `${session?.user?.email}/` + `${data["nombre-obra"]}-1.xlsx`;
 
         const jwtClient = new google.auth.JWT(
             clientEmail,

@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
         // console.log(data);
 
         const fileName = `${session?.user?.email}.xlsx`;
-        const fileName2 = `${session?.user?.email}/` + `${jsonData["nombre-obra"]}2.xlsx`;
+        const fileName2 = `${session?.user?.email}/` + `${jsonData["nombre-obra"]}-2.xlsx`;
 
         const jwtClient = new google.auth.JWT(
             clientEmail,

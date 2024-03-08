@@ -1,5 +1,3 @@
-"use server"
-
 import { auth } from '@/auth';
 import { S3 } from 'aws-sdk';
 import AWS from "aws-sdk"
@@ -12,9 +10,9 @@ AWS.config.update({
 
 const s3 = new S3();
 
-export async function getAllJsonFiles() {
-    const session = await auth()
-    const userFolder = `${session?.user?.email}`
+export async function getAllXlsxFiles() {
+    const session = await auth();
+    const userFolder = `${session?.user?.email}`;
     const params = {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
         Prefix: userFolder,
@@ -26,17 +24,13 @@ export async function getAllJsonFiles() {
         return [];
     }
 
-    const jsonFiles = data.Contents.filter((file) => file && file.Key && file.Key.endsWith('-1.json'));
+    const xlsxFiles = data.Contents.filter((file) => file && file.Key && file.Key.endsWith('-1.xlsx'));
 
     return Promise.all(
-        jsonFiles.map(async (file) => {
+        xlsxFiles.map(async (file) => {
             if (file.Key) {
-                const objectData = await s3
-                    .getObject({ Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!, Key: file.Key })
-                    .promise();
-                if (objectData.Body) {
-                    return JSON.parse(objectData.Body.toString());
-                }
+                const objectData = await s3.getObject({ Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!, Key: file.Key }).promise();
+                return objectData.Body;
             }
         })
     );
