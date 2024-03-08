@@ -42,14 +42,14 @@ function HistoryCard({ requestNumber, date, jsonData }: HistoryCardProps) {
           <p className="text-sm text-gray-500">{date}</p>
         </div>
       </div>
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex items-center justify-end gap-2 flex-col sm:flex-row">
         <BudgetHistoryButton xlsxName={requestNumber}>
-          <Button variant="bordered" className="border-blue-950">
+          <Button variant="bordered" className="border-blue-950 w-full text-sm">
             Presupuesto
           </Button>
         </BudgetHistoryButton>
         <EditJsonButton jsonData={jsonData}>
-          <Button variant="bordered" className="border-blue-950">
+          <Button variant="bordered" className="border-blue-950 w-full text-sm">
             Editar
           </Button>
         </EditJsonButton>
