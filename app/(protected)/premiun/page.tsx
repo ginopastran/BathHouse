@@ -119,6 +119,7 @@ export default function ProfileFormPremium() {
 
   const [isSubmitComplete, setIsSubmitComplete] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const onSubmit = async (data: any) => {
     try {
@@ -143,6 +144,11 @@ export default function ProfileFormPremium() {
       setIsSubmitting(false);
       setIsSubmitComplete(true);
     }
+  };
+
+  const onDownload = async (data: any) => {
+    try {
+    } catch (error) {}
   };
 
   return (
@@ -623,20 +629,40 @@ export default function ProfileFormPremium() {
             )}
             {isSubmitComplete ? "Solicitud Enviada" : "Solicitar Presupuesto"}
           </Button>
-          {isSubmitComplete && (
-            <Popover>
-              <div className="flex justify-center pb-6 relative">
-                <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
-                  Mirar el presupuesto
-                </PopoverTrigger>
-              </div>
-              <PopoverContent className=" h-[70vh] w-[80vw]">
-                <Popoverdata />
-              </PopoverContent>
-            </Popover>
-          )}
         </div>
       </form>
+      <div>
+        {isSubmitComplete && (
+          <Popover>
+            <div className="flex justify-center pb-6 relative">
+              <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
+                Mirar el presupuesto
+              </PopoverTrigger>
+            </div>
+            <PopoverContent className=" h-[70vh] w-[80vw]">
+              <Popoverdata />
+            </PopoverContent>
+          </Popover>
+        )}
+        {isSubmitComplete && (
+          <div className="flex justify-center pb-6 relative">
+            <Button
+              className="w-[50%]"
+              disabled={isDownloading}
+              onClick={() => !isSubmitting && onDownload}
+            >
+              {isDownloading && (
+                <ReloadIcon
+                  className={`mr-2 h-4 w-4 ${
+                    isDownloading ? "animate-spin" : ""
+                  }`}
+                />
+              )}
+              Descargar Excel VIP
+            </Button>
+          </div>
+        )}
+      </div>
     </Form>
   );
 }
