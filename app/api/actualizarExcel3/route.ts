@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
         data.fecha = new Date().toISOString();
 
         const jsonData = JSON.stringify(data);
-        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}3.json`;
+        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}-3.json`;
         const jsonBuffer = Buffer.from(jsonData, 'utf-8');
 
 
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
 
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
-        const fileName = `${session?.user?.email}/` + `${data["nombre-obra"]}3.xlsx`;
+        const fileName = `${session?.user?.email}/` + `${data["nombre-obra"]}-3.xlsx`;
 
         const jwtClient = new google.auth.JWT(
             clientEmail,
@@ -69,87 +69,100 @@ export async function POST(req: NextRequest) {
         const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
         const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-        const range = 'Informacion de Cotización!B2:B73';
+        const range = 'Informacion de Cotización!B2:B76';
 
         const valueInputOption = 'RAW';
 
 
-        // try {
-        //     const response = await sheets.spreadsheets.values.update({
-        //         spreadsheetId,
-        //         range: range,
-        //         valueInputOption: 'USER_ENTERED',
-        //         requestBody: {
-        //             // Los arrays con strings vacíos son para rellenar espacios que no se llenan en el data del form, es porque google sheets no deja especificar un dato para cada celda espeficica, solo deja agregar un rango desde una celda hasta otra, ej: B2:B65
-        //             values: [
-        //                 [data["nombre-completo"]], // B2
-        //                 [data["nombre-obra"]], // B3
-        //                 [data["ubicacion"]], // B4
-        //                 [""], [""], [""], [""], [""],
-        //                 [data["metros-cuadrados-de-planta-baja"]], // B10
-        //                 [data["metros-cuadrados-de-planta-alta"]],
-        //                 [data["superficie-p-rgolas-cubiertas-techado"]],
-        //                 [data["superficie-p-rgolas-semi-cubierta-p-rgola"]],
-        //                 [data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"]],
-        //                 [data["sup-alero"]],
-        //                 ["=+B9+B10+B11+B12+B13+B14"], ["=B9+B10+B11+B12/2+B13/2+B13/2"],
-        //                 [""], [""],
-        //                 [data["pb-muros-pb-perimetro"]],
-        //                 [data["pb-muros-pb-interiores-churrasquera-otros"]],
-        //                 [data["pa-muros-pa-perimetro"]],
-        //                 [data["pa-muros-pa-interiores"]],
-        //                 [data["altura-de-muro-planta-baja"]], //B24
-        //                 [data["altura-de-muro-planta-alta"]], //B25
-        //                 [""], //B26
-        //                 [""], [""], [""], [""],
-        //                 [90], //B31
-        //                 ["Chapa"], //B32
-        //                 [""], [""], [""], [""], [""], [""], [""], [""], [""], [""], //42
-        //                 [""], [""], [""], [""], [""], [""], [""], [""], [""],
-        //                 ["SI"], //52
-        //                 ["SI"], //53
-        //                 ["SI"], //54
-        //                 ["SI"], //55
-        //                 ["SI"], //56
-        //                 ["SI"], //57
-        //                 ["SI"], //58
-        //                 ["SI"], //59
-        //                 ["Eléctrica"], //60
-        //                 ["SI"], //61
-        //                 ["SI"], //62
-        //                 ["Placa"], //63
-        //                 ["SI"], //64
-        //                 ["SI"], //65
-        //                 ["SI"], //66
-        //                 ["SI"], //67
-        //                 ["SI"], //68
-        //                 ["SI"], //69
-        //                 ["SI"], //70
-        //                 ["NO"], //71
-        //                 ["SI"], //72
-        //                 ["SI"], //73                        
-        //                 // [data[]], //74                        
-        //             ],
-        //         },
-        //     });
+        try {
+            const response = await sheets.spreadsheets.values.update({
+                spreadsheetId,
+                range: range,
+                valueInputOption: 'USER_ENTERED',
+                requestBody: {
+                    // Los arrays con strings vacíos son para rellenar espacios que no se llenan en el data del form, es porque google sheets no deja especificar un dato para cada celda espeficica, solo deja agregar un rango desde una celda hasta otra, ej: B2:B65
+                    values: [
+                        [data["nombre-completo"]], // B2
+                        [data["nombre-obra"]], // B3
+                        [data["ubicacion"]], // B4
+                        [""], [""], [""], [""], [""],
+                        [data["metros-cuadrados-de-planta-baja"]], // B10
+                        [data["metros-cuadrados-de-planta-alta"]],
+                        [data["superficie-p-rgolas-cubiertas-techado"]],
+                        [data["superficie-p-rgolas-semi-cubierta-p-rgola"]],
+                        [data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"]],
+                        [data["sup-alero"]],
+                        ["=+B9+B10+B11+B12+B13+B14"], ["=B9+B10+B11+B12/2+B13/2+B13/2"],
+                        [""], [""],
+                        [data["pb-muros-pb-perimetro"]],
+                        [data["pb-muros-pb-interiores-churrasquera-otros"]],
+                        [data["pa-muros-pa-perimetro"]],
+                        [data["pa-muros-pa-interiores"]],
+                        [data["altura-de-muro-planta-baja"]], //B24
+                        [data["altura-de-muro-planta-alta"]], //B25
+                        [""], //B26
+                        [data["balcon-con-porcelanato"]],
+                        [""],
+                        [data["cantidad-encuentros-PB"]],
+                        [data["cantidad-encuentros-PA"]],
+                        [90], //B31
+                        ["Chapa"], //B32
+                        [""],
+                        [data["puerta-principal-cantidad"]],
+                        [data["puerta-interior"]],
+                        [data["ventana-habitacion"]],
+                        [data["puerta-ventana-habitacion"]],
+                        [data["ventana-bano"]],
+                        [data["puerta-ventana-living"]],
+                        [data["puerta-lavanderia"]],
+                        [data["vidrio-simple-dvh"]], [""], //42
+                        [""], [""], [""], [""], [""], [""], [""], [""], [""],
+                        ["SI"], //52
+                        ["SI"], //53
+                        ["SI"], //54
+                        ["SI"], //55
+                        ["SI"], //56
+                        ["SI"], //57
+                        ["SI"], //58
+                        ["SI"], //59
+                        ["Eléctrica"], //60
+                        ["SI"], //61
+                        ["SI"], //62
+                        ["Placa"], //63
+                        ["SI"], //64
+                        ["SI"], //65
+                        ["SI"], //66
+                        ["SI"], //67
+                        ["SI"], //68
+                        ["SI"], //69
+                        ["SI"], //70
+                        ["NO"], //71
+                        ["SI"], //72
+                        ["SI"], //73                        
+                        [data["piso-suspendido-sip"]], //74                        
+                        [""], //75                        
+                        [""], //76                        
+                    ],
+                },
+            });
 
-        //     await exportAndUploadToS3(jwtClient, spreadsheetId, fileName, data);
-        // } catch (error) {
-        //     console.log(error);
-        // }
+            await exportAndUploadToS3(jwtClient, spreadsheetId, fileName, data);
+        } catch (error) {
+            console.log(error);
+        }
 
-        // const params = {
-        //     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-        //     Key: jsonFileName,
-        //     Body: jsonBuffer
-        // };
+        const params = {
+            Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+            Key: jsonFileName,
+            Body: jsonBuffer
+        };
 
-        // s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-        //     if (err) {
-        //         throw err;
-        //     }
-        //     console.log(`JSON file uploaded successfully. ${data.Location}`);
-        // });
+        s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+            if (err) {
+                throw err;
+            }
+            console.log(`JSON file uploaded successfully. ${data.Location}`);
+        });
 
         return NextResponse.json({ fileName: fileName });
     } catch (error: any) {
@@ -189,32 +202,6 @@ export async function GET(req: NextRequest) {
         if (!worksheet) {
             return NextResponse.json({ message: "No se encontró la hoja de trabajo 'Informacion de Cotización'" });
         }
-
-
-        // let cellValueH4, cellValueH5, cellValueH6;
-        // let cellValueI4, cellValueI5, cellValueI6;
-        // let cellValueJ4, cellValueJ5, cellValueJ6;
-        // let cellValueK4, cellValueK5, cellValueK6;
-        // let cellValueH10, cellValueH11, cellValueH12;
-        // let cellValueI10, cellValueI11, cellValueI12;
-        // let cellValueJ10, cellValueJ11, cellValueJ12;
-        // let cellValueK10, cellValueK11, cellValueK12;
-        // let cellValueH16, cellValueH17, cellValueH18;
-        // let cellValueI16, cellValueI17, cellValueI18;
-        // let cellValueJ16, cellValueJ17, cellValueJ18;
-        // let cellValueK16, cellValueK17, cellValueK18;
-        // let cellValueH22, cellValueH23, cellValueH24;
-        // let cellValueI22, cellValueI23, cellValueI24;
-        // let cellValueJ22, cellValueJ23, cellValueJ24;
-        // let cellValueK22, cellValueK23, cellValueK24;
-        // let cellValueH28, cellValueH29, cellValueH30;
-        // let cellValueI28, cellValueI29, cellValueI30;
-        // let cellValueJ28, cellValueJ29, cellValueJ30;
-        // let cellValueK28, cellValueK29, cellValueK30;
-        // let cellValueH34, cellValueH35, cellValueH36;
-        // let cellValueI34, cellValueI35, cellValueI36;
-        // let cellValueJ34, cellValueJ35, cellValueJ36;
-        // let cellValueK34, cellValueK35, cellValueK36;
 
         //CASSAFORMA PURO
         let cellValueI5, cellValueI6, cellValueI7
@@ -261,6 +248,11 @@ export async function GET(req: NextRequest) {
         let cellValueL41, cellValueL42, cellValueL43
         let cellValueM41, cellValueM42, cellValueM43
         let cellValueN41, cellValueN42, cellValueN43
+
+        //PREMIUM CSF
+        let cellValueAG2, cellValueAH2
+        //PREMIUM SIP
+        let cellValueAI2, cellValueAJ2
 
         if (worksheet) {
             // CASSAFORMA-TOTAL
@@ -409,6 +401,17 @@ export async function GET(req: NextRequest) {
             cellValueN41 = worksheet.getCell('N41').value;
             cellValueN42 = worksheet.getCell('N42').value;
             cellValueN43 = worksheet.getCell('N43').value;
+
+
+            //CSF Premium (PB)
+            cellValueAG2 = worksheet.getCell('AG2').value
+            //CSF Premium (PB y PA)
+            cellValueAH2 = worksheet.getCell('AH2').value
+
+            //SIP Premium (PB)
+            cellValueAI2 = worksheet.getCell('AI2').value
+            //SIP Premioum (PB - PA)
+            cellValueAJ2 = worksheet.getCell('AJ2').value
         }
 
         return NextResponse.json({
@@ -453,6 +456,9 @@ export async function GET(req: NextRequest) {
             cellValueL41, cellValueL42, cellValueL43,
             cellValueM41, cellValueM42, cellValueM43,
             cellValueN41, cellValueN42, cellValueN43,
+
+            cellValueAG2, cellValueAH2,
+            cellValueAI2, cellValueAJ2
         });
     } catch (error: any) {
         return NextResponse.json({ message: "Ocurrió un error", error: error.message });
