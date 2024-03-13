@@ -92,53 +92,15 @@ interface FormEtapa1EditProps {
 }
 
 const formSchema = z.object({
-  /*   "nombre-completo": z.string().min(3),
-  ubicacion: z.string(),
-  "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
-  "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
-  "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
-  "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
-  "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": z.coerce.number().min(0),
-  "altura-de-muro-planta-baja": z.coerce.number().min(0),
-  "altura-de-muro-planta-alta": z.coerce.number().min(0),
-  "tabique-durlock-pb-pa": z.coerce.number().min(0),
-  churrasquera: z.coerce.number().min(0),
-  "aires-acondicionados": z.coerce.number().min(0),
-  "pozo-septico": z.string(),
-  "cisterna-enterrada": z.string(),
-  "con-pluviales": z.string(),
-  agua: z.string(),
-  cloaca: z.string(),
-  gas: z.string(),
-  luz: z.string(),
-  "pozo-filtrante": z.string(),
-  "losa-radiante-de-agua": z.string(),
-  "losa-radiante-electrica": z.string(),
-  "molduras-de-cumbrera": z.string(),
-  "moldura-de-ventanas": z.string(),
-  "cielorraso-de-placa-de-yeso": z.string(),
-  "cielorraso-de-yeso": z.string(),
-  porcelanato: z.string(),
-  "rayado-o-fino-de-muros": z.string(),
-  "vereda-vehiculo": z.string(),
-  "vereda-peatonal-paralela-calle": z.string(),
-  "churrasquera-de-ladrillo-y-o-hogar": z.string(),
-  pileta: z.string(),
-  "cuenta-con-arquitecto": z.string(),
-  "cuenta-con-proyecto": z.string(), */
-  //datos cliente
   "nombre-completo": z.string().min(3),
   "nombre-obra": z.string().min(3),
   ubicacion: z.string(),
-  //datos plano municipal
-
   "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
   "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
   "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
   "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce.number().min(0),
   "sup-alero": z.coerce.number().min(0),
-  //cerramiento
   "pb-muros-pb-perimetro": z.coerce.number().min(0),
   "pb-muros-pb-interiores-churrasquera-otros": z.coerce.number().min(0),
   "pa-muros-pa-perimetro": z.coerce.number().min(0),
@@ -161,48 +123,9 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
     resolver: zodResolver(formSchema),
     defaultValues: data
       ? {
-          /*  "nombre-completo": data["nombre-completo"],
-          ubicacion: data["ubicacion"],
-          "metros-cuadrados-de-planta-baja":
-            data["metros-cuadrados-de-planta-baja"],
-          "metros-cuadrados-de-planta-alta":
-            data["metros-cuadrados-de-planta-alta"],
-          "superficie-p-rgolas-cubiertas-techado":
-            data["superficie-p-rgolas-cubiertas-techado"],
-          "superficie-p-rgolas-semi-cubierta-p-rgola":
-            data["superficie-p-rgolas-semi-cubierta-p-rgola"],
-          "superficie-p-rgolas-cochera-semi-cubierta-p-rgola":
-            data["superficie-p-rgolas-cochera-semi-cubierta-p-rgola"],
-          "altura-de-muro-planta-baja": data["altura-de-muro-planta-baja"],
-          "altura-de-muro-planta-alta": data["altura-de-muro-planta-alta"],
-          "tabique-durlock-pb-pa": data["tabique-durlock-pb-pa"],
-          churrasquera: data["churrasquera"],
-          "aires-acondicionados": data["aires-acondicionados"],
-          "pozo-filtrante": data["pozo-filtrante"],
-          "cisterna-enterrada": data["cisterna-enterrada"],
-          "con-pluviales": data["con-pluviales"],
-          agua: data["agua"],
-          cloaca: data["cloaca"],
-          gas: data["gas"],
-          "losa-radiante-de-agua": data["losa-radiante-de-agua"],
-          "losa-radiante-electrica": data["losa-radiante-electrica"],
-          "molduras-de-cumbrera": data["molduras-de-cumbrera"],
-          "moldura-de-ventanas": data["moldura-de-ventanas"],
-          "cielorraso-de-placa-de-yeso": data["cielorraso-de-placa-de-yeso"],
-          "cielorraso-de-yeso": data["cielorraso-de-yeso"],
-          porcelanato: data["porcelanato"],
-          "rayado-o-fino-de-muros": data["rayado-o-fino-de-muros"],
-          "vereda-vehiculo": data["vereda-vehiculo"],
-          "churrasquera-de-ladrillo-y-o-hogar":
-            data["churrasquera-de-ladrillo-y-o-hogar"],
-          "cuenta-con-arquitecto": data["cuenta-con-arquitecto"],
-          "cuenta-con-proyecto": data["cuenta-con-proyecto"], */
-          //datos cliente
           "nombre-completo": data["nombre-completo"],
           "nombre-obra": data["nombre-obra"],
           ubicacion: data["ubicacion"],
-          //datos plano municipal
-
           "metros-cuadrados-de-planta-baja":
             data["metros-cuadrados-de-planta-baja"],
           "metros-cuadrados-de-planta-alta":
@@ -214,7 +137,6 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
           "superficie-p-rgolas-semi-cochera-cubierta-p-rgola":
             data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"],
           "sup-alero": data["sup-alero"],
-          //cerramiento
           "pb-muros-pb-perimetro": data["pb-muros-pb-perimetro"],
           "pb-muros-pb-interiores-churrasquera-otros":
             data["pb-muros-pb-interiores-churrasquera-otros"],
@@ -237,15 +159,24 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
       setIsSubmitting(true);
       const formData = form.getValues(); // Obtener los valores actuales del formulario
       const postResponse = await axios.post("/api/actualizarExcel", formData); // Enviar los datos del formulario
-
-      setIsSubmitComplete(true);
-
+      setTimeout(() => {
+        setIsSubmitComplete(true);
+      }, 4000);
+      // Agregar superposición de página bloqueada
+      const overlay = document.createElement("div");
+      overlay.className = "page-overlay";
+      document.body.appendChild(overlay);
+      // Mostrar tarjeta de completado
       toast({
         title: "El presupuesto se editó correctamente",
-        duration: 3000,
+        description: "La página se recargará en 5 segundos.",
+        duration: 5000,
         className: "bg-emerald-700 ",
       });
-      // Esperar 3 segundos antes de recargar la página
+      // Esperar 5 segundos antes de recargar la página
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (error) {
       console.log(error);
     } finally {
@@ -741,7 +672,7 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
               </Button>
             )}
 
-            {isSubmitComplete && (
+            {/* {isSubmitComplete && (
               <Popover>
                 <div className="flex justify-center pb-6 w-full">
                   <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
@@ -752,7 +683,7 @@ function FormJson1Edit({ data }: FormEtapa1EditProps) {
                   <Popoverdata />
                 </PopoverContent>
               </Popover>
-            )}
+            )} */}
           </div>
         </form>
       </Form>
