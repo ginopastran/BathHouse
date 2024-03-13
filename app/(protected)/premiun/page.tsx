@@ -109,12 +109,11 @@ export default function ProfileFormPremium() {
       "puerta-lavanderia": undefined,
       "vidrio-simple-dvh": undefined,
       //casasip
-
       "balcon-con-porcelanato": undefined,
       "cantidad-encuentros-PB": 0,
       "cantidad-encuentros-PA": 0,
       "espesor-muro-SIP": "90",
-      "piso-suspendido-sip": undefined, //agregado premium
+      "piso-suspendido-sip": "SI", //agregado premium
     },
   });
 
@@ -147,7 +146,7 @@ export default function ProfileFormPremium() {
   };
 
   return (
-    <>
+    
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
@@ -169,7 +168,7 @@ export default function ProfileFormPremium() {
               name="nombre-obra"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nobre del presupuesto</FormLabel>
+                  <FormLabel>Nombre de Obra</FormLabel>
                   <FormControl>
                     <Input placeholder="Nombre de obra" {...field} />
                   </FormControl>
@@ -207,9 +206,9 @@ export default function ProfileFormPremium() {
               name="per-lote"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Perimetro del Lote</FormLabel>
+                  <FormLabel>Perimetro de lote</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                    <Input placeholder="m2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -220,9 +219,9 @@ export default function ProfileFormPremium() {
               name="frente-lote"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Frente del Lote</FormLabel>
+                  <FormLabel>Frente de lote</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                    <Input placeholder="m2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -310,15 +309,14 @@ export default function ProfileFormPremium() {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="pb-muros-pb-perimetro"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Muros planta baja Perímetro</FormLabel>
+                  <FormLabel>Perimetro muros planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                    <Input placeholder="m2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -329,9 +327,9 @@ export default function ProfileFormPremium() {
               name="pb-muros-pb-interiores-churrasquera-otros"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Muros interiores, churrasquera y otros </FormLabel>
+                  <FormLabel>Muros interiores churrasqueras y otros</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                    <Input placeholder="m2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -342,9 +340,9 @@ export default function ProfileFormPremium() {
               name="pa-muros-pa-perimetro"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Muro Planta Alta Perímetro</FormLabel>
+                  <FormLabel>Perimetro de muros Planta Alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                    <Input placeholder="m2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -355,23 +353,9 @@ export default function ProfileFormPremium() {
               name="pa-muros-pa-interiores"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Muro Planta Alta interiores</FormLabel>
+                  <FormLabel>Muros interiores planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="altura-de-muro-planta-alta"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Altura de muro planta alta</FormLabel>
-                  <FormControl>
-                    <Input placeholder="ml" {...field} />
+                    <Input placeholder="m2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -382,9 +366,22 @@ export default function ProfileFormPremium() {
               name="altura-de-muro-planta-baja"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Altura de Muro Planta baja</FormLabel>
+                  <FormLabel>Altura de muro planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                    <Input placeholder="m2" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="altura-de-muro-planta-alta"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Altura de muro planta alta</FormLabel>
+                  <FormControl>
+                    <Input placeholder="m2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -395,9 +392,9 @@ export default function ProfileFormPremium() {
               name="puerta-principal-cantidad"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Puerta principal</FormLabel>
+                  <FormLabel>Puerta principal cantidad</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                    <Input placeholder="Cantidad" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -410,7 +407,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Puerta interior</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                    <Input placeholder="Cantidad" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -421,9 +418,9 @@ export default function ProfileFormPremium() {
               name="ventana-habitacion"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Ventana habitación</FormLabel>
+                  <FormLabel>Ventana habitacion</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                    <Input placeholder="Cantidad" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -434,9 +431,9 @@ export default function ProfileFormPremium() {
               name="puerta-ventana-habitacion"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Puerta ventana habitación</FormLabel>
+                  <FormLabel>Puerta ventana habitacion</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                    <Input placeholder="Cantidad" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -449,7 +446,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Ventana baño</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                    <Input placeholder="Cantidad" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -462,7 +459,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Puerta ventana living</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                    <Input placeholder="Cantidad" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -475,7 +472,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Puerta lavanderia</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                    <Input placeholder="Cantidad" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -485,47 +482,39 @@ export default function ProfileFormPremium() {
               control={form.control}
               name="vidrio-simple-dvh"
               render={({ field }) => (
-                <FormItem className="space-y-3">
-                  <FormLabel>Vidrio simple o DVH</FormLabel>
+                <FormItem>
+                  <FormLabel>Vidrio simple/DVH</FormLabel>
                   <FormControl>
-                    <RadioGroup
+                    <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex flex-col space-y-1"
                     >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="Vidrio" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Vidrio</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="DVH" />
-                        </FormControl>
-                        <FormLabel className="font-normal">DVH</FormLabel>
-                      </FormItem>
-                    </RadioGroup>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccione" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Vidrio simple">Vidrio simple</SelectItem>
+                        <SelectItem value="DVH">DVH</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="balcon-con-porcelanato"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>¿Balcon con porcelanato? </FormLabel>
+                  <FormLabel>Balcon con porcelanato</FormLabel>
                   <FormControl>
                     <Input placeholder="m2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            />
-
+            />  
             <FormField
               control={form.control}
               name="cantidad-encuentros-PB"
@@ -533,45 +522,31 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Cantidad de encuentros PB</FormLabel>
                   <FormControl>
-                    <Input placeholder="vertices" {...field} />
+                    <Input placeholder="Vertice" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            />  
             <FormField
               control={form.control}
               name="cantidad-encuentros-PA"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Cantidad de encuentros PA</FormLabel>
+                  <FormLabel>Cantidad de encuentros PB</FormLabel>
                   <FormControl>
-                    <Input placeholder="vertices" {...field} />
+                    <Input placeholder="Vertice" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
-              control={form.control}
-              name="cantidad-encuentros-PA"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Cantidad de encuentros PA</FormLabel>
-                  <FormControl>
-                    <Input placeholder="vertices" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
+            />  
+           <FormField
               control={form.control}
               name="espesor-muro-SIP"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Cierre Provisorio</FormLabel>
+                  <FormLabel>Pozo séptico</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -596,8 +571,37 @@ export default function ProfileFormPremium() {
                 </FormItem>
               )}
             />
+              <FormField
+              control={form.control}
+              name="piso-suspendido-sip"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Piso suspendido SIP</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SI" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Si</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="NO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-
           <div className="flex justify-center pt-5 pb-6 ">
             {/* <Button
               type="submit"
@@ -625,32 +629,6 @@ export default function ProfileFormPremium() {
           </div>
         </form>
       </Form>
-      <div>
-        {isSubmitComplete && (
-          <Popover>
-            <div className="flex justify-center pb-6 relative">
-              <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
-                Mirar el presupuesto
-              </PopoverTrigger>
-            </div>
-            <PopoverContent className=" h-[70vh] w-[80vw]">
-              <Popoverdata />
-            </PopoverContent>
-          </Popover>
-        )}
-      </div>
-      <div>
-        {isSubmitComplete && (
-          <Button
-            className="w-[50%] bg-primary text-primary-foreground hover:bg-primary/90"
-            onClick={() => {
-              window.open("/api/actualizarExcel", "_blank");
-            }}
-          >
-            Descargar Excel
-          </Button>
-        )}
-      </div>
-    </>
+
   );
 }
