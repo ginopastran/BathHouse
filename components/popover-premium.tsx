@@ -13,14 +13,14 @@ import { Loader2 } from "lucide-react";
 const PopoverdataPremium = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cellValues, setCellValues] = useState<{
-    // CFSPREMIUM
-    cellValueM43: string;
-    // CFSPREMIUM (PB y PA)
-    cellValueM44: string;
-    // SIPPREMIUM
-    cellValueM45: string;
-    // SIPPREMIUM (PB y PA)
-    cellValueM46: string;
+       //CSF Premium (PB)
+       cellValueAG2: string;
+       //CSF Premium (PB y PA)
+       cellValueAH2: string;
+       //SIP Premium (PB)
+       cellValueAI2: string;
+       //SIP Premioum (PB - PA)
+       cellValueAJ2: string;
     
   } | null>(null);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState<string>("");
@@ -44,19 +44,20 @@ const PopoverdataPremium = () => {
           return value != null ? Math.round(value).toLocaleString() : "";
         };
 
+        
         // CFSPREMIUM  
-        data.cellValueN43 = roundAndFormat(data.cellValueN43?.result);
+        data.cellValueAG2 = roundAndFormat(data.cellValueN43?.result);
         
         // CFSPREMIUM (PB y PA)
-        data.cellValueN44 = roundAndFormat(data.cellValueN43?.result);
-        if  (data.cellValueN44 != "") {
+        data.cellValueAH2 = roundAndFormat(data.cellValueN43?.result);
+        if  (data.cellValueAH2 != "") {
           setIsCSFPA(true);
         }
         // SIPPREMIUM 
-        data.cellValueN45 = roundAndFormat(data.cellValueN43?.result);
+        data.cellValueAI2 = roundAndFormat(data.cellValueN43?.result);
         // SIPPREMIUM (PB y PA)
-        data.cellValueN46 = roundAndFormat(data.cellValueN43?.result);
-        if  (data.cellValueN46 != "") {
+        data.cellValueAJ2 = roundAndFormat(data.cellValueN43?.result);
+        if  (data.cellValueAJ2 != "") {
           setIsSIPPA(true);
         }
         setCellValues(data);

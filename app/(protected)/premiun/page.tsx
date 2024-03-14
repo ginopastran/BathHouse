@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/popover";
 import Popoverdata from "@/components/popover-data-form3";
 import { useState } from "react";
+import PopoverdataPremium from "@/components/popover-premium";
 
 const formSchema = z.object({
   //datos cliente
@@ -761,7 +762,7 @@ export default function ProfileFormPremium() {
               </PopoverTrigger>
             </div>
             <PopoverContent className=" h-[70vh] w-[80vw]">
-              <Popoverdata />
+              <PopoverdataPremium />
             </PopoverContent>
           </Popover>
         )}
