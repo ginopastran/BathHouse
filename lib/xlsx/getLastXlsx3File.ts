@@ -1,16 +1,8 @@
 import { S3 } from 'aws-sdk';
-import AWS from "aws-sdk"
-
 
 const s3 = new S3();
 
-AWS.config.update({
-    accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
-    region: process.env.NEXT_PUBLIC_S3_REGION,
-});
-
-const getLastXlsxFile = async (bucketName: string, userFolder: string): Promise<string | undefined> => {
+const getLastXlsx3File = async (bucketName: string, userFolder: string): Promise<string | undefined> => {
     const params = {
         Bucket: bucketName,
         Prefix: userFolder,
@@ -25,25 +17,25 @@ const getLastXlsxFile = async (bucketName: string, userFolder: string): Promise<
         }
 
         // Filtra los archivos para incluir solo los que terminan en .xlsx
-        const xlsxFiles = contents.filter(file => file?.Key?.endsWith('.xlsx'));
+        const xlsx3Files = contents.filter(file => file?.Key?.endsWith('-3.xlsx'));
 
-        if (xlsxFiles.length === 0) {
+        if (xlsx3Files.length === 0) {
             return undefined;
         }
 
         // Ordena los archivos por fecha de última modificación
-        xlsxFiles.sort((a, b) => {
+        xlsx3Files.sort((a, b) => {
             const aTime = a.LastModified ? a.LastModified.getTime() : 0;
             const bTime = b.LastModified ? b.LastModified.getTime() : 0;
             return bTime - aTime;
         });
 
-        // Devuelve el nombre del archivo .xlsx más reciente
-        return xlsxFiles[0].Key;
+        // Devuelve el nombre del archivo 2.xlsx más reciente
+        return xlsx3Files[0].Key;
     } catch (error) {
         console.error("Error al listar los archivos desde S3:", error);
         return undefined;
     }
 }
 
-export default getLastXlsxFile
+export default getLastXlsx3File

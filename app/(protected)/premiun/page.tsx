@@ -146,9 +146,36 @@ export default function ProfileFormPremium() {
     }
   };
 
-  const onDownload = async (data: any) => {
+  const onDownload = async () => {
     try {
-    } catch (error) {}
+      // Hacer una solicitud a tu API para obtener los datos de la hoja VIP en formato Excel
+      const response = await axios.get("/api/descargarExcel", {
+        responseType: "arraybuffer", // Indica que los datos deben ser tratados como un array de bytes
+        headers: {
+          Accept:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
+      });
+
+      // Crear un objeto Blob con los datos
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      // Crear una URL para el Blob
+      const url = URL.createObjectURL(blob);
+
+      // Crear un enlace temporal y hacer clic en él para iniciar la descarga
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "VIP.xlsx";
+      link.click();
+
+      // Liberar la URL
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error al descargar la hoja VIP:", error);
+    }
   };
 
   return (
@@ -644,12 +671,12 @@ export default function ProfileFormPremium() {
             </PopoverContent>
           </Popover>
         )}
-        {isSubmitComplete && (
+        {!isSubmitComplete && (
           <div className="flex justify-center pb-6 relative">
             <Button
               className="w-[50%]"
               disabled={isDownloading}
-              onClick={() => !isSubmitting && onDownload}
+              onClick={onDownload}
             >
               {isDownloading && (
                 <ReloadIcon
