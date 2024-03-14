@@ -29,8 +29,7 @@ if (!privateKey || !clientEmail) {
 }
 
 export async function GET(req: NextRequest) {
-
-    const session = await auth()
+    const session = await auth();
 
     const getLastXlsx3File = async (bucketName: string, userFolder: string): Promise<string | undefined> => {
         const params = {
@@ -86,23 +85,15 @@ export async function GET(req: NextRequest) {
         const workbook = new ExcelJS.Workbook();
         await workbook.xlsx.load(excelData);
 
-        const worksheet = workbook.getWorksheet('VIP');
-
-        if (!worksheet) {
-            return NextResponse.json({ message: "No se encontró la hoja de trabajo 'VIP'" });
-        }
-
-        // Crear un nuevo libro de trabajo y agregar una nueva hoja de trabajo
-        const newWorkbook = new ExcelJS.Workbook();
-        const newWorksheet = newWorkbook.addWorksheet('VIP');
-
-        // Copiar las filas de la hoja de trabajo original a la nueva hoja de trabajo
-        worksheet.eachRow((row, rowNumber) => {
-            newWorksheet.addRow(row.values);
+        // Eliminar todas las hojas excepto la 'VIP'
+        workbook.eachSheet(sheet => {
+            if (sheet.name !== 'VIP') {
+                workbook.removeWorksheet(sheet.id);
+            }
         });
 
         // Convertir el nuevo libro de trabajo a un array de bytes
-        const buffer = await newWorkbook.xlsx.writeBuffer();
+        const buffer = await workbook.xlsx.writeBuffer();
 
         return new NextResponse(buffer, {
             headers: {

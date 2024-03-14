@@ -59,12 +59,12 @@ const formSchema = z.object({
   "altura-de-muro-planta-baja": z.coerce.number().min(0),
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
   //agregado 14/03
-  "altura-PB-muro-interno-2": z.coerce.number().min(0),//altura de muro pa b81
-  "altura-PA-muro-interno-2": z.coerce.number().min(0),//altura de muro pa b82
-  "PA-muro-perimetrales-3":z.coerce.number().min(0),//altura de muro pa b83
-  "altura-PA-muro-perimetrales-3": z.coerce.number().min(0),//altura de muro pa b83
-  "PB-muro-perimetrales-3": z.coerce.number().min(0),//altura de muro pa b83
-  "altura-PB-muro-perimetrales-3": z.coerce.number().min(0),//altura de muro pa b83
+  "altura-PB-muro-interno-2": z.coerce.number().min(0), //altura de muro pa b81
+  "altura-PA-muro-interno-2": z.coerce.number().min(0), //altura de muro pa b82
+  "PA-muro-perimetrales-3": z.coerce.number().min(0), //altura de muro pa b83
+  "altura-PA-muro-perimetrales-3": z.coerce.number().min(0), //altura de muro pa b83
+  "PB-muro-perimetrales-3": z.coerce.number().min(0), //altura de muro pa b83
+  "altura-PB-muro-perimetrales-3": z.coerce.number().min(0), //altura de muro pa b83
   //aberturas
   //aberturas form 2
   "puerta-principal-cantidad": z.coerce.number().min(0),
@@ -102,19 +102,19 @@ export default function ProfileFormPremium() {
       "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": 0,
       "sup-alero": 0,
       //cerramiento
-      "pb-muros-pb-perimetro": 0,//perimetrales muro pb b20 
-      "pb-muros-pb-interiores-churrasquera-otros": 0,//interiores muro pb b21
-      "pa-muros-pa-perimetro": 0,//muros perimetrales pa b22
-      "pa-muros-pa-interiores": 0,//muros interiores pa b23
+      "pb-muros-pb-perimetro": 0, //perimetrales muro pb b20
+      "pb-muros-pb-interiores-churrasquera-otros": 0, //interiores muro pb b21
+      "pa-muros-pa-perimetro": 0, //muros perimetrales pa b22
+      "pa-muros-pa-interiores": 0, //muros interiores pa b23
       "altura-de-muro-planta-baja": 0, //altura de muro pb b24
-      "altura-de-muro-planta-alta": 0,//altura de muro pa b25
+      "altura-de-muro-planta-alta": 0, //altura de muro pa b25
       //agregado 14/03
-      "altura-PB-muro-interno-2": 0,//altura de muro pa b81
-      "altura-PA-muro-interno-2": 0,//altura de muro pa b82
-      "PA-muro-perimetrales-3": 0,//altura de muro pa b83
-      "altura-PA-muro-perimetrales-3": 0,//altura de muro pa b83
-      "PB-muro-perimetrales-3": 0,//altura de muro pa b83
-      "altura-PB-muro-perimetrales-3": 0,//altura de muro pa b83
+      "altura-PB-muro-interno-2": 0, //altura de muro pa b81
+      "altura-PA-muro-interno-2": 0, //altura de muro pa b82
+      "PA-muro-perimetrales-3": 0, //altura de muro pa b83
+      "altura-PA-muro-perimetrales-3": 0, //altura de muro pa b83
+      "PB-muro-perimetrales-3": 0, //altura de muro pa b83
+      "altura-PB-muro-perimetrales-3": 0, //altura de muro pa b83
       //aberturas
       "puerta-principal-cantidad": undefined,
       "puerta-interior": undefined,
@@ -164,6 +164,7 @@ export default function ProfileFormPremium() {
 
   const onDownload = async () => {
     try {
+      setIsDownloading(true);
       // Hacer una solicitud a tu API para obtener los datos de la hoja VIP en formato Excel
       const response = await axios.get("/api/descargarExcel", {
         responseType: "arraybuffer", // Indica que los datos deben ser tratados como un array de bytes
@@ -172,6 +173,8 @@ export default function ProfileFormPremium() {
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         },
       });
+
+      // console.log(response.data);
 
       // Crear un objeto Blob con los datos
       const blob = new Blob([response.data], {
@@ -191,6 +194,8 @@ export default function ProfileFormPremium() {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Error al descargar la hoja VIP:", error);
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -766,7 +771,7 @@ export default function ProfileFormPremium() {
             </PopoverContent>
           </Popover>
         )}
-        {!isSubmitComplete && (
+        {isSubmitComplete && (
           <div className="flex justify-center pb-6 relative">
             <Button
               className="w-[50%]"
