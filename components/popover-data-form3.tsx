@@ -168,6 +168,9 @@ const Popoverdata = () => {
       cellValueAI2: string;
       //SIP Premioum (PB - PA)
       cellValueAJ2: string;
+
+      //Cassasip/Cassaforma %
+      cellValueAH6: string;
     } | null>(null);
     const [opcionSeleccionada, setOpcionSeleccionada] = useState<string>("");
 

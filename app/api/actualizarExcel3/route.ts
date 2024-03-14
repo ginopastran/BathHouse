@@ -254,6 +254,9 @@ export async function GET(req: NextRequest) {
         //PREMIUM SIP
         let cellValueAI2, cellValueAJ2
 
+        //Cassasip/Cassaforma %
+        let cellValueAH6
+
         if (worksheet) {
             // CASSAFORMA-TOTAL
             cellValueI5 = worksheet.getCell('I5').value
@@ -412,6 +415,9 @@ export async function GET(req: NextRequest) {
             cellValueAI2 = worksheet.getCell('AI2').value
             //SIP Premioum (PB - PA)
             cellValueAJ2 = worksheet.getCell('AJ2').value
+
+            //Cassasip/Cassaforma %
+            cellValueAH6 = worksheet.getCell('AH6').value
         }
 
         return NextResponse.json({
@@ -458,7 +464,8 @@ export async function GET(req: NextRequest) {
             cellValueN41, cellValueN42, cellValueN43,
 
             cellValueAG2, cellValueAH2,
-            cellValueAI2, cellValueAJ2
+            cellValueAI2, cellValueAJ2,
+            cellValueAH6
         });
     } catch (error: any) {
         return NextResponse.json({ message: "Ocurrió un error", error: error.message });

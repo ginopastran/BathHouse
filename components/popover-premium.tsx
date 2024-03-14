@@ -21,7 +21,6 @@ const PopoverdataPremium = () => {
     cellValueM45: string;
     // SIPPREMIUM (PB y PA)
     cellValueM46: string;
-    
   } | null>(null);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState<string>("");
   const [isCSFPA, setIsCSFPA] = useState(false);
@@ -35,7 +34,7 @@ const PopoverdataPremium = () => {
     const fetchCellValues = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get("/api/actualizarExcel");
+        const response = await axios.get("/api/actualizarExcel3");
         const data = response.data;
 
         console.log(data);
@@ -44,19 +43,19 @@ const PopoverdataPremium = () => {
           return value != null ? Math.round(value).toLocaleString() : "";
         };
 
-        // CFSPREMIUM  
+        // CFSPREMIUM
         data.cellValueN43 = roundAndFormat(data.cellValueN43?.result);
-        
+
         // CFSPREMIUM (PB y PA)
         data.cellValueN44 = roundAndFormat(data.cellValueN43?.result);
-        if  (data.cellValueN44 != "") {
+        if (data.cellValueN44 != "") {
           setIsCSFPA(true);
         }
-        // SIPPREMIUM 
+        // SIPPREMIUM
         data.cellValueN45 = roundAndFormat(data.cellValueN43?.result);
         // SIPPREMIUM (PB y PA)
         data.cellValueN46 = roundAndFormat(data.cellValueN43?.result);
-        if  (data.cellValueN46 != "") {
+        if (data.cellValueN46 != "") {
           setIsSIPPA(true);
         }
         setCellValues(data);
@@ -80,14 +79,14 @@ const PopoverdataPremium = () => {
         <>
           {/* TABLIST DESKTOP */}
           <h1 className=" text-black dark:text-white text-center font-semibold uppercase p-1 pb-2 hidden lg:block ">
-            Informacion de Cotización 
+            Informacion de Cotización
           </h1>
           <div className="flex w">
             <div className={`flex flex-col gap-3 `}>
               <h3>CSF Premium </h3>
               <span>{/* {cellValues?.cellValueI43}  */} 2000 $</span>
             </div>
-            <div className={`flex flex-col gap-3 ${isCSFPA ? "hidden":""}`}>
+            <div className={`flex flex-col gap-3 ${isCSFPA ? "hidden" : ""}`}>
               <h3>CSF Premium (PB y PA) </h3>
               <span>{/* {cellValues?.cellValueI43} */} - $</span>
             </div>
@@ -95,13 +94,12 @@ const PopoverdataPremium = () => {
               <h3>SIP Premium </h3>
               <span>{/* {cellValues?.cellValueI43} */} 2000 $</span>
             </div>
-            <div className={`flex flex-col gap-3 ${isSIPPA ? "hidden":""}`}>
+            <div className={`flex flex-col gap-3 ${isSIPPA ? "hidden" : ""}`}>
               <h3>SIP Premium (PB y PA)</h3>
               <span>{/* {cellValues?.cellValue43} */} 2000 $</span>
             </div>
           </div>
           {/* TABLIST MOBILE */}
-
         </>
       )}
     </Tabs>
