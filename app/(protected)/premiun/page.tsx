@@ -148,6 +148,7 @@ export default function ProfileFormPremium() {
 
   const onDownload = async () => {
     try {
+      setIsDownloading(true);
       // Hacer una solicitud a tu API para obtener los datos de la hoja VIP en formato Excel
       const response = await axios.get("/api/descargarExcel", {
         responseType: "arraybuffer", // Indica que los datos deben ser tratados como un array de bytes
@@ -156,6 +157,8 @@ export default function ProfileFormPremium() {
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         },
       });
+
+      // console.log(response.data);
 
       // Crear un objeto Blob con los datos
       const blob = new Blob([response.data], {
@@ -175,6 +178,8 @@ export default function ProfileFormPremium() {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Error al descargar la hoja VIP:", error);
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -671,7 +676,7 @@ export default function ProfileFormPremium() {
             </PopoverContent>
           </Popover>
         )}
-        {!isSubmitComplete && (
+        {isSubmitComplete && (
           <div className="flex justify-center pb-6 relative">
             <Button
               className="w-[50%]"
