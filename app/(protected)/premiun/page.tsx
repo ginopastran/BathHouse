@@ -57,6 +57,14 @@ const formSchema = z.object({
   "pa-muros-pa-interiores": z.coerce.number().min(0),
   "altura-de-muro-planta-baja": z.coerce.number().min(0),
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
+  //agregado 14/03
+  "altura-PB-muro-interno-2": z.coerce.number().min(0),//altura de muro pa b81
+  "altura-PA-muro-interno-2": z.coerce.number().min(0),//altura de muro pa b82
+  "PA-muro-perimetrales-3":z.coerce.number().min(0),//altura de muro pa b83
+  "altura-PA-muro-perimetrales-3": z.coerce.number().min(0),//altura de muro pa b83
+  "PB-muro-perimetrales-3": z.coerce.number().min(0),//altura de muro pa b83
+  "altura-PB-muro-perimetrales-3": z.coerce.number().min(0),//altura de muro pa b83
+  //aberturas
   //aberturas form 2
   "puerta-principal-cantidad": z.coerce.number().min(0),
   "puerta-interior": z.coerce.number().min(0),
@@ -93,12 +101,19 @@ export default function ProfileFormPremium() {
       "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": 0,
       "sup-alero": 0,
       //cerramiento
-      "pb-muros-pb-perimetro": 0,
-      "pb-muros-pb-interiores-churrasquera-otros": 0,
-      "pa-muros-pa-perimetro": 0,
-      "pa-muros-pa-interiores": 0,
-      "altura-de-muro-planta-baja": 0,
-      "altura-de-muro-planta-alta": 0,
+      "pb-muros-pb-perimetro": 0,//perimetrales muro pb b20 
+      "pb-muros-pb-interiores-churrasquera-otros": 0,//interiores muro pb b21
+      "pa-muros-pa-perimetro": 0,//muros perimetrales pa b22
+      "pa-muros-pa-interiores": 0,//muros interiores pa b23
+      "altura-de-muro-planta-baja": 0, //altura de muro pb b24
+      "altura-de-muro-planta-alta": 0,//altura de muro pa b25
+      //agregado 14/03
+      "altura-PB-muro-interno-2": 0,//altura de muro pa b81
+      "altura-PA-muro-interno-2": 0,//altura de muro pa b82
+      "PA-muro-perimetrales-3": 0,//altura de muro pa b83
+      "altura-PA-muro-perimetrales-3": 0,//altura de muro pa b83
+      "PB-muro-perimetrales-3": 0,//altura de muro pa b83
+      "altura-PB-muro-perimetrales-3": 0,//altura de muro pa b83
       //aberturas
       "puerta-principal-cantidad": undefined,
       "puerta-interior": undefined,
@@ -417,6 +432,85 @@ export default function ProfileFormPremium() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Altura de muro planta alta</FormLabel>
+                <FormControl>
+                  <Input placeholder="m2" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* agregado 14/03 */}
+          <FormField
+            control={form.control}
+            name="altura-PB-muro-interno-2"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Altura de muro interno PB</FormLabel>
+                <FormControl>
+                  <Input placeholder="m2" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="altura-PA-muro-interno-2"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Altura de muro interno PA</FormLabel>
+                <FormControl>
+                  <Input placeholder="m2" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="PA-muro-perimetrales-3"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Altura de muro perimetrales PA</FormLabel>
+                <FormControl>
+                  <Input placeholder="m2" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="altura-PA-muro-perimetrales-3"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Altura de muro perimetrales PA</FormLabel>
+                <FormControl>
+                  <Input placeholder="m2" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="PB-muro-perimetrales-3"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Altura de muro perimetrales PB</FormLabel>
+                <FormControl>
+                  <Input placeholder="m2" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="altura-PB-muro-perimetrales-3"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Altura de muro perimetrales PB</FormLabel>
                 <FormControl>
                   <Input placeholder="m2" {...field} />
                 </FormControl>

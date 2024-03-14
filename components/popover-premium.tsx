@@ -10,7 +10,7 @@ import axios from "axios";
 import { RiLoader4Fill } from "react-icons/ri";
 import { Loader2 } from "lucide-react";
 
-const Popoverdata = () => {
+const PopoverdataPremium = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cellValues, setCellValues] = useState<{
     // CFSPREMIUM
@@ -108,4 +108,4 @@ const Popoverdata = () => {
   );
 };
 
-export default Popoverdata;
+export default PopoverdataPremium;
