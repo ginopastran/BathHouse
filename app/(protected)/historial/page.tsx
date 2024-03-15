@@ -2,6 +2,7 @@
 
 import { EditJsonButton } from "@/components/edit-json-button";
 import HistoryCard from "@/components/history-card";
+import NewCompNavbar from "@/components/new-comp-navbar";
 import { getAllJsonFiles } from "@/lib/json/getAllJsonFiles";
 import { formatDateString } from "@/lib/utils";
 import { getAllXlsxFiles } from "@/lib/xlsx/getAllXlsxFiles";
@@ -9,6 +10,7 @@ import { Button } from "@nextui-org/react";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { CircleLoader } from "react-spinners";
 
 interface JsonData {
   "nombre-completo": string;
@@ -62,21 +64,18 @@ function HistoryPage() {
   if (loading) {
     return (
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Loader2 className=" h-20 w-20 animate-spin" />
+        {/* <Loader2 className=" h-20 w-20 animate-spin" /> */}
+        <CircleLoader color="#FA851E" size={70} />
       </div>
     );
   }
 
   return (
     <div className="flex flex-col h-screen dark relative pt-8 z-30">
+      <NewCompNavbar title="Historial" />
       <main className="flex-1 overflow-auto p-4 text-white">
         <div className="container max-w-3xl space-y-8">
-          <div className="flex flex-col items-center space-y-2 text-center">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold">History of Requests</h1>
-              <p className="text-gray-500">A timeline of key requests</p>
-            </div>
-          </div>
+          <div className="flex flex-col items-center space-y-2 text-center"></div>
           <div className="grid gap-8">
             {data.map((item, index) => (
               <div className="flex items-center space-x-4" key={index}>

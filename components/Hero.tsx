@@ -112,9 +112,18 @@ const Hero = () => {
                 No solo construimos casas, construimos sueños.
               </h1>
               <div className="flex flex-col gap-3">
-                <input className=" bg-[#18161A] bg-opacity-[65%] py-1 sm:py-2 rounded-lg border-1 border-white/30" />
-                <input className=" bg-[#18161A] bg-opacity-[65%] py-1 sm:py-2 rounded-lg border-1 border-white/30" />
-                <input className=" bg-[#18161A] bg-opacity-[65%] py-1 sm:py-2 rounded-lg border-1 border-white/30" />
+                <input
+                  disabled
+                  className=" bg-[#18161A] bg-opacity-[65%] py-1 sm:py-2 rounded-lg border-1 border-white/30"
+                />
+                <input
+                  disabled
+                  className=" bg-[#18161A] bg-opacity-[65%] py-1 sm:py-2 rounded-lg border-1 border-white/30"
+                />
+                <input
+                  disabled
+                  className=" bg-[#18161A] bg-opacity-[65%] py-1 sm:py-2 rounded-lg border-1 border-white/30"
+                />
               </div>
               <div className=" flex items-center justify-center">
                 {session && (
