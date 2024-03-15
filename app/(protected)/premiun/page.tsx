@@ -368,7 +368,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Perimetro de lote</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''}  />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -381,7 +381,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Frente de lote</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -394,7 +394,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -407,7 +407,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -420,7 +420,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Superficie Pérgolas cubiertas (techado)</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -435,7 +435,7 @@ export default function ProfileFormPremium() {
                     Superficie Pérgolas semi cubierta (pérgola)
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -450,7 +450,7 @@ export default function ProfileFormPremium() {
                     Superficie Pérgolas semi cubierta(Cochera)
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -463,7 +463,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Superficie Alero</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -476,7 +476,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Perimetro muros planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -489,7 +489,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Muros interiores churrasqueras y otros</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -502,7 +502,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Perimetro de muros Planta Alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -515,7 +515,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Muros interiores planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -528,7 +528,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Altura de muro planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -541,7 +541,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Altura de muro planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -633,7 +633,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Puerta principal cantidad</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" value={field.value ?? ''} />
+                    <Input placeholder="Cantidad" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -646,7 +646,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Puerta interior</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" value={field.value ?? ''} />
+                    <Input placeholder="Cantidad" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -659,7 +659,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Ventana habitacion</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" value={field.value ?? ''} />
+                    <Input placeholder="Cantidad" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -672,7 +672,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Puerta ventana habitacion</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" value={field.value ?? ''} />
+                    <Input placeholder="Cantidad" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -685,7 +685,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Ventana baño</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" value={field.value ?? ''} />
+                    <Input placeholder="Cantidad" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -698,7 +698,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Puerta ventana living</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" value={field.value ?? ''} />
+                    <Input placeholder="Cantidad" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -711,7 +711,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Puerta lavanderia</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cantidad" value={field.value ?? ''} />
+                    <Input placeholder="Cantidad" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -748,7 +748,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Balcon con porcelanato</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
+                    <Input placeholder="m2" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -761,7 +761,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Cantidad de encuentros PB</FormLabel>
                   <FormControl>
-                    <Input placeholder="Vertice" value={field.value ?? ''} />
+                    <Input placeholder="Vertice" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -774,7 +774,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Cantidad de encuentros PB</FormLabel>
                   <FormControl>
-                    <Input placeholder="Vertice" value={field.value ?? ''} />
+                    <Input placeholder="Vertice" defaultValue={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
