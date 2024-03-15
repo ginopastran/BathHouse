@@ -349,6 +349,9 @@ const Popoverdata = () => {
           //SIP Premioum (PB - PA)
           data.cellValueAJ2 = roundAndFormat(data.cellValueAJ2?.result);
 
+          //Cassasip/Cassaforma %
+          data.cellValueAH6 = roundAndFormat(data.cellValueAH6?.result);
+
           setCellValues(data);
         } catch (error) {
           console.log(error);
