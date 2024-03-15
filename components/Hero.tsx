@@ -13,8 +13,18 @@ import {
   BsThreeDots,
   BsTwitter,
 } from "react-icons/bs";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/react";
 
 const Hero = () => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
     <div className="text-white z-0  flex flex-col  justify-center items-center w-full">
       <div className="flex gap-4">
@@ -27,9 +37,46 @@ const Hero = () => {
               <p className=" text-sm sm:text-md lg:text-xl">
                 Deja tu proyecto en nuestras manos, te brindamos un hogar.
               </p>
-              <button className=" bg-orange-600 w-full p-2 sm:p-3 rounded-lg uppercase lg:text-2xl sm:text-xl text-md font-bold">
+              <button
+                className=" bg-orange-600 w-full p-2 sm:p-3 rounded-lg uppercase lg:text-2xl sm:text-xl text-md font-bold"
+                onClick={onOpen}
+              >
                 Presupuestar
               </button>
+              <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                  {(onClose) => (
+                    <>
+                      <ModalHeader className="flex flex-col gap-1">
+                        Modal Title
+                      </ModalHeader>
+                      <ModalBody>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nullam pulvinar risus non risus hendrerit
+                          venenatis. Pellentesque sit amet hendrerit risus, sed
+                          porttitor quam.
+                        </p>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nullam pulvinar risus non risus hendrerit
+                          venenatis. Pellentesque sit amet hendrerit risus, sed
+                          porttitor quam.
+                        </p>
+                        <p>
+                          Magna exercitation reprehenderit magna aute tempor
+                          cupidatat consequat elit dolor adipisicing. Mollit
+                          dolor eiusmod sunt ex incididunt cillum quis. Velit
+                          duis sit officia eiusmod Lorem aliqua enim laboris do
+                          dolor eiusmod. Et mollit incididunt nisi consectetur
+                          esse laborum eiusmod pariatur proident Lorem eiusmod
+                          et. Culpa deserunt nostrud ad veniam.
+                        </p>
+                      </ModalBody>
+                    </>
+                  )}
+                </ModalContent>
+              </Modal>
             </div>
           </div>
           <div className="backdrop w-[13rem] sm:w-[23rem] md:w-[26rem] lg:w-[34rem] min-h-[16rem] sm:min-h-[20rem] md:min-h-[20rem] lg:min-h-[20rem] bg-[#191D24] bg-opacity-[65%] rounded-xl p-1 px-4 sm:px-10 text-white border-white/30 border-1 shadow-lg">
