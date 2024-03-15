@@ -5,16 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function NewNavbar() {
+export default function NewCompNavbar() {
   return (
-    <header className="py-[3rem] px-[9rem] flex items-center gap-3">
+    <header className="py-[2rem] px-[4rem] flex items-center gap-3 pb-[7rem]">
       <Link href="/">
         <Image
           src="/bathouse-logo.png"
           alt="Bathouse-Logo"
           width={90}
           height={90}
-          className=""
+          className="absolute"
         />
       </Link>
       <Link href="/">
@@ -23,7 +23,7 @@ export default function NewNavbar() {
           alt="Bathouse-Logo"
           width={224}
           height={224}
-          className=" absolute left-56 hidden sm:block top-[4.2rem]"
+          className=" absolute left-36 hidden sm:block top-[3.2rem]"
         />
       </Link>
     </header>
