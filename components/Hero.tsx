@@ -27,9 +27,16 @@ import {
   Avatar,
   User,
 } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
+import { logout } from "@/actions/logout";
 
 const Hero = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { data: session, status } = useSession();
+
+  const onLogout = () => {
+    logout();
+  };
 
   return (
     <div className="text-white z-0  flex flex-col  justify-center items-center w-full">
@@ -110,16 +117,42 @@ const Hero = () => {
                 <input className=" bg-[#18161A] bg-opacity-[65%] py-1 sm:py-2 rounded-lg border-1 border-white/30" />
               </div>
               <div className=" flex items-center justify-center">
-                <Dropdown placement="top">
-                  <DropdownTrigger>
-                    <Settings className=" text-white h-8 w-8 sm:h-10 sm:w-10" />
-                  </DropdownTrigger>
-                  <DropdownMenu aria-label="User Actions" variant="flat">
-                    <DropdownItem href="/historial" color="primary">
-                      Historial
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+                {session && (
+                  <Dropdown
+                    placement="top"
+                    className=" flex flex-col items-center"
+                  >
+                    <DropdownTrigger>
+                      <Settings className=" text-white h-8 w-8 sm:h-10 sm:w-10" />
+                    </DropdownTrigger>
+                    <DropdownMenu aria-label="User Actions" variant="flat">
+                      <DropdownItem href="/historial" color="primary">
+                        Historial
+                      </DropdownItem>
+                      <DropdownItem color="danger" onClick={onLogout}>
+                        Cerrar Sesión
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                )}
+                {!session && (
+                  <Dropdown
+                    placement="top"
+                    className=" flex flex-col items-center"
+                  >
+                    <DropdownTrigger>
+                      <Settings className=" text-white h-8 w-8 sm:h-10 sm:w-10" />
+                    </DropdownTrigger>
+                    <DropdownMenu aria-label="User Actions" variant="flat">
+                      <DropdownItem href="/historial" color="primary">
+                        Historial
+                      </DropdownItem>
+                      <DropdownItem color="primary" href="/auth/login">
+                        Iniciar Sesión
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                )}
               </div>
               <div className="flex justify-between items-center px-2">
                 <BsInstagram className="h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8" />
