@@ -62,7 +62,7 @@ const PopoverdataPremium = () => {
           setIsSIPPA(true);
         }
         //Cassasip/Cassaforma %
-        data.cellValueAH6 = roundAndFormat(data.cellValueAH2?.result);
+        data.cellValueAH6 = roundAndFormat(data.cellValueAH6?.result);
         setCellValues(data);
       } catch (error) {
         console.log(error);
@@ -106,7 +106,7 @@ const PopoverdataPremium = () => {
             </div>
             <div className={`flex flex-col gap-3 `}>
               <h3>Cassasip/Cassaforma %</h3>
-              <span>{cellValues?.cellValueAH2}</span>
+              <span>{cellValues?.cellValueAH6}%</span>
             </div>
           </div>
           {/* TABLIST MOBILE */}
