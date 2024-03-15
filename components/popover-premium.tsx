@@ -9,20 +9,21 @@ import { Button } from "./ui/button";
 import axios from "axios";
 import { RiLoader4Fill } from "react-icons/ri";
 import { Loader2 } from "lucide-react";
+import { CircleLoader } from "react-spinners";
 
 const PopoverdataPremium = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cellValues, setCellValues] = useState<{
-      //CSF Premium (PB)
-      cellValueAG2: string;
-      //CSF Premium (PB y PA)
-      cellValueAH2: string;
-      //SIP Premium (PB)
-      cellValueAI2: string;
-      //SIP Premioum (PB - PA)
-      cellValueAJ2: string;
-      //Cassasip/Cassaforma %
-      cellValueAH6: string;
+    //CSF Premium (PB)
+    cellValueAG2: string;
+    //CSF Premium (PB y PA)
+    cellValueAH2: string;
+    //SIP Premium (PB)
+    cellValueAI2: string;
+    //SIP Premioum (PB - PA)
+    cellValueAJ2: string;
+    //Cassasip/Cassaforma %
+    cellValueAH6: string;
   } | null>(null);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState<string>("");
   const [isCSFPA, setIsCSFPA] = useState(false);
@@ -45,22 +46,22 @@ const PopoverdataPremium = () => {
           return value != null ? Math.round(value).toLocaleString() : "";
         };
 
-        // CFSPREMIUM  
-        data. cellValueAG2 = roundAndFormat(data.cellValueAG2?.result);
-        
+        // CFSPREMIUM
+        data.cellValueAG2 = roundAndFormat(data.cellValueAG2?.result);
+
         // CFSPREMIUM (PB y PA)
         data.cellValueAH2 = roundAndFormat(data.cellValueAH2?.result);
-        if  (data.cellValueAH2 != "") {
+        if (data.cellValueAH2 != "") {
           setIsCSFPA(true);
         }
-        // SIPPREMIUM 
+        // SIPPREMIUM
         data.cellValueAI2 = roundAndFormat(data.cellValueAI2?.result);
         // SIPPREMIUM (PB y PA)
         data.cellValueAJ2 = roundAndFormat(data.cellValueAJ2?.result);
-        if  (data.cellValueAJ2 != "") {
+        if (data.cellValueAJ2 != "") {
           setIsSIPPA(true);
         }
-              //Cassasip/Cassaforma %
+        //Cassasip/Cassaforma %
         data.cellValueAH6 = roundAndFormat(data.cellValueAH2?.result);
         setCellValues(data);
       } catch (error) {
@@ -77,7 +78,8 @@ const PopoverdataPremium = () => {
     <Tabs defaultValue="account" className="w-full h-full">
       {isLoading ? (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Loader2 className=" h-20 w-20 animate-spin" />
+          {/* <Loader2 className=" h-20 w-20 animate-spin" /> */}
+          <CircleLoader color="#FA851E" size={70} />
         </div>
       ) : (
         <>
@@ -92,7 +94,7 @@ const PopoverdataPremium = () => {
             </div>
             <div className={`flex flex-col gap-3 ${isCSFPA ? "hidden" : ""}`}>
               <h3>CSF Premium (PB y PA) </h3>
-              <span> {cellValues?.cellValueAH2}  - $</span>
+              <span> {cellValues?.cellValueAH2} - $</span>
             </div>
             <div className="flex flex-col gap-3">
               <h3>SIP Premium </h3>

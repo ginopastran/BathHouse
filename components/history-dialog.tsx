@@ -12,6 +12,7 @@ import {
 import { Button } from "./ui/button";
 import { FormWraper } from "./form-wrapper";
 import { HistoryCardWraper } from "./history-card-wrapper";
+import { CircleLoader } from "react-spinners";
 
 interface HistoryDialogProps {
   xlsxName: string;
@@ -354,7 +355,8 @@ const HistoryDialog = ({ xlsxName }: HistoryDialogProps) => {
       >
         {isLoading ? (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Loader2 className=" h-20 w-20 animate-spin" />
+            {/* <Loader2 className=" h-20 w-20 animate-spin" /> */}
+            <CircleLoader color="#FA851E" size={70} />
           </div>
         ) : (
           <>

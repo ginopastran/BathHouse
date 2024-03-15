@@ -19,6 +19,7 @@ import { BsExclamationTriangle } from "react-icons/bs";
 import getLastJsonFile from "@/lib/json/getLastJsonFile";
 import axios from "axios";
 import NewCompNavbar from "@/components/new-comp-navbar";
+import { CircleLoader } from "react-spinners";
 
 export default function Etapa2() {
   const [jsonData, setJsonData] = useState(null);
@@ -52,7 +53,8 @@ export default function Etapa2() {
   if (loading) {
     return (
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Loader2 className=" h-20 w-20 animate-spin" />
+        {/* <Loader2 className=" h-20 w-20 animate-spin" /> */}
+        <CircleLoader color="#FA851E" size={120} />
       </div>
     );
   }

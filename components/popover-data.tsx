@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 import axios from "axios";
 import { RiLoader4Fill } from "react-icons/ri";
 import { Loader2 } from "lucide-react";
+import { CircleLoader } from "react-spinners";
 
 const Popoverdata = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -341,7 +342,8 @@ const Popoverdata = () => {
     <Tabs defaultValue="account" className="w-full h-full">
       {isLoading ? (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Loader2 className=" h-20 w-20 animate-spin" />
+          {/* <Loader2 className=" h-20 w-20 animate-spin" /> */}
+          <CircleLoader color="#FA851E" size={70} />
         </div>
       ) : (
         <>
