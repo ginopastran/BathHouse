@@ -33,6 +33,7 @@ import {
 import Popoverdata from "@/components/popover-data";
 import { useState } from "react";
 import NewCompNavbar from "@/components/new-comp-navbar";
+import Link from "next/link";
 
 const formSchema = z.object({
   //datos cliente
@@ -112,7 +113,7 @@ export default function ProfileForm() {
 
   return (
     <>
-      <NewCompNavbar />
+      <NewCompNavbar title="Presupuesto Básico" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
@@ -381,6 +382,20 @@ export default function ProfileForm() {
               <Popoverdata />
             </PopoverContent>
           </Popover>
+        )}
+        {isSubmitComplete && (
+          <div className="flex justify-center pb-6 relative">
+            <Button type="submit" className="w-[50%]" asChild>
+              <Link href="/agenda">Agendar Turno</Link>
+            </Button>
+          </div>
+        )}
+        {isSubmitComplete && (
+          <div className="flex justify-center pb-6 relative">
+            <Button type="submit" className="w-[50%]" asChild>
+              <Link href="/etapa-2">Presupuesto Avanzado</Link>
+            </Button>
+          </div>
         )}
       </div>
     </>

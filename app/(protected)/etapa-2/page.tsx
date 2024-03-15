@@ -18,6 +18,7 @@ import { FormError } from "@/components/form-error";
 import { BsExclamationTriangle } from "react-icons/bs";
 import getLastJsonFile from "@/lib/json/getLastJsonFile";
 import axios from "axios";
+import NewCompNavbar from "@/components/new-comp-navbar";
 
 export default function Etapa2() {
   const [jsonData, setJsonData] = useState(null);
@@ -71,6 +72,8 @@ export default function Etapa2() {
 
   return (
     <div className="relative">
+      <NewCompNavbar title="Presupuesto Avanzado" />
+
       <Accordion
         type="single"
         collapsible
