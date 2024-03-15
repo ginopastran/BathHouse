@@ -69,12 +69,12 @@ const formSchema = z.object({
   "altura-de-muro-planta-baja": z.coerce.number().min(0).nullable(),
   "altura-de-muro-planta-alta": z.coerce.number().min(0).nullable(),
   //agregado 14/03
-  "altura-PB-muro-interno-2": z.coerce.number().min(0).nullable(), //altura de muro pa b81
+  /* "altura-PB-muro-interno-2": z.coerce.number().min(0).nullable(), //altura de muro pa b81
   "altura-PA-muro-interno-2": z.coerce.number().min(0).nullable(), //altura de muro pa b82
   "PA-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
   "altura-PA-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
   "PB-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
-  "altura-PB-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
+  "altura-PB-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83 */
   //aberturas
   //aberturas form 2
   "puerta-principal-cantidad": z.coerce.number().min(0).nullable(),
@@ -119,12 +119,12 @@ export default function ProfileFormPremium() {
       "altura-de-muro-planta-baja": null, //altura de muro pb b24
       "altura-de-muro-planta-alta": null, //altura de muro pa b25
       //agregado 14/03
-      "altura-PB-muro-interno-2": null, //altura de muro pa b81
+      /* "altura-PB-muro-interno-2": null, //altura de muro pa b81
       "altura-PA-muro-interno-2": null, //altura de muro pa b82
       "PA-muro-perimetrales-3": null, //altura de muro pa b83
       "altura-PA-muro-perimetrales-3": null, //altura de muro pa b83
       "PB-muro-perimetrales-3": null, //altura de muro pa b83
-      "altura-PB-muro-perimetrales-3": null, //altura de muro pa b83
+      "altura-PB-muro-perimetrales-3": null, //altura de muro pa b83 */
       //aberturas
       "puerta-principal-cantidad": null,
       "puerta-interior": null,
@@ -194,7 +194,7 @@ export default function ProfileFormPremium() {
         data["altura-de-muro-planta-alta"] = 0;
       }
       //agregado 14/03
-      if (data["altura-PB-muro-interno-2"] === null) {
+      /* if (data["altura-PB-muro-interno-2"] === null) {
         data["altura-PB-muro-interno-2"] = 0;
       }
       if (data["altura-PA-muro-interno-2"] === null) {
@@ -211,8 +211,8 @@ export default function ProfileFormPremium() {
       }
       if (data["altura-PB-muro-perimetrales-3"] === null) {
         data["altura-PB-muro-perimetrales-3"] = 0;
-      }
-      if (data["puerta-principal-cantidad"] === null) {
+      }*/
+      if (data["puerta-principal-cantidad"]  === null) {
         data["puerta-principal-cantidad"] = 0;
       }
       if (data["puerta-interior"] === null) {
@@ -548,7 +548,7 @@ export default function ProfileFormPremium() {
               )}
             />
             {/* agregado 14/03 */}
-            <FormField
+       {/*      <FormField
               control={form.control}
               name="altura-PB-muro-interno-2"
               render={({ field }) => (
@@ -625,7 +625,7 @@ export default function ProfileFormPremium() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="puerta-principal-cantidad"
