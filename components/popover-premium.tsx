@@ -86,19 +86,19 @@ const PopoverdataPremium = () => {
           <div className="flex w">
             <div className={`flex flex-col gap-3 `}>
               <h3>CSF Premium </h3>
-              <span>{/* {cellValues?.cellValueI43}  */} 2000 $</span>
+              <span>{/* {cellValues?.cellValueAG2}  */} 2000 $</span>
             </div>
             <div className={`flex flex-col gap-3 ${isCSFPA ? "hidden" : ""}`}>
               <h3>CSF Premium (PB y PA) </h3>
-              <span>{/* {cellValues?.cellValueI43} */} - $</span>
+              <span>{/* {cellValues?.cellValueAH2} */} - $</span>
             </div>
             <div className="flex flex-col gap-3">
               <h3>SIP Premium </h3>
-              <span>{/* {cellValues?.cellValueI43} */} 2000 $</span>
+              <span>{/* {cellValues?.cellValueAI2} */} 2000 $</span>
             </div>
             <div className={`flex flex-col gap-3 ${isSIPPA ? "hidden" : ""}`}>
               <h3>SIP Premium (PB y PA)</h3>
-              <span>{/* {cellValues?.cellValue43} */} 2000 $</span>
+              <span>{/* {cellValues?.cellValueAJ2} */} 2000 $</span>
             </div>
           </div>
           {/* TABLIST MOBILE */}
