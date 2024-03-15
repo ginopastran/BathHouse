@@ -96,8 +96,8 @@ const Hero = () => {
               </h1>
               <p className=" text-xs sm:text-md lg:text-xl">
                 Es posible que encuentre inconvenientes en el uso. Puede
-                adjuntar inconveniente con foto y su comentario estamos
-                trabajando para mejorar esta primera versión.
+                adjuntar el inconveniente con foto y su comentario en el chat de
+                la esquina inferior derecha.
               </p>
               <div className=" flex items-center justify-end">
                 <ArrowRight className=" h-7 w-7 sm:h-12 sm:w-12" />

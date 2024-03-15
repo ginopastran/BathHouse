@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import { Toaster } from "@/components/ui/toaster";
+import { CrispProvider } from "@/components/crisp-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Inter({
@@ -41,6 +42,7 @@ export default function RootLayout({
   return (
     <SessionProvider>
       <html lang="en">
+        <CrispProvider />
         <body className={poppins.className}>
           <div className="relative min-h-screen">
             <Image
