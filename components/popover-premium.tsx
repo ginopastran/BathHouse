@@ -46,20 +46,22 @@ const PopoverdataPremium = () => {
         };
 
         // CFSPREMIUM  
-        data. cellValueAG2 = roundAndFormat(data.cellValueN43?.result);
+        data. cellValueAG2 = roundAndFormat(data.cellValueAG2?.result);
         
         // CFSPREMIUM (PB y PA)
-        data.cellValueAH2 = roundAndFormat(data.cellValueN43?.result);
+        data.cellValueAH2 = roundAndFormat(data.cellValueAH2?.result);
         if  (data.cellValueAH2 != "") {
           setIsCSFPA(true);
         }
         // SIPPREMIUM 
-        data.cellValueAI2 = roundAndFormat(data.cellValueN43?.result);
+        data.cellValueAI2 = roundAndFormat(data.cellValueAI2?.result);
         // SIPPREMIUM (PB y PA)
-        data.cellValueAJ2 = roundAndFormat(data.cellValueN43?.result);
+        data.cellValueAJ2 = roundAndFormat(data.cellValueAJ2?.result);
         if  (data.cellValueAJ2 != "") {
           setIsSIPPA(true);
         }
+              //Cassasip/Cassaforma %
+        data.cellValueAH6 = roundAndFormat(data.cellValueAH2?.result);
         setCellValues(data);
       } catch (error) {
         console.log(error);
@@ -99,6 +101,10 @@ const PopoverdataPremium = () => {
             <div className={`flex flex-col gap-3 ${isSIPPA ? "hidden" : ""}`}>
               <h3>SIP Premium (PB y PA)</h3>
               <span>{/* {cellValues?.cellValueAJ2} */} 2000 $</span>
+            </div>
+            <div className={`flex flex-col gap-3 ${isSIPPA ? "hidden" : ""}`}>
+              <h3>Cassasip/Cassaforma %</h3>
+              <span>{/* {cellValues?.cellValueAH2} */} 2000 $</span>
             </div>
           </div>
           {/* TABLIST MOBILE */}
