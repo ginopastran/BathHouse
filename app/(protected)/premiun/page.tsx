@@ -41,45 +41,54 @@ const formSchema = z.object({
   "nombre-obra": z.string().min(3),
   ubicacion: z.string(),
   //datos plano municipal
-  "per-lote": z.coerce.number().min(0), //agregado premium
-  "frente-lote": z.coerce.number().min(0), //agregado premium
-  "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
-  "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
-  "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
-  "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
-  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce.number().min(0),
-  "sup-alero": z.coerce.number().min(0),
+  "per-lote": z.coerce.number().min(0).nullable(), //agregado premium
+  "frente-lote": z.coerce.number().min(0).nullable(), //agregado premium
+  "metros-cuadrados-de-planta-baja": z.coerce.number().min(0).nullable(),
+  "metros-cuadrados-de-planta-alta": z.coerce.number().min(0).nullable(),
+  "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0).nullable(),
+  "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce
+    .number()
+    .min(0)
+    .nullable(),
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce
+    .number()
+    .min(0)
+    .nullable(),
+  "sup-alero": z.coerce.number().min(0).nullable(),
   //total
   /* "sup-total":z.coerce.number().min(0),
    "sup-computo":z.coerce.number().min(0), */ //esto queda comentado porque no se sabe si se ingresa o te los da excel como respuesta
   //cerramiento
-  "pb-muros-pb-perimetro": z.coerce.number().min(0),
-  "pb-muros-pb-interiores-churrasquera-otros": z.coerce.number().min(0),
-  "pa-muros-pa-perimetro": z.coerce.number().min(0),
-  "pa-muros-pa-interiores": z.coerce.number().min(0),
-  "altura-de-muro-planta-baja": z.coerce.number().min(0),
-  "altura-de-muro-planta-alta": z.coerce.number().min(0),
+  "pb-muros-pb-perimetro": z.coerce.number().min(0).nullable(),
+  "pb-muros-pb-interiores-churrasquera-otros": z.coerce
+    .number()
+    .min(0)
+    .nullable(),
+  "pa-muros-pa-perimetro": z.coerce.number().min(0).nullable(),
+  "pa-muros-pa-interiores": z.coerce.number().min(0).nullable(),
+  "altura-de-muro-planta-baja": z.coerce.number().min(0).nullable(),
+  "altura-de-muro-planta-alta": z.coerce.number().min(0).nullable(),
   //agregado 14/03
-  "altura-PB-muro-interno-2": z.coerce.number().min(0), //altura de muro pa b81
-  "altura-PA-muro-interno-2": z.coerce.number().min(0), //altura de muro pa b82
-  "PA-muro-perimetrales-3": z.coerce.number().min(0), //altura de muro pa b83
-  "altura-PA-muro-perimetrales-3": z.coerce.number().min(0), //altura de muro pa b83
-  "PB-muro-perimetrales-3": z.coerce.number().min(0), //altura de muro pa b83
-  "altura-PB-muro-perimetrales-3": z.coerce.number().min(0), //altura de muro pa b83
+  "altura-PB-muro-interno-2": z.coerce.number().min(0).nullable(), //altura de muro pa b81
+  "altura-PA-muro-interno-2": z.coerce.number().min(0).nullable(), //altura de muro pa b82
+  "PA-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
+  "altura-PA-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
+  "PB-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
+  "altura-PB-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
   //aberturas
   //aberturas form 2
-  "puerta-principal-cantidad": z.coerce.number().min(0),
-  "puerta-interior": z.coerce.number().min(0),
-  "ventana-habitacion": z.coerce.number().min(0),
-  "puerta-ventana-habitacion": z.coerce.number().min(0),
-  "ventana-bano": z.coerce.number().min(0),
-  "puerta-ventana-living": z.coerce.number().min(0),
-  "puerta-lavanderia": z.coerce.number().min(0),
+  "puerta-principal-cantidad": z.coerce.number().min(0).nullable(),
+  "puerta-interior": z.coerce.number().min(0).nullable(),
+  "ventana-habitacion": z.coerce.number().min(0).nullable(),
+  "puerta-ventana-habitacion": z.coerce.number().min(0).nullable(),
+  "ventana-bano": z.coerce.number().min(0).nullable(),
+  "puerta-ventana-living": z.coerce.number().min(0).nullable(),
+  "puerta-lavanderia": z.coerce.number().min(0).nullable(),
   "vidrio-simple-dvh": z.string(),
   //casasip form 2
-  "balcon-con-porcelanato": z.coerce.number().min(0),
-  "cantidad-encuentros-PB": z.coerce.number().min(0),
-  "cantidad-encuentros-PA": z.coerce.number().min(0),
+  "balcon-con-porcelanato": z.coerce.number().min(0).nullable(),
+  "cantidad-encuentros-PB": z.coerce.number().min(0).nullable(),
+  "cantidad-encuentros-PA": z.coerce.number().min(0).nullable(),
   "espesor-muro-SIP": z.string(),
   "piso-suspendido-sip": z.string(), //agregado premium
 });
@@ -94,41 +103,41 @@ export default function ProfileFormPremium() {
       "nombre-obra": "",
       ubicacion: "",
       //datos plano municipal
-      "per-lote": 0, //agregado premium
-      "frente-lote": 0, //agregado premium
-      "metros-cuadrados-de-planta-baja": 0,
-      "metros-cuadrados-de-planta-alta": 0,
-      "superficie-p-rgolas-cubiertas-techado": 0,
-      "superficie-p-rgolas-semi-cubierta-p-rgola": 0,
-      "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": 0,
-      "sup-alero": 0,
+      "per-lote": null, //agregado premium
+      "frente-lote": null, //agregado premium
+      "metros-cuadrados-de-planta-baja": null,
+      "metros-cuadrados-de-planta-alta": null,
+      "superficie-p-rgolas-cubiertas-techado": null,
+      "superficie-p-rgolas-semi-cubierta-p-rgola": null,
+      "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": null,
+      "sup-alero": null,
       //cerramiento
-      "pb-muros-pb-perimetro": 0, //perimetrales muro pb b20
-      "pb-muros-pb-interiores-churrasquera-otros": 0, //interiores muro pb b21
-      "pa-muros-pa-perimetro": 0, //muros perimetrales pa b22
-      "pa-muros-pa-interiores": 0, //muros interiores pa b23
-      "altura-de-muro-planta-baja": 0, //altura de muro pb b24
-      "altura-de-muro-planta-alta": 0, //altura de muro pa b25
+      "pb-muros-pb-perimetro": null, //perimetrales muro pb b20
+      "pb-muros-pb-interiores-churrasquera-otros": null, //interiores muro pb b21
+      "pa-muros-pa-perimetro": null, //muros perimetrales pa b22
+      "pa-muros-pa-interiores": null, //muros interiores pa b23
+      "altura-de-muro-planta-baja": null, //altura de muro pb b24
+      "altura-de-muro-planta-alta": null, //altura de muro pa b25
       //agregado 14/03
-      "altura-PB-muro-interno-2": 0, //altura de muro pa b81
-      "altura-PA-muro-interno-2": 0, //altura de muro pa b82
-      "PA-muro-perimetrales-3": 0, //altura de muro pa b83
-      "altura-PA-muro-perimetrales-3": 0, //altura de muro pa b83
-      "PB-muro-perimetrales-3": 0, //altura de muro pa b83
-      "altura-PB-muro-perimetrales-3": 0, //altura de muro pa b83
+      "altura-PB-muro-interno-2": null, //altura de muro pa b81
+      "altura-PA-muro-interno-2": null, //altura de muro pa b82
+      "PA-muro-perimetrales-3": null, //altura de muro pa b83
+      "altura-PA-muro-perimetrales-3": null, //altura de muro pa b83
+      "PB-muro-perimetrales-3": null, //altura de muro pa b83
+      "altura-PB-muro-perimetrales-3": null, //altura de muro pa b83
       //aberturas
-      "puerta-principal-cantidad": undefined,
-      "puerta-interior": undefined,
-      "ventana-habitacion": undefined,
-      "puerta-ventana-habitacion": undefined,
-      "ventana-bano": undefined,
-      "puerta-ventana-living": undefined,
-      "puerta-lavanderia": undefined,
+      "puerta-principal-cantidad": null,
+      "puerta-interior": null,
+      "ventana-habitacion": null,
+      "puerta-ventana-habitacion": null,
+      "ventana-bano": null,
+      "puerta-ventana-living": null,
+      "puerta-lavanderia": null,
       "vidrio-simple-dvh": undefined,
       //casasip
-      "balcon-con-porcelanato": undefined,
-      "cantidad-encuentros-PB": 0,
-      "cantidad-encuentros-PA": 0,
+      "balcon-con-porcelanato": null,
+      "cantidad-encuentros-PB": null,
+      "cantidad-encuentros-PA": null,
       "espesor-muro-SIP": "90",
       "piso-suspendido-sip": "SI", //agregado premium
     },
@@ -141,6 +150,99 @@ export default function ProfileFormPremium() {
   const onSubmit = async (data: any) => {
     try {
       setIsSubmitting(true);
+      // Ajustar los valores de los campos que estén undefined a 0
+      if (data["per-lote"] === null) {
+        data["per-lote"] = 0;
+      }
+      if (data["frente-lote"] === null) {
+        data["frente-lote"] = 0;
+      }
+      if (data["metros-cuadrados-de-planta-baja"] === null) {
+        data["metros-cuadrados-de-planta-baja"] = 0;
+      }
+      if (data["metros-cuadrados-de-planta-alta"] === null) {
+        data["metros-cuadrados-de-planta-alta"] = 0;
+      }
+      if (data["superficie-p-rgolas-cubiertas-techado"] === null) {
+        data["superficie-p-rgolas-cubiertas-techado"] = 0;
+      }
+      if (data["superficie-p-rgolas-semi-cubierta-p-rgola"] === null) {
+        data["superficie-p-rgolas-semi-cubierta-p-rgola"] = 0;
+      }
+      if (data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"] === null) {
+        data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"] = 0;
+      }
+      if (data["sup-alero"] === null) {
+        data["sup-alero"] = 0;
+      }
+      if (data["pb-muros-pb-perimetro"] === null) {
+        data["pb-muros-pb-perimetro"] = 0;
+      }
+      if (data["pb-muros-pb-interiores-churrasquera-otros"] === null) {
+        data["pb-muros-pb-interiores-churrasquera-otros"] = 0;
+      }
+      if (data["pa-muros-pa-perimetro"] === null) {
+        data["pa-muros-pa-perimetro"] = 0;
+      }
+      if (data["pa-muros-pa-interiores"] === null) {
+        data["pa-muros-pa-interiores"] = 0;
+      }
+      if (data["altura-de-muro-planta-baja"] === null) {
+        data["altura-de-muro-planta-baja"] = 0;
+      }
+      if (data["altura-de-muro-planta-alta"] === null) {
+        data["altura-de-muro-planta-alta"] = 0;
+      }
+      //agregado 14/03
+      if (data["altura-PB-muro-interno-2"] === null) {
+        data["altura-PB-muro-interno-2"] = 0;
+      }
+      if (data["altura-PA-muro-interno-2"] === null) {
+        data["altura-PA-muro-interno-2"] = 0;
+      }
+      if (data["PA-muro-perimetrales-3"] === null) {
+        data["PA-muro-perimetrales-3"] = 0;
+      }
+      if (data["altura-PA-muro-perimetrales-3"] === null) {
+        data["altura-PA-muro-perimetrales-3"] = 0;
+      }
+      if (data["PB-muro-perimetrales-3"] === null) {
+        data["PB-muro-perimetrales-3"] = 0;
+      }
+      if (data["altura-PB-muro-perimetrales-3"] === null) {
+        data["altura-PB-muro-perimetrales-3"] = 0;
+      }
+      if (data["puerta-principal-cantidad"] === null) {
+        data["puerta-principal-cantidad"] = 0;
+      }
+      if (data["puerta-interior"] === null) {
+        data["puerta-interior"] = 0;
+      }
+      if (data["ventana-habitacion"] === null) {
+        data["ventana-habitacion"] = 0;
+      }
+      if (data["puerta-ventana-habitacion"] === null) {
+        data["puerta-ventana-habitacion"] = 0;
+      }
+      if (data["ventana-bano"] === null) {
+        data["ventana-bano"] = 0;
+      }
+      if (data["puerta-ventana-living"] === null) {
+        data["puerta-ventana-living"] = 0;
+      }
+      if (data["puerta-lavanderia"] === null) {
+        data["puerta-lavanderia"] = 0;
+      }
+      if (data["balcon-con-porcelanato"] === null) {
+        data["balcon-con-porcelanato"] = 0;
+      }
+      if (data["cantidad-encuentros-PB"] === null) {
+        data["cantidad-encuentros-PB"] = 0;
+      }
+      if (data["cantidad-encuentros-PA"] === null) {
+        data["cantidad-encuentros-PA"] = 0;
+      }
+      // Hacer una solicitud a tu API para enviar los datos del formulario
 
       const postResponse = await axios.post("/api/actualizarExcel3", data);
 
@@ -167,6 +269,7 @@ export default function ProfileFormPremium() {
     try {
       setIsDownloading(true);
       // Hacer una solicitud a tu API para obtener los datos de la hoja VIP en formato Excel
+
       const response = await axios.get("/api/descargarExcel", {
         responseType: "arraybuffer", // Indica que los datos deben ser tratados como un array de bytes
         headers: {
