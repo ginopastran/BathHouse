@@ -1,19 +1,19 @@
-import { auth, signOut } from "@/auth";
+"use client";
 
-const SettingsPage = async () => {
-  const session = await auth();
+import { logout } from "@/actions/logout";
+import { auth, signOut } from "@/auth";
+import { Button } from "@nextui-org/react";
+
+const SettingsPage = () => {
+  const onClick = () => {
+    logout();
+  };
 
   return (
     <div>
-      {JSON.stringify(session)}
-      <form
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-      >
-        <button>Sign out</button>
-      </form>
+      <Button onClick={onClick} variant="flat" className=" bg-azulPrincipal">
+        Log Out
+      </Button>
     </div>
   );
 };

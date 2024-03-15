@@ -25,6 +25,7 @@ import {
 import Popoverdata from "@/components/popover-data-form2";
 import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 const formSchema = z.object({
   //forma 2
@@ -87,15 +88,15 @@ export default function FormEtapa2() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-   //form 2
-  "tabique-durlock-pb-pa": undefined,
-  "balcon-con-porcelanato": undefined,
-  "hormigon-visto": undefined,
-  "cantidad-encuentros-PB": 0,
-  "cantidad-encuentros-PA": 0,
-  "espesor-muro-SIP":"90",
-  "tipo-techo":"Chapa",
-  //abertura
+      //form 2
+      "tabique-durlock-pb-pa": undefined,
+      "balcon-con-porcelanato": undefined,
+      "hormigon-visto": undefined,
+      "cantidad-encuentros-PB": 0,
+      "cantidad-encuentros-PA": 0,
+      "espesor-muro-SIP": "90",
+      "tipo-techo": "Chapa",
+      //abertura
 
       /* "puerta-principal-tipo": "Madera",// le agreto tipo de puerta madera o chapa */
       "puerta-principal-cantidad": undefined,
@@ -1235,6 +1236,13 @@ export default function FormEtapa2() {
               <Popoverdata />
             </PopoverContent>
           </Popover>
+        )}
+        {isSubmitComplete && (
+          <div className="flex justify-center pb-6 relative">
+            <Button type="submit" className="w-[50%]" asChild>
+              <Link href="/agenda">Agendar Turno</Link>
+            </Button>
+          </div>
         )}
       </div>
     </>

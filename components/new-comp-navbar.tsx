@@ -5,7 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function NewCompNavbar() {
+interface NewCompNavbarProps {
+  title: string;
+}
+
+export default function NewCompNavbar({ title }: NewCompNavbarProps) {
   return (
     <header className="py-[2rem] px-[4rem] flex items-center gap-3 pb-[7rem]">
       <Link href="/">
@@ -26,6 +30,9 @@ export default function NewCompNavbar() {
           className=" absolute left-36 hidden sm:block top-[3.2rem]"
         />
       </Link>
+      <h1 className=" absolute right-36 top-14 uppercase text-3xl font-bold">
+        {title}
+      </h1>
     </header>
   );
 }
