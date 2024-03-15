@@ -25,7 +25,7 @@ export default function NewCompNavbar({ title }: NewCompNavbarProps) {
           alt="Bathouse-Logo"
           width={90}
           height={90}
-          className="absolute left-6"
+          className="absolute block sm:hidden left-6"
         />
       </Link>
       <Link href="/">
@@ -34,7 +34,7 @@ export default function NewCompNavbar({ title }: NewCompNavbarProps) {
           alt="Bathouse-Logo"
           width={224}
           height={224}
-          className=" absolute left-36 hidden sm:block top-[3.2rem]"
+          className=" absolute left-36 hidden lg:block top-[3.2rem]"
         />
       </Link>
       <h1 className=" absolute top-12 right-14 sm:right-36 sm:top-14 uppercase text-xl sm:text-3xl font-bold">
