@@ -238,19 +238,6 @@ export default function ProfileForm() {
             />
             <FormField
               control={form.control}
-              name="altura-de-muro-planta-baja"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Altura de muro planta baja</FormLabel>
-                  <FormControl>
-                    <Input placeholder="m2" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="sup-alero"
               render={({ field }) => (
                 <FormItem>
