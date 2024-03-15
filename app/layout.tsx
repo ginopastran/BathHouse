@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { SessionProvider } from "next-auth/react";
@@ -12,7 +11,7 @@ import Image from "next/image";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
-const poppins = Poppins({
+const poppins = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
@@ -45,14 +44,14 @@ export default function RootLayout({
         <body className={poppins.className}>
           <div className="relative min-h-screen">
             <Image
-              src="/background/red-background-3.jpg"
+              src="/background-houses.png"
               alt=""
               layout="fill"
               objectFit="cover"
-              className="absolute opacity-100"
+              className="relative opacity-[20%]"
             />
             <Providers>
-              <MainNavbar />
+              {/* <MainNavbar /> */}
               {children}
             </Providers>
           </div>

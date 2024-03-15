@@ -13,6 +13,7 @@ import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import Navbar from "../components/Nabvar";
 import Newsletter from "../components/Newletter";
+import NewNavbar from "@/components/new-navbar";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -22,20 +23,13 @@ const font = Poppins({
 export default function Home() {
   return (
     <div className="mx-6 relative">
-      <header className=" text-gray-400 body-font w-full pt-20">
-        <div className=" flex flex-col justify-center items-center">
-          <img
-            src="Asset/MARCA-BathouseWhite-8.png"
-            alt="background image"
-            className=" size-fit"
-          />
+      <NewNavbar />
 
-          <Hero />
-        </div>
-      </header>
+      <Hero />
+
       <div>
-        <Newsletter />
-        <Footer />
+        {/* <Newsletter /> */}
+        {/* <Footer /> */}
       </div>
     </div>
   );
