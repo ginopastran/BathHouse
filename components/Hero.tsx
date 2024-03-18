@@ -29,6 +29,7 @@ import {
 } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import { logout } from "@/actions/logout";
+import Carousel from "./carousel";
 
 const Hero = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -90,8 +91,8 @@ const Hero = () => {
             </div>
           </div>
           <div className="backdrop w-[13rem] sm:w-[23rem] md:w-[26rem] lg:w-[34rem] min-h-[16rem] sm:min-h-[20rem] md:min-h-[20rem] lg:min-h-[20rem] bg-[#191D24] bg-opacity-[65%] rounded-xl p-1 px-4 sm:px-10 text-white border-white/30 border-1 shadow-lg">
-            <div className="flex flex-col h-full justify-between py-6">
-              <h1 className=" text-md sm:text-2xl lg:text-3xl font-bold text-shadow">
+            <div className="flex flex-col h-full justify-center py-6 items-center">
+              {/* <h1 className=" text-md sm:text-2xl lg:text-3xl font-bold text-shadow">
                 Reportar Error
               </h1>
               <p className=" text-xs sm:text-md lg:text-xl">
@@ -101,7 +102,8 @@ const Hero = () => {
               </p>
               <div className=" flex items-center justify-end">
                 <ArrowRight className=" h-7 w-7 sm:h-12 sm:w-12" />
-              </div>
+              </div> */}
+              <Carousel />
             </div>
           </div>
         </div>
