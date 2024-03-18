@@ -34,50 +34,43 @@ export default function Carousel() {
   return (
     <div ref={sliderRef} className="keen-slider">
       <Image
-        src="/empresas/CASSAFORMA-8.png"
+        src="/Empresas/CASSAFORMA-8.png"
         alt="CASSAFORMA"
         width={200}
         height={200}
         className="keen-slider__slide w-full h-full object-scale-down"
       />
       <Image
-        src="/empresas/CASSASIP-8.png"
-        alt="CASSAFORMA"
+        src="/Empresas/CASSASIP-8.png"
+        alt="CASSASIP"
         width={200}
         height={200}
         className="keen-slider__slide w-full h-full object-scale-down"
       />
       <Image
-        src="/empresas/FONTHER-8.png"
-        alt="CASSAFORMA"
+        src="/Empresas/FONTHER-8.png"
+        alt="FONTHER"
         width={200}
         height={200}
         className="keen-slider__slide w-full h-full object-scale-down"
       />
       <Image
-        src="/empresas/HIMAN-8.png"
-        alt="CASSAFORMA"
+        src="/Empresas/HIMAN-8.png"
+        alt="HIMAN"
         width={200}
         height={200}
         className="keen-slider__slide w-full h-full object-scale-down"
       />
       <Image
-        src="/empresas/CASSAFORMA-8.png"
-        alt="CASSAFORMA"
+        src="/Empresas/LTN-8.png"
+        alt="LTN"
         width={200}
         height={200}
         className="keen-slider__slide w-full h-full object-scale-down"
       />
       <Image
-        src="/empresas/LTN-8.png"
-        alt="CASSAFORMA"
-        width={200}
-        height={200}
-        className="keen-slider__slide w-full h-full object-scale-down"
-      />
-      <Image
-        src="/empresas/TIGRE-8.png"
-        alt="CASSAFORMA"
+        src="/Empresas/TIGRE-8.png"
+        alt="TIGRE"
         width={200}
         height={200}
         className="keen-slider__slide w-full h-full object-scale-down"
