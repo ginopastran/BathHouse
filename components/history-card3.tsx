@@ -2,17 +2,15 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { EditJsonButton } from "./edit-json-button";
 import { BudgetHistoryButton } from "./budget-history-button";
-import { EditJson2Button } from "./edit-json2-button";
-import { BudgetHistoryButton2 } from "./budget-history2-button";
 
 interface HistoryCardProps {
   requestNumber: string;
   date: string;
-  jsonData2: JsonData2;
+  jsonData3: JsonData3;
 }
 
-function HistoryCard2({ requestNumber, date, jsonData2 }: HistoryCardProps) {
-  const [selectedJson, setSelectedJson] = useState<JsonData2 | null>(null);
+function HistoryCard3({ requestNumber, date, jsonData3 }: HistoryCardProps) {
+  const [selectedJson, setSelectedJson] = useState<JsonData | null>(null);
 
   return (
     <div className="flex items-center justify-between space-x-4  w-full px-3 py-2 rounded-2xl border-2 border-orange-700">
@@ -25,32 +23,32 @@ function HistoryCard2({ requestNumber, date, jsonData2 }: HistoryCardProps) {
             {requestNumber}
             <span className="ml-2 text-sm font-medium text-white/60">
               {" "}
-              Presupuesto Avanzado
+              Presupuesto Básico
             </span>
           </h3>
           <p className="text-sm text-gray-500">{date}</p>
         </div>
       </div>
       <div className="flex items-center justify-end gap-2 flex-col sm:flex-row">
-        <BudgetHistoryButton2 xlsxName={requestNumber}>
+        <BudgetHistoryButton xlsxName={requestNumber}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Presupuesto
           </Button>
-        </BudgetHistoryButton2>
-        <EditJson2Button jsonData={jsonData2}>
+        </BudgetHistoryButton>
+        <EditJsonButton jsonData={jsonData3}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Editar
           </Button>
-        </EditJson2Button>
+        </EditJsonButton>
       </div>
     </div>
   );
 }
 
-export default HistoryCard2;
+export default HistoryCard3;

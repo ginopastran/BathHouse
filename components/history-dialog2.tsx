@@ -18,7 +18,7 @@ interface HistoryDialogProps {
   xlsxName: string;
 }
 
-const HistoryDialog = ({ xlsxName }: HistoryDialogProps) => {
+const HistoryDialog2 = ({ xlsxName }: HistoryDialogProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cellValues, setCellValues] = useState<{
     // CASSAFORMA-TOTAL
@@ -1050,4 +1050,4 @@ const HistoryDialog = ({ xlsxName }: HistoryDialogProps) => {
   );
 };
 
-export default HistoryDialog;
+export default HistoryDialog2;

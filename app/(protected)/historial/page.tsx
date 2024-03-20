@@ -5,6 +5,7 @@ import HistoryCard from "@/components/history-card";
 import HistoryCard2 from "@/components/history-card2";
 import NewCompNavbar from "@/components/new-comp-navbar";
 import { getAllJson2Files } from "@/lib/json/getAllJson2Files";
+import { getAllJson3Files } from "@/lib/json/getAllJson3Files";
 import { getAllJsonFiles } from "@/lib/json/getAllJsonFiles";
 import { formatDateString } from "@/lib/utils";
 import { getAllXlsxFiles } from "@/lib/xlsx/getAllXlsxFiles";
@@ -25,6 +26,7 @@ function HistoryPage() {
       try {
         const jsonFiles = await getAllJsonFiles();
         const jsonFiles2 = await getAllJson2Files();
+        const jsonFiles3 = await getAllJson3Files();
 
         // Ordena los archivos JSON por fecha en orden descendente
         const sortedJsonFiles = jsonFiles.sort((a, b) => {
@@ -41,11 +43,20 @@ function HistoryPage() {
           // Cambiar el signo a '<' para un orden ascendente
           return dateB.getTime() - dateA.getTime();
         });
+        const sortedJson3Files = jsonFiles3.sort((a, b) => {
+          const dateA = new Date(a.fecha);
+          const dateB = new Date(b.fecha);
+
+          // Cambiar el signo a '<' para un orden ascendente
+          return dateB.getTime() - dateA.getTime();
+        });
 
         setData(sortedJsonFiles);
         setData2(sortedJson2Files);
+        setData3(sortedJson3Files);
         console.log(sortedJsonFiles);
         console.log(sortedJson2Files);
+        console.log(sortedJson3Files);
       } catch (error) {
         console.log(error);
       } finally {
