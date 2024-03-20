@@ -25,7 +25,7 @@ export default function NewCompNavbar({ title }: NewCompNavbarProps) {
           alt="Bathouse-Logo"
           width={90}
           height={90}
-          className="absolute block sm:hidden left-6"
+          className="absolute block sm:hidden left-2"
         />
       </Link>
       <Link href="/">

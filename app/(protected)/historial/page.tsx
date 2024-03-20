@@ -2,7 +2,9 @@
 
 import { EditJsonButton } from "@/components/edit-json-button";
 import HistoryCard from "@/components/history-card";
+import HistoryCard2 from "@/components/history-card2";
 import NewCompNavbar from "@/components/new-comp-navbar";
+import { getAllJson2Files } from "@/lib/json/getAllJson2Files";
 import { getAllJsonFiles } from "@/lib/json/getAllJsonFiles";
 import { formatDateString } from "@/lib/utils";
 import { getAllXlsxFiles } from "@/lib/xlsx/getAllXlsxFiles";
@@ -12,33 +14,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CircleLoader } from "react-spinners";
 
-interface JsonData {
-  "nombre-completo": string;
-  "nombre-obra": string;
-  ubicacion: string;
-  "metros-cuadrados-de-planta-baja": number;
-  "metros-cuadrados-de-planta-alta": number;
-  "superficie-p-rgolas-cubiertas-techado": number;
-  "superficie-p-rgolas-semi-cubierta-p-rgola": number;
-  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": number;
-  "sup-alero": number;
-  "pb-muros-pb-perimetro": number;
-  "pb-muros-pb-interiores-churrasquera-otros": number;
-  "pa-muros-pa-perimetro": number;
-  "pa-muros-pa-interiores": number;
-  "altura-de-muro-planta-baja": number;
-  "altura-de-muro-planta-alta": number;
-  fecha: string;
-}
-
 function HistoryPage() {
   const [data, setData] = useState<JsonData[]>([]);
+  const [data2, setData2] = useState<JsonData2[]>([]);
+  const [data3, setData3] = useState<JsonData3[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const jsonFiles = await getAllJsonFiles();
+        const jsonFiles2 = await getAllJson2Files();
 
         // Ordena los archivos JSON por fecha en orden descendente
         const sortedJsonFiles = jsonFiles.sort((a, b) => {
@@ -48,9 +34,18 @@ function HistoryPage() {
           // Cambiar el signo a '<' para un orden ascendente
           return dateB.getTime() - dateA.getTime();
         });
+        const sortedJson2Files = jsonFiles2.sort((a, b) => {
+          const dateA = new Date(a.fecha);
+          const dateB = new Date(b.fecha);
+
+          // Cambiar el signo a '<' para un orden ascendente
+          return dateB.getTime() - dateA.getTime();
+        });
 
         setData(sortedJsonFiles);
+        setData2(sortedJson2Files);
         console.log(sortedJsonFiles);
+        console.log(sortedJson2Files);
       } catch (error) {
         console.log(error);
       } finally {
@@ -84,6 +79,15 @@ function HistoryPage() {
                     requestNumber={item["nombre-obra"]}
                     date={formatDateString(item["fecha"])}
                     jsonData={item}
+                  />
+                </div>
+              ))}
+              {data2.map((item, index) => (
+                <div className="flex items-center space-x-4" key={index}>
+                  <HistoryCard2
+                    requestNumber={item["nombre-obra"]}
+                    date={formatDateString(item["fecha"])}
+                    jsonData2={item}
                   />
                 </div>
               ))}

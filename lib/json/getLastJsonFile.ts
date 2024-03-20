@@ -26,7 +26,7 @@ const getLastJsonFile = async (bucketName: string, userFolder: string): Promise<
         }
 
         // Filtra los archivos para incluir solo los que terminan en .json
-        const jsonFiles = contents.filter(file => file?.Key?.endsWith('.json'));
+        const jsonFiles = contents.filter(file => file?.Key?.endsWith('-1.json'));
 
         if (jsonFiles.length === 0) {
             return undefined;

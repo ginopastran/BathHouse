@@ -2,34 +2,16 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { EditJsonButton } from "./edit-json-button";
 import { BudgetHistoryButton } from "./budget-history-button";
-
-interface JsonData {
-  "nombre-completo": string;
-  "nombre-obra": string;
-  ubicacion: string;
-  "metros-cuadrados-de-planta-baja": number;
-  "metros-cuadrados-de-planta-alta": number;
-  "superficie-p-rgolas-cubiertas-techado": number;
-  "superficie-p-rgolas-semi-cubierta-p-rgola": number;
-  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": number;
-  "sup-alero": number;
-  "pb-muros-pb-perimetro": number;
-  "pb-muros-pb-interiores-churrasquera-otros": number;
-  "pa-muros-pa-perimetro": number;
-  "pa-muros-pa-interiores": number;
-  "altura-de-muro-planta-baja": number;
-  "altura-de-muro-planta-alta": number;
-  fecha: string;
-}
+import { EditJson2Button } from "./edit-json2-button";
 
 interface HistoryCardProps {
   requestNumber: string;
   date: string;
-  jsonData: JsonData;
+  jsonData2: JsonData2;
 }
 
-function HistoryCard({ requestNumber, date, jsonData }: HistoryCardProps) {
-  const [selectedJson, setSelectedJson] = useState<JsonData | null>(null);
+function HistoryCard2({ requestNumber, date, jsonData2 }: HistoryCardProps) {
+  const [selectedJson, setSelectedJson] = useState<JsonData2 | null>(null);
 
   return (
     <div className="flex items-center justify-between space-x-4  w-full px-3 py-2 rounded-2xl border-2 border-orange-700">
@@ -42,7 +24,7 @@ function HistoryCard({ requestNumber, date, jsonData }: HistoryCardProps) {
             {requestNumber}
             <span className="ml-2 text-sm font-medium text-white/60">
               {" "}
-              Presupuesto Básico
+              Presupuesto Avanzado
             </span>
           </h3>
           <p className="text-sm text-gray-500">{date}</p>
@@ -57,17 +39,17 @@ function HistoryCard({ requestNumber, date, jsonData }: HistoryCardProps) {
             Presupuesto
           </Button>
         </BudgetHistoryButton>
-        <EditJsonButton jsonData={jsonData}>
+        <EditJson2Button jsonData={jsonData2}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Editar
           </Button>
-        </EditJsonButton>
+        </EditJson2Button>
       </div>
     </div>
   );
 }
 
-export default HistoryCard;
+export default HistoryCard2;

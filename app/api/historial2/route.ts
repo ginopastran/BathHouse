@@ -1,16 +1,18 @@
-import AWS from 'aws-sdk';
 import ExcelJS from 'exceljs';
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
-import { google } from 'googleapis';
-import { auth } from '@/auth';
 import { NextRequest, NextResponse } from 'next/server';
+import path from 'path';
+import { auth } from '@/auth';
+import AWS from "aws-sdk"
+import * as fs from 'fs';
+import os from 'os';
+import { Readable } from 'stream';
 import readExcelFromS3 from '@/lib/xlsx/readExcelFromS3';
-import readJsonFromS3 from '@/lib/json/readJsonFromS3';
+import { google } from "googleapis"
+import { GoogleAuth } from "google-auth-library"
 import { exportAndUploadToS3 } from '@/lib/exportAndUploadToS3';
-import getLastJsonFile from '@/lib/json/getLastJsonFile';
-import getLastXlsx2File from '@/lib/xlsx/getLastXlsx2File';
+import getLastXlsxFile from '@/lib/xlsx/getLastXlsxFile'
+import readExcelFromDirectoryS3 from '@/lib/xlsx/readExcelFromDirectoryS3';
+
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -19,11 +21,11 @@ const corsHeaders = {
 };
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
+let fileNameGlobal = '';
 
 export async function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders });
 }
-
 AWS.config.update({
     accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
     secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
@@ -35,191 +37,29 @@ const s3 = new AWS.S3();
 const privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
 const clientEmail = process.env.GOOGLE_CLIENT_EMAIL || '';
 
-export async function POST(req: NextRequest) {
-    const session = await auth();
-    try {
-        const data = await req.json();
-
-        const userFolder = `${session?.user?.email}`;
-
-        const bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME!
-        const jsonFileName = await getLastJsonFile(bucketName, userFolder)
-
-        if (!jsonFileName) {
-            return NextResponse.json({ message: "No se encontró ningún archivo en el bucket de S3" });
-        }
-
-        const jsonData = await readJsonFromS3(bucketName, jsonFileName);
-
-        console.log(jsonData);
-
-        // console.log(data);
-
-        const fileName = `${session?.user?.email}.xlsx`;
-        const fileName2 = `${session?.user?.email}/` + `${jsonData["nombre-obra"]}-2.xlsx`;
-
-        const jwtClient = new google.auth.JWT(
-            clientEmail,
-            undefined,
-            privateKey.replace(/\\n/g, '\n'),
-            ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-        );
-
-        const sheets = google.sheets({ version: 'v4', auth: jwtClient });
-
-        const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-        const range = 'Informacion de Cotización!B2:B73';
-
-        const valueInputOption = 'RAW';
-
-        try {
-            const response = await sheets.spreadsheets.values.update({
-                spreadsheetId,
-                range: range,
-                valueInputOption: 'USER_ENTERED',
-                requestBody: {
-                    // Los arrays con strings vacíos son para rellenar espacios que no se llenan en el data del form, es porque google sheets no deja especificar un dato para cada celda espeficica, solo deja agregar un rango desde una celda hasta otra, ej: B2:B65
-                    values: [
-                        [jsonData["nombre-completo"]], // B2
-                        [jsonData["nombre-obra"]], // B3
-                        [jsonData["ubicacion"]], // B4
-                        [""], [""], [""],
-                        [data["perimetro-lote"]], //B8
-                        [data["frente-lote"]],
-                        [jsonData["metros-cuadrados-de-planta-baja"]], // B10
-                        [jsonData["metros-cuadrados-de-planta-alta"]],
-                        [jsonData["superficie-p-rgolas-cubiertas-techado"]],
-                        [jsonData["superficie-p-rgolas-semi-cubierta-p-rgola"]],
-                        [jsonData["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"]],
-                        [jsonData["sup-aleros"]],
-                        ["=+B9+B10+B11+B12+B13+B14"],
-                        ["=B9+B10+B11+B12/2+B13/2+B14/2"], // B17
-                        [""], [""],
-                        [jsonData["pb-muros-pb-perimetro"]],
-                        [jsonData["pb-muros-pb-interiores-churrasquera-otros"]],
-                        [jsonData["pa-muros-pa-perimetro"]],
-                        [jsonData["pa-muros-pa-interiores"]],
-                        [jsonData["altura-de-muro-planta-baja"]],
-                        [jsonData["altura-de-muro-planta-alta"]], //B25
-                        [data["tabique-durlock-pb-pa"]], //B26
-                        [data["balcon-porcelanato"]],
-                        [data["hormigon-visto"]],
-                        [data["cantidad-encuentros-PB"]],
-                        [data["cantidad-encuentros-PA"]],
-                        [data["espesor-muro-SIP"]],
-                        [data["tipo-techo"]], //B32
-                        [""],
-                        [data["puerta-principal-cantidad"]], // B34
-                        [data["puerta-interior"]],
-                        [data["ventana-habitacion"]],
-                        [data["puerta-ventana-habitacion"]],
-                        [data["ventana-bano"]],
-                        [data["puerta-ventana-living"]],
-                        [data["puerta-lavanderia"]],
-                        [data["vidrio-simple-dvh"]], // B41
-                        [""],
-                        [data["bocas-electricas"]],
-                        [""],
-                        [data["con-cocina"]],
-                        [data["con-lavanderia"]],
-                        [data["banos-visita"]],
-                        [data["banos"]],
-                        [data["aires-acondicionados"]],
-                        [data["churrasquera"]], //B50
-                        [""],
-                        [data["pozo-septico"]], //B52
-                        [data["cisterna-enterrada"]],
-                        [data["con-pluviales"]],
-                        [data["agua"]],
-                        [data["cloaca"]],
-                        [data["gas"]],
-                        [data["luz"]],
-                        [data["pozo-filtrante"]],
-                        [data["tipo-calefaccion"]],
-                        [data["molduras-de-cumbrera"]],
-                        [data["moldura-de-ventanas"]],
-                        [data["tipo-cielorraso"]],
-                        [data["porcelanato"]],
-                        [data["rayado-o-fino-de-muros"]],
-                        [data["vereda-vehiculo"]],
-                        [data["vereda-peatonal-PAR-calle"]],
-                        [data["cierre-provisorio"]],
-                        [data["cierre-definitivo"]],
-                        [data["churrasquera-de-ladrillo-y-o-hogar"]],
-                        [data["pileta"]],
-                        [data["cuenta-con-proyecto"]],
-                        [data["pago-aforos"]], // B73
-                    ],
-                },
-            });
-
-            await exportAndUploadToS3(jwtClient, spreadsheetId, fileName2, data);
-
-            const existingData = (jsonData)
-
-            const mergedData = { ...existingData, ...data };
-            mergedData.fecha = new Date().toISOString();
-
-            const mergedJson = JSON.stringify(mergedData);
-
-            const mergedJsonFileName = `${session?.user?.email}/${jsonData["nombre-obra"]}-2.json`;
-
-
-            const mergedJsonBuffer = Buffer.from(mergedJson, 'utf-8');
-
-            try {
-                const uploadParams = {
-                    Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-                    Key: mergedJsonFileName,
-                    Body: mergedJsonBuffer
-                };
-
-                s3.upload(uploadParams, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
-                    if (err) {
-                        console.error("Error uploading merged JSON to S3:", err);
-                        throw err;
-                    }
-                    console.log(`Merged JSON file uploaded successfully. ${data.Location}`);
-                });
-
-            } catch (error) {
-                console.log(error);
-            }
-
-        } catch (error) {
-            console.log(error);
-        }
-
-        return NextResponse.json({ fileName2: fileName2 });
-    } catch (error: any) {
-        return NextResponse.json({ message: "An error ocurred", error: error.message }, { headers: corsHeaders });
-    }
+if (!privateKey || !clientEmail) {
+    throw new Error('Las variables de entorno GOOGLE_SHEETS_PRIVATE_KEY y GOOGLE_SHEETS_CLIENT_EMAIL deben estar definidas');
 }
-
-
-
 
 export async function GET(req: NextRequest) {
 
     const session = await auth()
 
+    const { search } = new URL(req.nextUrl);
+    const params = new URLSearchParams(search);
+    const xlsxName = params.get('xlsxName');
+
+    // console.log(xlsxName);
+
     try {
 
-        const fileNameGlobal = `${session?.user?.email}2.xlsx`;
         const bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME!;
 
         const userFolder = `${session?.user?.email}`;
 
-        const lastModifiedFileName = await getLastXlsx2File(bucketName, userFolder);
+        const newXlsxName = `${session?.user?.email}/${xlsxName}-2.xlsx`
 
-        if (!lastModifiedFileName) {
-            return NextResponse.json({ message: "No se encontró ningún archivo en el bucket de S3" });
-        }
-
-        const excelData = await readExcelFromS3(bucketName, lastModifiedFileName);
-
-        // console.log(excelData);
-
+        const excelData = await readExcelFromDirectoryS3(bucketName, newXlsxName);
 
         if (!excelData) {
             return NextResponse.json({ message: "No se pudo leer el archivo Excel desde S3" });
@@ -234,6 +74,31 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: "No se encontró la hoja de trabajo 'Informacion de Cotización'" });
         }
 
+
+        // let cellValueH4, cellValueH5, cellValueH6;
+        // let cellValueI4, cellValueI5, cellValueI6;
+        // let cellValueJ4, cellValueJ5, cellValueJ6;
+        // let cellValueK4, cellValueK5, cellValueK6;
+        // let cellValueH10, cellValueH11, cellValueH12;
+        // let cellValueI10, cellValueI11, cellValueI12;
+        // let cellValueJ10, cellValueJ11, cellValueJ12;
+        // let cellValueK10, cellValueK11, cellValueK12;
+        // let cellValueH16, cellValueH17, cellValueH18;
+        // let cellValueI16, cellValueI17, cellValueI18;
+        // let cellValueJ16, cellValueJ17, cellValueJ18;
+        // let cellValueK16, cellValueK17, cellValueK18;
+        // let cellValueH22, cellValueH23, cellValueH24;
+        // let cellValueI22, cellValueI23, cellValueI24;
+        // let cellValueJ22, cellValueJ23, cellValueJ24;
+        // let cellValueK22, cellValueK23, cellValueK24;
+        // let cellValueH28, cellValueH29, cellValueH30;
+        // let cellValueI28, cellValueI29, cellValueI30;
+        // let cellValueJ28, cellValueJ29, cellValueJ30;
+        // let cellValueK28, cellValueK29, cellValueK30;
+        // let cellValueH34, cellValueH35, cellValueH36;
+        // let cellValueI34, cellValueI35, cellValueI36;
+        // let cellValueJ34, cellValueJ35, cellValueJ36;
+        // let cellValueK34, cellValueK35, cellValueK36;
 
         //CASSAFORMA PURO
         let cellValueI5, cellValueI6, cellValueI7

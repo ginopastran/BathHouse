@@ -40,23 +40,20 @@ export async function POST(req: NextRequest) {
     try {
         const data = await req.json();
 
+        data.fecha = new Date().toISOString();
+
         const userFolder = `${session?.user?.email}`;
 
         const bucketName = process.env.NEXT_PUBLIC_S3_BUCKET_NAME!
-        const jsonFileName = await getLastJsonFile(bucketName, userFolder)
 
-        if (!jsonFileName) {
-            return NextResponse.json({ message: "No se encontró ningún archivo en el bucket de S3" });
-        }
-
-        const jsonData = await readJsonFromS3(bucketName, jsonFileName);
-
-        console.log(jsonData);
+        const jsonData = JSON.stringify(data);
+        const jsonFileName = `${session?.user?.email}/` + `${data["nombre-obra"]}-2.json`;
+        const jsonBuffer = Buffer.from(jsonData, 'utf-8');
 
         // console.log(data);
 
         const fileName = `${session?.user?.email}.xlsx`;
-        const fileName2 = `${session?.user?.email}/` + `${jsonData["nombre-obra"]}-2.xlsx`;
+        const fileName2 = `${session?.user?.email}/` + `${data["nombre-obra"]}-2.xlsx`;
 
         const jwtClient = new google.auth.JWT(
             clientEmail,
@@ -80,27 +77,27 @@ export async function POST(req: NextRequest) {
                 requestBody: {
                     // Los arrays con strings vacíos son para rellenar espacios que no se llenan en el data del form, es porque google sheets no deja especificar un dato para cada celda espeficica, solo deja agregar un rango desde una celda hasta otra, ej: B2:B65
                     values: [
-                        [jsonData["nombre-completo"]], // B2
-                        [jsonData["nombre-obra"]], // B3
-                        [jsonData["ubicacion"]], // B4
+                        [data["nombre-completo"]], // B2
+                        [data["nombre-obra"]], // B3
+                        [data["ubicacion"]], // B4
                         [""], [""], [""],
                         [data["perimetro-lote"]], //B8
                         [data["frente-lote"]],
-                        [jsonData["metros-cuadrados-de-planta-baja"]], // B10
-                        [jsonData["metros-cuadrados-de-planta-alta"]],
-                        [jsonData["superficie-p-rgolas-cubiertas-techado"]],
-                        [jsonData["superficie-p-rgolas-semi-cubierta-p-rgola"]],
-                        [jsonData["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"]],
-                        [jsonData["sup-aleros"]],
+                        [data["metros-cuadrados-de-planta-baja"]], // B10
+                        [data["metros-cuadrados-de-planta-alta"]],
+                        [data["superficie-p-rgolas-cubiertas-techado"]],
+                        [data["superficie-p-rgolas-semi-cubierta-p-rgola"]],
+                        [data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"]],
+                        [data["sup-aleros"]],
                         ["=+B9+B10+B11+B12+B13+B14"],
                         ["=B9+B10+B11+B12/2+B13/2+B14/2"], // B17
                         [""], [""],
-                        [jsonData["pb-muros-pb-perimetro"]],
-                        [jsonData["pb-muros-pb-interiores-churrasquera-otros"]],
-                        [jsonData["pa-muros-pa-perimetro"]],
-                        [jsonData["pa-muros-pa-interiores"]],
-                        [jsonData["altura-de-muro-planta-baja"]],
-                        [jsonData["altura-de-muro-planta-alta"]], //B25
+                        [data["pb-muros-pb-perimetro"]],
+                        [data["pb-muros-pb-interiores-churrasquera-otros"]],
+                        [data["pa-muros-pa-perimetro"]],
+                        [data["pa-muros-pa-interiores"]],
+                        [data["altura-de-muro-planta-baja"]],
+                        [data["altura-de-muro-planta-alta"]], //B25
                         [data["tabique-durlock-pb-pa"]], //B26
                         [data["balcon-porcelanato"]],
                         [data["hormigon-visto"]],
@@ -155,31 +152,19 @@ export async function POST(req: NextRequest) {
 
             await exportAndUploadToS3(jwtClient, spreadsheetId, fileName2, data);
 
-            const existingData = (jsonData)
-
-            const mergedData = { ...existingData, ...data };
-            mergedData.fecha = new Date().toISOString();
-
-            const mergedJson = JSON.stringify(mergedData);
-
-            const mergedJsonFileName = `${session?.user?.email}/${jsonData["nombre-obra"]}-2.json`;
-
-
-            const mergedJsonBuffer = Buffer.from(mergedJson, 'utf-8');
 
             try {
-                const uploadParams = {
+                const params = {
                     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-                    Key: mergedJsonFileName,
-                    Body: mergedJsonBuffer
+                    Key: jsonFileName,
+                    Body: jsonBuffer
                 };
 
-                s3.upload(uploadParams, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
+                s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
                     if (err) {
-                        console.error("Error uploading merged JSON to S3:", err);
                         throw err;
                     }
-                    console.log(`Merged JSON file uploaded successfully. ${data.Location}`);
+                    console.log(`JSON file uploaded successfully. ${data.Location}`);
                 });
 
             } catch (error) {
