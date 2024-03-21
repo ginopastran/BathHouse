@@ -42,19 +42,79 @@ const formSchema = z.object({
   ubicacion: z.string(),
   //datos plano municipal
 
-  "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
-  "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
-  "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
-  "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
-  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce.number().min(0),
-  "sup-alero": z.coerce.number().min(0),
+  "metros-cuadrados-de-planta-baja":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "metros-cuadrados-de-planta-alta":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "superficie-p-rgolas-cubiertas-techado":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "superficie-p-rgolas-semi-cubierta-p-rgola":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "sup-alero":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
   //cerramiento
-  "pb-muros-pb-perimetro": z.coerce.number().min(0),
-  "pb-muros-pb-interiores-churrasquera-otros": z.coerce.number().min(0),
-  "pa-muros-pa-perimetro": z.coerce.number().min(0),
-  "pa-muros-pa-interiores": z.coerce.number().min(0),
-  "altura-de-muro-planta-baja": z.coerce.number().min(0),
-  "altura-de-muro-planta-alta": z.coerce.number().min(0),
+  "pb-muros-pb-perimetro":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "pb-muros-pb-interiores-churrasquera-otros":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "pa-muros-pa-perimetro":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "pa-muros-pa-interiores":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "altura-de-muro-planta-baja":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "altura-de-muro-planta-alta":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
 });
 
 export default function ProfileForm() {
@@ -67,19 +127,19 @@ export default function ProfileForm() {
       "nombre-obra": "",
       ubicacion: "",
       //datos plano municipal
-      "metros-cuadrados-de-planta-baja": 0,
-      "metros-cuadrados-de-planta-alta": 0,
-      "superficie-p-rgolas-cubiertas-techado": 0,
-      "superficie-p-rgolas-semi-cubierta-p-rgola": 0,
-      "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": 0,
-      "sup-alero": 0,
+      "metros-cuadrados-de-planta-baja": null,
+      "metros-cuadrados-de-planta-alta": null,
+      "superficie-p-rgolas-cubiertas-techado": null,
+      "superficie-p-rgolas-semi-cubierta-p-rgola": null,
+      "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": null,
+      "sup-alero": null,
       //cerramiento
-      "pb-muros-pb-perimetro": 0,
-      "pb-muros-pb-interiores-churrasquera-otros": 0,
-      "pa-muros-pa-perimetro": 0,
-      "pa-muros-pa-interiores": 0,
-      "altura-de-muro-planta-baja": 0,
-      "altura-de-muro-planta-alta": 0,
+      "pb-muros-pb-perimetro": null,
+      "pb-muros-pb-interiores-churrasquera-otros": null,
+      "pa-muros-pa-perimetro": null,
+      "pa-muros-pa-interiores": null,
+      "altura-de-muro-planta-baja": null,
+      "altura-de-muro-planta-alta": null,
     },
   });
 
@@ -89,6 +149,44 @@ export default function ProfileForm() {
   const onSubmit = async (data: any) => {
     try {
       setIsSubmitting(true);
+      if (data["metros-cuadrados-de-planta-baja"] === undefined) {
+        data["metros-cuadrados-de-planta-baja"] = null;
+    }
+    if (data["metros-cuadrados-de-planta-alta"] === undefined) {
+        data["metros-cuadrados-de-planta-alta"] = null;
+    }
+    if (data["superficie-p-rgolas-cubiertas-techado"] === undefined) {
+        data["superficie-p-rgolas-cubiertas-techado"] = null;
+    }
+    if (data["superficie-p-rgolas-semi-cubierta-p-rgola"] === undefined) {
+        data["superficie-p-rgolas-semi-cubierta-p-rgola"] = null;
+    }
+    if (data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"] === undefined) {
+        data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"] = null;
+    }
+    if (data["sup-alero"] === undefined) {
+        data["sup-alero"] = null;
+    }
+    if (data["pb-muros-pb-perimetro"] === undefined) {
+        data["pb-muros-pb-perimetro"] = null;
+    }
+    if (data["pb-muros-pb-interiores-churrasquera-otros"] === undefined) {
+        data["pb-muros-pb-interiores-churrasquera-otros"] = null;
+    }
+    if (data["pa-muros-pa-perimetro"] === undefined) {
+        data["pa-muros-pa-perimetro"] = null;
+    }
+    if (data["pa-muros-pa-interiores"] === undefined) {
+        data["pa-muros-pa-interiores"] = null;
+    }
+    if (data["altura-de-muro-planta-baja"] === undefined) {
+        data["altura-de-muro-planta-baja"] = null;
+    }
+    if (data["altura-de-muro-planta-alta"] === undefined) {
+        data["altura-de-muro-planta-alta"] = null;
+    }
+    
+
 
       const postResponse = await axios.post("/api/actualizarExcel", data);
 
@@ -175,7 +273,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -188,7 +290,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Metros cuadrados de planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -201,7 +307,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Superficie Pérgolas cubiertas (techado)</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -216,7 +326,11 @@ export default function ProfileForm() {
                     Superficie Pérgolas semi cubierta (pérgola)
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -231,7 +345,11 @@ export default function ProfileForm() {
                     Superficie Pérgolas semi cubierta(Cochera)
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -244,7 +362,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Superficie de Aleros</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -257,7 +379,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Muros planta baja Perímetro</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                  <Input
+                      placeholder="ml"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -270,7 +396,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Muros interiores, churrasquera y otros </FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                  <Input
+                      placeholder="ml"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -283,7 +413,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Muro Planta Alta Perímetro</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                  <Input
+                      placeholder="ml"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -296,7 +430,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Muro Planta Alta interiores</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                  <Input
+                      placeholder="ml"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -309,7 +447,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Altura de muro planta alta</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                  <Input
+                      placeholder="ml"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -322,7 +464,11 @@ export default function ProfileForm() {
                 <FormItem>
                   <FormLabel>Altura de Muro Planta baja</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                  <Input
+                      placeholder="ml"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
