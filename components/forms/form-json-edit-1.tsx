@@ -29,11 +29,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Popoverdata from "@/components/popover-data";
+import Popoverdata from "@/components/popovers/popover-data";
 import { useEffect, useState } from "react";
 
 import { getJson } from "@/lib/json/getJson";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { CardWraper } from "../auth/card-wrapper";
+import { FormWraper } from "./form-wrapper";
+import { useToast } from "../ui/use-toast";
+import { BsCheckCircle } from "react-icons/bs";
 
 interface Datos {
   //datos cliente
@@ -88,53 +92,15 @@ interface FormEtapa1EditProps {
 }
 
 const formSchema = z.object({
-  /*   "nombre-completo": z.string().min(3),
-  ubicacion: z.string(),
-  "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
-  "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
-  "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
-  "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
-  "superficie-p-rgolas-cochera-semi-cubierta-p-rgola": z.coerce.number().min(0),
-  "altura-de-muro-planta-baja": z.coerce.number().min(0),
-  "altura-de-muro-planta-alta": z.coerce.number().min(0),
-  "tabique-durlock-pb-pa": z.coerce.number().min(0),
-  churrasquera: z.coerce.number().min(0),
-  "aires-acondicionados": z.coerce.number().min(0),
-  "pozo-septico": z.string(),
-  "cisterna-enterrada": z.string(),
-  "con-pluviales": z.string(),
-  agua: z.string(),
-  cloaca: z.string(),
-  gas: z.string(),
-  luz: z.string(),
-  "pozo-filtrante": z.string(),
-  "losa-radiante-de-agua": z.string(),
-  "losa-radiante-electrica": z.string(),
-  "molduras-de-cumbrera": z.string(),
-  "moldura-de-ventanas": z.string(),
-  "cielorraso-de-placa-de-yeso": z.string(),
-  "cielorraso-de-yeso": z.string(),
-  porcelanato: z.string(),
-  "rayado-o-fino-de-muros": z.string(),
-  "vereda-vehiculo": z.string(),
-  "vereda-peatonal-paralela-calle": z.string(),
-  "churrasquera-de-ladrillo-y-o-hogar": z.string(),
-  pileta: z.string(),
-  "cuenta-con-arquitecto": z.string(),
-  "cuenta-con-proyecto": z.string(), */
-  //datos cliente
   "nombre-completo": z.string().min(3),
   "nombre-obra": z.string().min(3),
   ubicacion: z.string(),
-  //datos plano municipal
-
   "metros-cuadrados-de-planta-baja": z.coerce.number().min(0),
   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0),
   "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0),
   "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0),
   "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce.number().min(0),
   "sup-alero": z.coerce.number().min(0),
-  //cerramiento
   "pb-muros-pb-perimetro": z.coerce.number().min(0),
   "pb-muros-pb-interiores-churrasquera-otros": z.coerce.number().min(0),
   "pa-muros-pa-perimetro": z.coerce.number().min(0),
@@ -143,7 +109,7 @@ const formSchema = z.object({
   "altura-de-muro-planta-alta": z.coerce.number().min(0),
 });
 
-function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
+function FormJson1Edit({ data }: FormEtapa1EditProps) {
   const [isSubmitComplete, setIsSubmitComplete] = useState(false);
   const [informacionGeneral, setInformacionGeneral] = useState(null);
   const [editing, setEditing] = useState<boolean>(false);
@@ -151,52 +117,15 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   const [datosOriginales, setDatosOriginales] = useState<any>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: data
       ? {
-          /*  "nombre-completo": data["nombre-completo"],
-          ubicacion: data["ubicacion"],
-          "metros-cuadrados-de-planta-baja":
-            data["metros-cuadrados-de-planta-baja"],
-          "metros-cuadrados-de-planta-alta":
-            data["metros-cuadrados-de-planta-alta"],
-          "superficie-p-rgolas-cubiertas-techado":
-            data["superficie-p-rgolas-cubiertas-techado"],
-          "superficie-p-rgolas-semi-cubierta-p-rgola":
-            data["superficie-p-rgolas-semi-cubierta-p-rgola"],
-          "superficie-p-rgolas-cochera-semi-cubierta-p-rgola":
-            data["superficie-p-rgolas-cochera-semi-cubierta-p-rgola"],
-          "altura-de-muro-planta-baja": data["altura-de-muro-planta-baja"],
-          "altura-de-muro-planta-alta": data["altura-de-muro-planta-alta"],
-          "tabique-durlock-pb-pa": data["tabique-durlock-pb-pa"],
-          churrasquera: data["churrasquera"],
-          "aires-acondicionados": data["aires-acondicionados"],
-          "pozo-filtrante": data["pozo-filtrante"],
-          "cisterna-enterrada": data["cisterna-enterrada"],
-          "con-pluviales": data["con-pluviales"],
-          agua: data["agua"],
-          cloaca: data["cloaca"],
-          gas: data["gas"],
-          "losa-radiante-de-agua": data["losa-radiante-de-agua"],
-          "losa-radiante-electrica": data["losa-radiante-electrica"],
-          "molduras-de-cumbrera": data["molduras-de-cumbrera"],
-          "moldura-de-ventanas": data["moldura-de-ventanas"],
-          "cielorraso-de-placa-de-yeso": data["cielorraso-de-placa-de-yeso"],
-          "cielorraso-de-yeso": data["cielorraso-de-yeso"],
-          porcelanato: data["porcelanato"],
-          "rayado-o-fino-de-muros": data["rayado-o-fino-de-muros"],
-          "vereda-vehiculo": data["vereda-vehiculo"],
-          "churrasquera-de-ladrillo-y-o-hogar":
-            data["churrasquera-de-ladrillo-y-o-hogar"],
-          "cuenta-con-arquitecto": data["cuenta-con-arquitecto"],
-          "cuenta-con-proyecto": data["cuenta-con-proyecto"], */
-          //datos cliente
           "nombre-completo": data["nombre-completo"],
           "nombre-obra": data["nombre-obra"],
           ubicacion: data["ubicacion"],
-          //datos plano municipal
-
           "metros-cuadrados-de-planta-baja":
             data["metros-cuadrados-de-planta-baja"],
           "metros-cuadrados-de-planta-alta":
@@ -208,7 +137,6 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
           "superficie-p-rgolas-semi-cochera-cubierta-p-rgola":
             data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"],
           "sup-alero": data["sup-alero"],
-          //cerramiento
           "pb-muros-pb-perimetro": data["pb-muros-pb-perimetro"],
           "pb-muros-pb-interiores-churrasquera-otros":
             data["pb-muros-pb-interiores-churrasquera-otros"],
@@ -221,21 +149,40 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   });
 
   // Función para manejar el botón de editar
+  const handleEditarClick = () => {
+    setEditing(true);
+  };
 
   // Función para manejar el botón de guardar
-
-  const handleFormSubmit = async (formData: any) => {
+  const handleGuardarClick = async () => {
     try {
       setIsSubmitting(true);
-      const postResponse = await axios.post("/api/actualizarJson", formData);
-      console.log(postResponse);
-      setIsSubmitComplete(true);
-      setEditing(false); // Cambiar a "Editar" después de guardar
+      const formData = form.getValues(); // Obtener los valores actuales del formulario
+      const postResponse = await axios.post("/api/actualizarExcel", formData); // Enviar los datos del formulario
+      setTimeout(() => {
+        setIsSubmitComplete(true);
+      }, 4000);
+      // Agregar superposición de página bloqueada
+      const overlay = document.createElement("div");
+      overlay.className = "page-overlay";
+      document.body.appendChild(overlay);
+      // Mostrar tarjeta de completado
+      toast({
+        title: "El presupuesto se editó correctamente",
+        description: "La página se recargará en 5 segundos.",
+        duration: 5000,
+        className: "bg-emerald-700 ",
+      });
+      // Esperar 5 segundos antes de recargar la página
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     } finally {
       setIsSubmitting(false);
     }
+    setEditing(false);
   };
 
   // useEffect para restaurar datos cuando no está editando
@@ -265,10 +212,10 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
   };
 
   return (
-    <>
+    <FormWraper>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleFormSubmit)}>
-          <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
+        <form onSubmit={form.handleSubmit(handleGuardarClick)}>
+          <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2 md:grid-cols-3 md:grid-rows-3">
             <FormField
               control={form.control}
               name="nombre-completo"
@@ -360,8 +307,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                         handleInputChange(
                           "metros-cuadrados-de-planta-baja",
                           isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
+                          );
+                        }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -385,8 +332,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                         handleInputChange(
                           "metros_cuadrados_de_planta_alta",
                           e.target.value
-                        )
-                      } */
+                          )
+                        } */
                       disabled={!editing}
                     />
                   </FormControl>
@@ -410,8 +357,8 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                         handleInputChange(
                           "superficie_pergolas_cubiertas_techado",
                           isNaN(parsedValue) ? "" : parsedValue
-                        );
-                      }} */
+                          );
+                        }} */
                       disabled={!editing}
                       type="number"
                     />
@@ -684,55 +631,611 @@ function FormEtapa1Edit({ data }: FormEtapa1EditProps) {
                 <FormItem>
                   <FormLabel>Muro Planta Alta interiores</FormLabel>
                   <FormControl>
-                    <Input placeholder="m" {...field} disabled={!editing} />
+                    <Input
+                      placeholder="m"
+                      {...field}
+                      /*  onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const parsedValue = parseFloat(inputValue);
+                        handleInputChange(
+                          "altura_de_muro_planta_alta",
+                          isNaN(parsedValue) ? "" : parsedValue
+                        );
+                      }} */
+                      disabled={!editing}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-
-          <div className="flex justify-center pt-5 pb-6">
-            {editing ? (
-              <>
-                <Button
-                  type="button"
-                  className="w-[50%]"
-                  disabled={isSubmitting}
-                  onClick={() => setEditing(false)}
-                >
-                  {isSubmitting ? (
-                    <ReloadIcon
-                      className={`mr-2 h-4 w-4 ${
-                        isSubmitting ? "animate-spin" : ""
-                      }`}
-                    />
-                  ) : (
-                    "Guardar"
-                  )}
-                </Button>
-                <Button
-                  type="button"
-                  className="w-[50%] ml-2"
-                  onClick={() => setEditing(false)} // Cancelar edición
-                >
-                  Cancelar
-                </Button>
-              </>
-            ) : (
+          <div className="flex justify-center pt-5 pb-6 ">
+            {!isSubmitComplete && (
               <Button
                 type="button"
                 className="w-[50%]"
-                onClick={() => setEditing(true)} // Entrar en modo de edición
+                disabled={isSubmitting}
+                onClick={editing ? handleGuardarClick : handleEditarClick}
               >
-                Editar
+                {isSubmitting ? (
+                  <ReloadIcon
+                    className={`mr-2 h-4 w-4 ${
+                      isSubmitting ? "animate-spin" : ""
+                    }`}
+                  />
+                ) : editing ? (
+                  "Guardar"
+                ) : (
+                  "Editar"
+                )}
               </Button>
             )}
+
+            {/* {isSubmitComplete && (
+              <Popover>
+                <div className="flex justify-center pb-6 w-full">
+                  <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
+                    Mirar el presupuesto
+                  </PopoverTrigger>
+                </div>
+                <PopoverContent className=" h-[70vh] w-[80vw]">
+                  <Popoverdata />
+                </PopoverContent>
+              </Popover>
+            )} */}
           </div>
         </form>
       </Form>
-    </>
+    </FormWraper>
   );
 }
 
-export default FormEtapa1Edit;
+export default FormJson1Edit;
+{
+  /* <div className="gap-4 grid mx-4   grid-flow-row-dense grid-cols-2 grid-rows-3 xl:grid-cols-3 2xl:grid-cols-3 ">
+<FormField
+  control={form.control}
+  name="agua"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Agua</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="cisterna-enterrada"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Cisterna Enterrada</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="cloaca"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Cloaca</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="gas"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Gas</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="pozo-filtrante"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Pozo Filtrante</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="losa-radiante-de-agua"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Losa Radiante de Agua</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="losa-radiante-electrica"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Losa Radiante Eléctrica</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="molduras-de-cumbrera"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Molduras de Cumbrera</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="moldura-de-ventanas"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Moldura de Ventanas</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="cielorraso-de-placa-de-yeso"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Cielorraso de Placa de Yeso</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="cielorraso-de-yeso"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Cielorraso de Yeso</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
+<FormField
+  control={form.control}
+  name="porcelanato"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Porcelanato</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="rayado-o-fino-de-muros"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Rayado o Fino de Muros</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="con-pluviales"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Con Pluviales</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="vereda-vehiculo"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>
+        Vereda vehicular y peatonal peperndic. a la calle
+      </FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="churrasquera-de-ladrillo-y-o-hogar"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Churrasquera de ladrillo y/o Hogar</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="cuenta-con-arquitecto"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>¿Cuenta con arquitecto?</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="cuenta-con-proyecto"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>¿Cuenta con proyecto?</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          className="flex flex-col space-y-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="SI" />
+            </FormControl>
+            <FormLabel className="font-normal">Si</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="NO" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+</div> */
+}

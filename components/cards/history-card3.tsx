@@ -1,34 +1,15 @@
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
-import { EditJsonButton } from "./edit-json-button";
-import { BudgetHistoryButton } from "./budget-history-button";
-
-interface JsonData {
-  "nombre-completo": string;
-  "nombre-obra": string;
-  ubicacion: string;
-  "metros-cuadrados-de-planta-baja": number;
-  "metros-cuadrados-de-planta-alta": number;
-  "superficie-p-rgolas-cubiertas-techado": number;
-  "superficie-p-rgolas-semi-cubierta-p-rgola": number;
-  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": number;
-  "sup-alero": number;
-  "pb-muros-pb-perimetro": number;
-  "pb-muros-pb-interiores-churrasquera-otros": number;
-  "pa-muros-pa-perimetro": number;
-  "pa-muros-pa-interiores": number;
-  "altura-de-muro-planta-baja": number;
-  "altura-de-muro-planta-alta": number;
-  fecha: string;
-}
+import { BudgetHistoryButton3 } from "../buttons/budget-history3-button";
+import { EditJson3Button } from "../buttons/edit-json3-button";
 
 interface HistoryCardProps {
   requestNumber: string;
   date: string;
-  jsonData: JsonData;
+  jsonData3: JsonData3;
 }
 
-function HistoryCard({ requestNumber, date, jsonData }: HistoryCardProps) {
+function HistoryCard3({ requestNumber, date, jsonData3 }: HistoryCardProps) {
   const [selectedJson, setSelectedJson] = useState<JsonData | null>(null);
 
   return (
@@ -42,32 +23,32 @@ function HistoryCard({ requestNumber, date, jsonData }: HistoryCardProps) {
             {requestNumber}
             <span className="ml-2 text-sm font-medium text-white/60">
               {" "}
-              Presupuesto Básico
+              Presupuesto Premium
             </span>
           </h3>
           <p className="text-sm text-gray-500">{date}</p>
         </div>
       </div>
       <div className="flex items-center justify-end gap-2 flex-col sm:flex-row">
-        <BudgetHistoryButton xlsxName={requestNumber}>
+        <BudgetHistoryButton3 xlsxName={requestNumber}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Presupuesto
           </Button>
-        </BudgetHistoryButton>
-        <EditJsonButton jsonData={jsonData}>
+        </BudgetHistoryButton3>
+        <EditJson3Button jsonData={jsonData3}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Editar
           </Button>
-        </EditJsonButton>
+        </EditJson3Button>
       </div>
     </div>
   );
 }
 
-export default HistoryCard;
+export default HistoryCard3;

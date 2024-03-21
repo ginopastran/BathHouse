@@ -29,14 +29,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Popoverdata from "@/components/popover-data";
+import Popoverdata from "@/components/popovers/popover-data";
 import { useEffect, useState } from "react";
 
 import { getJson } from "@/lib/json/getJson";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { CardWraper } from "./auth/card-wrapper";
+import { CardWraper } from "../auth/card-wrapper";
 import { FormWraper } from "./form-wrapper";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../ui/use-toast";
 import { BsCheckCircle } from "react-icons/bs";
 import Link from "next/link";
 

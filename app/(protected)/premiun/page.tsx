@@ -31,7 +31,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import PopoverdataPremium from "@/components/popover-premium";
+import PopoverdataPremium from "@/components/popovers/popover-premium";
 import NewCompNavbar from "@/components/new-comp-navbar";
 
 const formSchema = z.object({

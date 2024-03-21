@@ -2,16 +2,16 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Loader2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { FormWraper } from "./form-wrapper";
-import { HistoryCardWraper } from "./history-card-wrapper";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { FormWraper } from "../forms/form-wrapper";
+import { HistoryCardWraper } from "../cards/history-card-wrapper";
 import { CircleLoader } from "react-spinners";
 
 interface HistoryDialogProps {

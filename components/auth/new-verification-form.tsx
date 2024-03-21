@@ -6,8 +6,8 @@ import { useSearchParams } from "next/navigation";
 
 import { newVerification } from "@/actions/new-verification";
 import { CardWraper } from "./card-wrapper";
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-success";
+import { FormError } from "../forms/form-error";
+import { FormSuccess } from "../forms/form-success";
 
 export const NewVerificationForm = () => {
   return (

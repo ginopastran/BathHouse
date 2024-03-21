@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import axios from "axios";
 import { RiLoader4Fill } from "react-icons/ri";
 import { Loader2 } from "lucide-react";
