@@ -3,6 +3,7 @@
 import { EditJsonButton } from "@/components/edit-json-button";
 import HistoryCard from "@/components/history-card";
 import HistoryCard2 from "@/components/history-card2";
+import HistoryCard3 from "@/components/history-card3";
 import NewCompNavbar from "@/components/new-comp-navbar";
 import { getAllJson2Files } from "@/lib/json/getAllJson2Files";
 import { getAllJson3Files } from "@/lib/json/getAllJson3Files";
@@ -99,6 +100,15 @@ function HistoryPage() {
                     requestNumber={item["nombre-obra"]}
                     date={formatDateString(item["fecha"])}
                     jsonData2={item}
+                  />
+                </div>
+              ))}
+              {data3.map((item, index) => (
+                <div className="flex items-center space-x-4" key={index}>
+                  <HistoryCard3
+                    requestNumber={item["nombre-obra"]}
+                    date={formatDateString(item["fecha"])}
+                    jsonData3={item}
                   />
                 </div>
               ))}

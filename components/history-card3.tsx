@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
-import { EditJsonButton } from "./edit-json-button";
-import { BudgetHistoryButton } from "./budget-history-button";
+import { BudgetHistoryButton3 } from "./budget-history3-button";
+import { EditJson3Button } from "./edit-json3-button";
 
 interface HistoryCardProps {
   requestNumber: string;
@@ -23,29 +23,29 @@ function HistoryCard3({ requestNumber, date, jsonData3 }: HistoryCardProps) {
             {requestNumber}
             <span className="ml-2 text-sm font-medium text-white/60">
               {" "}
-              Presupuesto Básico
+              Presupuesto Premium
             </span>
           </h3>
           <p className="text-sm text-gray-500">{date}</p>
         </div>
       </div>
       <div className="flex items-center justify-end gap-2 flex-col sm:flex-row">
-        <BudgetHistoryButton xlsxName={requestNumber}>
+        <BudgetHistoryButton3 xlsxName={requestNumber}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Presupuesto
           </Button>
-        </BudgetHistoryButton>
-        <EditJsonButton jsonData={jsonData3}>
+        </BudgetHistoryButton3>
+        <EditJson3Button jsonData={jsonData3}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Editar
           </Button>
-        </EditJsonButton>
+        </EditJson3Button>
       </div>
     </div>
   );
