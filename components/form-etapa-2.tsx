@@ -29,34 +29,34 @@ import Link from "next/link";
 
 const formSchema = z.object({
   //forma 2
-  "tabique-durlock-pb-pa": z.coerce.number().min(0),
-  "balcon-con-porcelanato": z.coerce.number().min(0),
-  "hormigon-visto": z.coerce.number().min(0),
-  "cantidad-encuentros-PB": z.coerce.number().min(0),
-  "cantidad-encuentros-PA": z.coerce.number().min(0),
+  "tabique-durlock-pb-pa": z.coerce.number().min(0).nullable(),
+  "balcon-con-porcelanato": z.coerce.number().min(0).nullable(),
+  "hormigon-visto": z.coerce.number().min(0).nullable(),
+  "cantidad-encuentros-PB": z.coerce.number().min(0).nullable(),
+  "cantidad-encuentros-PA": z.coerce.number().min(0).nullable(),
   "espesor-muro-SIP": z.string(),
   "tipo-techo": z.string(),
   //abertura
 
   /*   "puerta-principal-tipo": z.string(),// le agreto tipo de puerta madera o chapa
-   */ "puerta-principal-cantidad": z.coerce.number().min(0),
-  "puerta-interior": z.coerce.number().min(0),
-  "ventana-habitacion": z.coerce.number().min(0),
-  "puerta-ventana-habitacion": z.coerce.number().min(0),
-  "ventana-bano": z.coerce.number().min(0),
-  "puerta-ventana-living": z.coerce.number().min(0),
-  "puerta-lavanderia": z.coerce.number().min(0),
+   */ "puerta-principal-cantidad": z.coerce.number().min(0).nullable(),
+  "puerta-interior": z.coerce.number().min(0).nullable(),
+  "ventana-habitacion": z.coerce.number().min(0).nullable(),
+  "puerta-ventana-habitacion": z.coerce.number().min(0).nullable(),
+  "ventana-bano": z.coerce.number().min(0).nullable(),
+  "puerta-ventana-living": z.coerce.number().min(0).nullable(),
+  "puerta-lavanderia": z.coerce.number().min(0).nullable(),
   "vidrio-simple-dvh": z.string(),
   //electricidad
-  "bocas-electricas": z.coerce.number().min(0),
+  "bocas-electricas": z.coerce.number().min(0).nullable(),
 
   //preguntas
-  "con-cocina": z.coerce.number().min(0),
-  "con-lavanderia": z.coerce.number().min(0),
-  "banos-visita": z.coerce.number().min(0),
-  banos: z.coerce.number().min(0),
-  "aires-acondicionados": z.coerce.number().min(0),
-  churrasquera: z.coerce.number().min(0),
+  "con-cocina": z.coerce.number().min(0).nullable(),
+  "con-lavanderia": z.coerce.number().min(0).nullable(),
+  "banos-visita": z.coerce.number().min(0).nullable(),
+  banos: z.coerce.number().min(0).nullable(),
+  "aires-acondicionados": z.coerce.number().min(0).nullable(),
+  churrasquera: z.coerce.number().min(0).nullable(),
 
   //otros
   "pozo-septico": z.string(),
@@ -92,30 +92,30 @@ export default function FormEtapa2() {
       "tabique-durlock-pb-pa": undefined,
       "balcon-con-porcelanato": undefined,
       "hormigon-visto": undefined,
-      "cantidad-encuentros-PB": 0,
-      "cantidad-encuentros-PA": 0,
+      "cantidad-encuentros-PB": null,
+      "cantidad-encuentros-PA": null,
       "espesor-muro-SIP": "90",
       "tipo-techo": "Chapa",
       //abertura
 
       /* "puerta-principal-tipo": "Madera",// le agreto tipo de puerta madera o chapa */
-      "puerta-principal-cantidad": undefined,
-      "puerta-interior": undefined,
-      "ventana-habitacion": undefined,
-      "puerta-ventana-habitacion": undefined,
-      "ventana-bano": undefined,
-      "puerta-ventana-living": undefined,
-      "puerta-lavanderia": undefined,
+      "puerta-principal-cantidad": null,
+      "puerta-interior": null,
+      "ventana-habitacion": null,
+      "puerta-ventana-habitacion": null,
+      "ventana-bano": null,
+      "puerta-ventana-living": null,
+      "puerta-lavanderia": null,
       "vidrio-simple-dvh": undefined,
       //electricidad
-      "bocas-electricas": undefined,
+      "bocas-electricas": null,
       //preguntas
-      "con-cocina": undefined,
-      "con-lavanderia": undefined,
-      "banos-visita": undefined,
-      banos: undefined,
-      "aires-acondicionados": undefined,
-      churrasquera: undefined,
+      "con-cocina": null,
+      "con-lavanderia": null,
+      "banos-visita": null,
+      banos: null,
+      "aires-acondicionados": null,
+      churrasquera: null,
 
       //otros
       "pozo-septico": "SI",
@@ -149,6 +149,59 @@ export default function FormEtapa2() {
   const onSubmit = async (data: any) => {
     try {
       setIsSubmitting(true);
+      if (data["cantidad-encuentros-PB"] === undefined) {
+        data["cantidad-encuentros-PB"] = null;
+    }
+      if (data["cantidad-encuentros-PA"] === undefined) {
+        data["cantidad-encuentros-PA"] = null;
+    }
+      if (data["puerta-principal-cantidad"] === undefined) {
+        data["puerta-principal-cantidad"] = null;
+    }
+      if (data["puerta-interior"] === undefined) {
+        data["puerta-interior"] = null;
+    }
+      if (data["ventana-habitacion"] === undefined) {
+        data["ventana-habitacion"] = null;
+    }
+      if (data["puerta-ventana-habitacion"] === undefined) {
+        data["puerta-ventana-habitacion"] = null;
+    }
+      if (data["ventana-bano"] === undefined) {
+        data["ventana-bano"] = null;
+    }
+      if (data["puerta-ventana-living"] === undefined) {
+        data["puerta-ventana-living"] = null;
+    }
+      if (data["puerta-lavanderia"] === undefined) {
+        data["puerta-lavanderia"] = null;
+    }
+      if (data["bocas-electricas"] === undefined) {
+        data["bocas-electricas"] = null;
+    }
+      if (data["con-cocina"] === undefined) {
+        data["con-cocina"] = null;
+    }
+      if (data["con-lavanderia"] === undefined) {
+        data["con-lavanderia"] = null;
+    }
+      if (data["banos-visita"] === undefined) {
+        data["banos-visita"] = null;
+    }
+      if (data["banos"] === undefined) {
+        data["banos"] = null;
+    }
+      if (data["aires-acondicionados"] === undefined) {
+        data["aires-acondicionados"] = null;
+    }
+      if (data["churrasquera"] === undefined) {
+        data["churrasquera"] = null;
+    }
+
+
+      
+
+
 
       const postResponse = await axios.post("/api/actualizarExcel2", data);
 
@@ -183,7 +236,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Tabique Durlock PB-PA</FormLabel>
                   <FormControl>
-                    <Input placeholder="ml" {...field} />
+                  <Input
+                      placeholder="ml"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -196,7 +253,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>¿Balcon con porcelanato? </FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -209,7 +270,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Hormigón Visto</FormLabel>
                   <FormControl>
-                    <Input placeholder="m2" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -222,7 +287,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Cantidad de encuentros PB</FormLabel>
                   <FormControl>
-                    <Input placeholder="vertices" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -235,7 +304,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Cantidad de encuentros PA</FormLabel>
                   <FormControl>
-                    <Input placeholder="vertices" {...field} />
+                  <Input
+                      placeholder="m2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -248,7 +321,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Cantidad de encuentros PA</FormLabel>
                   <FormControl>
-                    <Input placeholder="vertices" {...field} />
+                  <Input
+                      placeholder="vertices"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -323,7 +400,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Puerta principal</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -336,7 +417,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Puerta interior</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -349,7 +434,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Ventana habitación</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -362,7 +451,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Puerta ventana habitación</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -375,7 +468,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Ventana baño</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -388,7 +485,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Puerta ventana living</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -401,7 +502,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Puerta lavanderia</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -444,7 +549,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Cantidad de bocas eléctricas y tableros</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -457,7 +566,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>¿Con cocina?</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -470,7 +583,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>¿Con lavanderia?</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -483,7 +600,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>¿Baños de visita?</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -496,7 +617,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>¿Cantidad de Baños?</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -511,7 +636,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>¿Aires acondicionados?</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -524,7 +653,11 @@ export default function FormEtapa2() {
                 <FormItem>
                   <FormLabel>Churrasquera</FormLabel>
                   <FormControl>
-                    <Input placeholder="cantidad" {...field} />
+                  <Input
+                      placeholder="cantidad"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
