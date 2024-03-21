@@ -29,34 +29,129 @@ import Link from "next/link";
 
 const formSchema = z.object({
   //forma 2
-  "tabique-durlock-pb-pa": z.coerce.number().min(0).nullable(),
-  "balcon-con-porcelanato": z.coerce.number().min(0).nullable(),
-  "hormigon-visto": z.coerce.number().min(0).nullable(),
-  "cantidad-encuentros-PB": z.coerce.number().min(0).nullable(),
-  "cantidad-encuentros-PA": z.coerce.number().min(0).nullable(),
+  "tabique-durlock-pb-pa":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "balcon-con-porcelanato":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "hormigon-visto":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "cantidad-encuentros-PB":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "cantidad-encuentros-PA":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
   "espesor-muro-SIP": z.string(),
   "tipo-techo": z.string(),
   //abertura
 
   /*   "puerta-principal-tipo": z.string(),// le agreto tipo de puerta madera o chapa
-   */ "puerta-principal-cantidad": z.coerce.number().min(0).nullable(),
-  "puerta-interior": z.coerce.number().min(0).nullable(),
-  "ventana-habitacion": z.coerce.number().min(0).nullable(),
-  "puerta-ventana-habitacion": z.coerce.number().min(0).nullable(),
-  "ventana-bano": z.coerce.number().min(0).nullable(),
-  "puerta-ventana-living": z.coerce.number().min(0).nullable(),
-  "puerta-lavanderia": z.coerce.number().min(0).nullable(),
+   */ "puerta-principal-cantidad":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "puerta-interior":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "ventana-habitacion":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "puerta-ventana-habitacion":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "ventana-bano":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "puerta-ventana-living": z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "puerta-lavanderia":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
   "vidrio-simple-dvh": z.string(),
   //electricidad
-  "bocas-electricas": z.coerce.number().min(0).nullable(),
+  "bocas-electricas":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
 
   //preguntas
-  "con-cocina": z.coerce.number().min(0).nullable(),
-  "con-lavanderia": z.coerce.number().min(0).nullable(),
-  "banos-visita": z.coerce.number().min(0).nullable(),
-  banos: z.coerce.number().min(0).nullable(),
-  "aires-acondicionados": z.coerce.number().min(0).nullable(),
-  churrasquera: z.coerce.number().min(0).nullable(),
+  "con-cocina": z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "con-lavanderia":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "banos-visita": z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  banos:  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "aires-acondicionados": z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  churrasquera: z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
 
   //otros
   "pozo-septico": z.string(),

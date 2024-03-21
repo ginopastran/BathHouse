@@ -42,19 +42,79 @@ const formSchema = z.object({
   ubicacion: z.string(),
   //datos plano municipal
 
-  "metros-cuadrados-de-planta-baja": z.coerce.number().min(0).nullable(),
-  "metros-cuadrados-de-planta-alta": z.coerce.number().min(0).nullable(),
-  "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0).nullable(),
-  "superficie-p-rgolas-semi-cubierta-p-rgola": z.coerce.number().min(0).nullable(),
-  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": z.coerce.number().min(0).nullable(),
-  "sup-alero": z.coerce.number().min(0).nullable(),
+  "metros-cuadrados-de-planta-baja":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "metros-cuadrados-de-planta-alta":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "superficie-p-rgolas-cubiertas-techado":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "superficie-p-rgolas-semi-cubierta-p-rgola":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "sup-alero":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
   //cerramiento
-  "pb-muros-pb-perimetro": z.coerce.number().min(0).nullable(),
-  "pb-muros-pb-interiores-churrasquera-otros": z.coerce.number().min(0).nullable(),
-  "pa-muros-pa-perimetro": z.coerce.number().min(0).nullable(),
-  "pa-muros-pa-interiores": z.coerce.number().min(0).nullable(),
-  "altura-de-muro-planta-baja": z.coerce.number().min(0).nullable(),
-  "altura-de-muro-planta-alta": z.coerce.number().min(0).nullable(),
+  "pb-muros-pb-perimetro":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "pb-muros-pb-interiores-churrasquera-otros":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "pa-muros-pa-perimetro":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "pa-muros-pa-interiores":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "altura-de-muro-planta-baja":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
+  "altura-de-muro-planta-alta":  z.coerce.number().min(0).nullable().transform((input: any) => {
+    if (typeof input === 'string') {
+      input = input.replace(',', '.');
+    }
+    return input;
+  }),
 });
 
 export default function ProfileForm() {
