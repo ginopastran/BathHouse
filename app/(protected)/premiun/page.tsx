@@ -36,12 +36,12 @@ import NewCompNavbar from "@/components/new-comp-navbar";
 
 const formSchema = z.object({
   //datos cliente
-  "nombre-completo": z.string().min(3),
-  "nombre-obra": z.string().min(3),
+/*   "nombre-completo": z.string().min(3),
+ */  "nombre-obra": z.string().min(3),
   ubicacion: z.string(),
   //datos plano municipal
-  "per-lote": z.coerce.number().min(0).nullable(), //agregado premium
-  "frente-lote": z.coerce.number().min(0).nullable(), //agregado premium
+  /* "per-lote": z.coerce.number().min(0).nullable(), //agregado premium
+  "frente-lote": z.coerce.number().min(0).nullable(), //agregado premium */
   "metros-cuadrados-de-planta-baja": z.coerce.number().min(0).nullable(),
   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0).nullable(),
   "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0).nullable(),
@@ -98,12 +98,12 @@ export default function ProfileFormPremium() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       //datos cliente
-      "nombre-completo": "",
+/*       "nombre-completo": "",*/
       "nombre-obra": "",
       ubicacion: "",
       //datos plano municipal
-      "per-lote": null, //agregado premium
-      "frente-lote": null, //agregado premium
+      /*"per-lote": null, //agregado premium
+      "frente-lote": null, //agregado premium */
       "metros-cuadrados-de-planta-baja": null,
       "metros-cuadrados-de-planta-alta": null,
       "superficie-p-rgolas-cubiertas-techado": null,
@@ -309,7 +309,7 @@ export default function ProfileFormPremium() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
-            <FormField
+         {/*    <FormField
               control={form.control}
               name="nombre-completo"
               render={({ field }) => (
@@ -321,7 +321,7 @@ export default function ProfileFormPremium() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="nombre-obra"
@@ -360,7 +360,7 @@ export default function ProfileFormPremium() {
                 </FormItem>
               )}
             />
-            <FormField
+        {/*     <FormField
               control={form.control}
               name="per-lote"
               render={({ field }) => (
@@ -376,8 +376,8 @@ export default function ProfileFormPremium() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
+            /> */}
+      {/*       <FormField
               control={form.control}
               name="frente-lote"
               render={({ field }) => (
@@ -393,7 +393,7 @@ export default function ProfileFormPremium() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="metros-cuadrados-de-planta-baja"
