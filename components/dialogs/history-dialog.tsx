@@ -2,23 +2,23 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Loader2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { FormWraper } from "./form-wrapper";
-import { HistoryCardWraper } from "./history-card-wrapper";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { FormWraper } from "../forms/form-wrapper";
+import { HistoryCardWraper } from "../cards/history-card-wrapper";
 import { CircleLoader } from "react-spinners";
 
 interface HistoryDialogProps {
   xlsxName: string;
 }
 
-const HistoryDialog2 = ({ xlsxName }: HistoryDialogProps) => {
+const HistoryDialog = ({ xlsxName }: HistoryDialogProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cellValues, setCellValues] = useState<{
     // CASSAFORMA-TOTAL
@@ -178,7 +178,7 @@ const HistoryDialog2 = ({ xlsxName }: HistoryDialogProps) => {
     const fetchCellValues = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get("/api/historial2", {
+        const response = await axios.get("/api/historial", {
           params: { xlsxName },
         });
         const data = response.data;
@@ -1050,4 +1050,4 @@ const HistoryDialog2 = ({ xlsxName }: HistoryDialogProps) => {
   );
 };
 
-export default HistoryDialog2;
+export default HistoryDialog;

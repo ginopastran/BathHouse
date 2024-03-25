@@ -1,8 +1,8 @@
 "use client";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
-import FormEtapa1Edit from "./form-etapa-edit-1";
-import FormJson1Edit from "./form-json-edit-1";
+import FormEtapa1Edit from "../forms/form-etapa-edit-1";
+import FormJson1Edit from "../forms/form-json-edit-1";
 
 interface JsonData {
   "nombre-completo": string;

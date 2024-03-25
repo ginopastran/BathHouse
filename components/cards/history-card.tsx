@@ -1,18 +1,35 @@
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
-import { EditJsonButton } from "./edit-json-button";
-import { BudgetHistoryButton } from "./budget-history-button";
-import { EditJson2Button } from "./edit-json2-button";
-import { BudgetHistoryButton2 } from "./budget-history2-button";
+import { EditJsonButton } from "../buttons/edit-json-button";
+import { BudgetHistoryButton } from "../buttons/budget-history-button";
+
+interface JsonData {
+  "nombre-completo": string;
+  "nombre-obra": string;
+  ubicacion: string;
+  "metros-cuadrados-de-planta-baja": number;
+  "metros-cuadrados-de-planta-alta": number;
+  "superficie-p-rgolas-cubiertas-techado": number;
+  "superficie-p-rgolas-semi-cubierta-p-rgola": number;
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": number;
+  "sup-alero": number;
+  "pb-muros-pb-perimetro": number;
+  "pb-muros-pb-interiores-churrasquera-otros": number;
+  "pa-muros-pa-perimetro": number;
+  "pa-muros-pa-interiores": number;
+  "altura-de-muro-planta-baja": number;
+  "altura-de-muro-planta-alta": number;
+  fecha: string;
+}
 
 interface HistoryCardProps {
   requestNumber: string;
   date: string;
-  jsonData2: JsonData2;
+  jsonData: JsonData;
 }
 
-function HistoryCard2({ requestNumber, date, jsonData2 }: HistoryCardProps) {
-  const [selectedJson, setSelectedJson] = useState<JsonData2 | null>(null);
+function HistoryCard({ requestNumber, date, jsonData }: HistoryCardProps) {
+  const [selectedJson, setSelectedJson] = useState<JsonData | null>(null);
 
   return (
     <div className="flex items-center justify-between space-x-4  w-full px-3 py-2 rounded-2xl border-2 border-orange-700">
@@ -25,32 +42,32 @@ function HistoryCard2({ requestNumber, date, jsonData2 }: HistoryCardProps) {
             {requestNumber}
             <span className="ml-2 text-sm font-medium text-white/60">
               {" "}
-              Presupuesto Avanzado
+              Presupuesto Básico
             </span>
           </h3>
           <p className="text-sm text-gray-500">{date}</p>
         </div>
       </div>
       <div className="flex items-center justify-end gap-2 flex-col sm:flex-row">
-        <BudgetHistoryButton2 xlsxName={requestNumber}>
+        <BudgetHistoryButton xlsxName={requestNumber}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Presupuesto
           </Button>
-        </BudgetHistoryButton2>
-        <EditJson2Button jsonData={jsonData2}>
+        </BudgetHistoryButton>
+        <EditJsonButton jsonData={jsonData}>
           <Button
             variant="bordered"
             className="border-orange-700 w-full text-sm"
           >
             Editar
           </Button>
-        </EditJson2Button>
+        </EditJsonButton>
       </div>
     </div>
   );
 }
 
-export default HistoryCard2;
+export default HistoryCard;

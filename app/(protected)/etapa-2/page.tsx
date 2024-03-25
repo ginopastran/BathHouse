@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import FormEtapa2 from "@/components/form-etapa-2";
-import FormEtapa1Edit from "@/components/form-etapa-edit-1";
+import FormEtapa2 from "@/components/forms/form-etapa-2";
+import FormEtapa1Edit from "@/components/forms/form-etapa-edit-1";
 import {
   Accordion,
   AccordionContent,
@@ -14,7 +14,7 @@ import readJsonFromS3 from "@/lib/json/readJsonFromS3";
 import { Loader2 } from "lucide-react";
 import AWS from "aws-sdk";
 import { useSession } from "next-auth/react";
-import { FormError } from "@/components/form-error";
+import { FormError } from "@/components/forms/form-error";
 import { BsExclamationTriangle } from "react-icons/bs";
 import getLastJsonFile from "@/lib/json/getLastJsonFile";
 import axios from "axios";

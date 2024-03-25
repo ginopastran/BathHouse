@@ -92,20 +92,40 @@ interface JsonData2 {
 }
 
 interface JsonData3 {
-    "nombre-completo": string;
-    "nombre-obra": string;
-    ubicacion: string;
-    "metros-cuadrados-de-planta-baja": number;
-    "metros-cuadrados-de-planta-alta": number;
-    "superficie-p-rgolas-cubiertas-techado": number;
-    "superficie-p-rgolas-semi-cubierta-p-rgola": number;
-    "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": number;
-    "sup-alero": number;
-    "pb-muros-pb-perimetro": number;
-    "pb-muros-pb-interiores-churrasquera-otros": number;
-    "pa-muros-pa-perimetro": number;
-    "pa-muros-pa-interiores": number;
-    "altura-de-muro-planta-baja": number;
-    "altura-de-muro-planta-alta": number;
+    //datos cliente
+    "nombre-completo": string,
+    "nombre-obra": string,
+    ubicacion: string,
+    //datos plano municipal
+    "per-lote": number, //agregado premium
+    "frente-lote": number, //agregado premium
+    "metros-cuadrados-de-planta-baja": number,
+    "metros-cuadrados-de-planta-alta": number,
+    "superficie-p-rgolas-cubiertas-techado": number,
+    "superficie-p-rgolas-semi-cubierta-p-rgola": number,
+    "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": number,
+    "sup-alero": number,
+
+    "pb-muros-pb-perimetro": number,
+    "pb-muros-pb-interiores-churrasquera-otros": number,
+    "pa-muros-pa-perimetro": number,
+    "pa-muros-pa-interiores": number,
+    "altura-de-muro-planta-baja": number,
+    "altura-de-muro-planta-alta": number,
+
+    "puerta-principal-cantidad": number,
+    "puerta-interior": number,
+    "ventana-habitacion": number,
+    "puerta-ventana-habitacion": number,
+    "ventana-bano": number,
+    "puerta-ventana-living": number,
+    "puerta-lavanderia": number,
+    "vidrio-simple-dvh": string,
+    //casasip form 2
+    "balcon-con-porcelanato": number,
+    "cantidad-encuentros-PB": number,
+    "cantidad-encuentros-PA": number,
+    "espesor-muro-SIP": string,
+    "piso-suspendido-sip": string, //agregado premium
     fecha: string;
 }

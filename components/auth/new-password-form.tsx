@@ -19,8 +19,8 @@ import { CardWraper } from "./card-wrapper";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-success";
+import { FormError } from "../forms/form-error";
+import { FormSuccess } from "../forms/form-success";
 import { newPassword } from "@/actions/new-password";
 
 export const NewPasswordForm = () => {

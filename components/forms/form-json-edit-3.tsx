@@ -7,7 +7,6 @@ import * as z from "zod";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import {
   Form,
   FormControl,
@@ -30,18 +29,68 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
-import PopoverdataPremium from "@/components/popovers/popover-premium";
-import NewCompNavbar from "@/components/new-comp-navbar";
+import Popoverdata from "@/components/popovers/popover-data";
+import { useEffect, useState } from "react";
+
+import { getJson } from "@/lib/json/getJson";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { CardWraper } from "../auth/card-wrapper";
+import { FormWraper } from "./form-wrapper";
+import { useToast } from "../ui/use-toast";
+import { BsCheckCircle } from "react-icons/bs";
+import Link from "next/link";
+
+interface Datos {
+  //datos cliente
+  "nombre-completo": string;
+  "nombre-obra": string;
+  ubicacion: string;
+  //datos plano municipal
+  "per-lote": number; //agregado premium
+  "frente-lote": number; //agregado premium
+  "metros-cuadrados-de-planta-baja": number;
+  "metros-cuadrados-de-planta-alta": number;
+  "superficie-p-rgolas-cubiertas-techado": number;
+  "superficie-p-rgolas-semi-cubierta-p-rgola": number;
+  "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": number;
+  "sup-alero": number;
+
+  "pb-muros-pb-perimetro": number;
+  "pb-muros-pb-interiores-churrasquera-otros": number;
+  "pa-muros-pa-perimetro": number;
+  "pa-muros-pa-interiores": number;
+  "altura-de-muro-planta-baja": number;
+  "altura-de-muro-planta-alta": number;
+
+  "puerta-principal-cantidad": number;
+  "puerta-interior": number;
+  "ventana-habitacion": number;
+  "puerta-ventana-habitacion": number;
+  "ventana-bano": number;
+  "puerta-ventana-living": number;
+  "puerta-lavanderia": number;
+  "vidrio-simple-dvh": string;
+  //casasip form 2
+  "balcon-con-porcelanato": number;
+  "cantidad-encuentros-PB": number;
+  "cantidad-encuentros-PA": number;
+  "espesor-muro-SIP": string;
+  "piso-suspendido-sip": string; //agregado premium
+  fecha: string;
+}
+
+interface FormEtapa1EditProps {
+  data: Datos | null;
+}
 
 const formSchema = z.object({
   //datos cliente
-/*   "nombre-completo": z.string().min(3),
- */  "nombre-obra": z.string().min(3),
+  "nombre-completo": z.string().min(3),
+  "nombre-obra": z.string().min(3),
   ubicacion: z.string(),
   //datos plano municipal
-  /* "per-lote": z.coerce.number().min(0).nullable(), //agregado premium
-  "frente-lote": z.coerce.number().min(0).nullable(), //agregado premium */
+  "per-lote": z.coerce.number().min(0).nullable(), //agregado premium
+  "frente-lote": z.coerce.number().min(0).nullable(), //agregado premium
   "metros-cuadrados-de-planta-baja": z.coerce.number().min(0).nullable(),
   "metros-cuadrados-de-planta-alta": z.coerce.number().min(0).nullable(),
   "superficie-p-rgolas-cubiertas-techado": z.coerce.number().min(0).nullable(),
@@ -54,10 +103,6 @@ const formSchema = z.object({
     .min(0)
     .nullable(),
   "sup-alero": z.coerce.number().min(0).nullable(),
-  //total
-  /* "sup-total":z.coerce.number().min(0),
-   "sup-computo":z.coerce.number().min(0), */ //esto queda comentado porque no se sabe si se ingresa o te los da excel como respuesta
-  //cerramiento
   "pb-muros-pb-perimetro": z.coerce.number().min(0).nullable(),
   "pb-muros-pb-interiores-churrasquera-otros": z.coerce
     .number()
@@ -67,15 +112,6 @@ const formSchema = z.object({
   "pa-muros-pa-interiores": z.coerce.number().min(0).nullable(),
   "altura-de-muro-planta-baja": z.coerce.number().min(0).nullable(),
   "altura-de-muro-planta-alta": z.coerce.number().min(0).nullable(),
-  //agregado 14/03
-  /* "altura-PB-muro-interno-2": z.coerce.number().min(0).nullable(), //altura de muro pa b81
-  "altura-PA-muro-interno-2": z.coerce.number().min(0).nullable(), //altura de muro pa b82
-  "PA-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
-  "altura-PA-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
-  "PB-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83
-  "altura-PB-muro-perimetrales-3": z.coerce.number().min(0).nullable(), //altura de muro pa b83 */
-  //aberturas
-  //aberturas form 2
   "puerta-principal-cantidad": z.coerce.number().min(0).nullable(),
   "puerta-interior": z.coerce.number().min(0).nullable(),
   "ventana-habitacion": z.coerce.number().min(0).nullable(),
@@ -92,64 +128,76 @@ const formSchema = z.object({
   "piso-suspendido-sip": z.string(), //agregado premium
 });
 
-export default function ProfileFormPremium() {
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      //datos cliente
-/*       "nombre-completo": "",*/
-      "nombre-obra": "",
-      ubicacion: "",
-      //datos plano municipal
-      /*"per-lote": null, //agregado premium
-      "frente-lote": null, //agregado premium */
-      "metros-cuadrados-de-planta-baja": null,
-      "metros-cuadrados-de-planta-alta": null,
-      "superficie-p-rgolas-cubiertas-techado": null,
-      "superficie-p-rgolas-semi-cubierta-p-rgola": null,
-      "superficie-p-rgolas-semi-cochera-cubierta-p-rgola": null,
-      "sup-alero": null,
-      //cerramiento
-      "pb-muros-pb-perimetro": null, //perimetrales muro pb b20
-      "pb-muros-pb-interiores-churrasquera-otros": null, //interiores muro pb b21
-      "pa-muros-pa-perimetro": null, //muros perimetrales pa b22
-      "pa-muros-pa-interiores": null, //muros interiores pa b23
-      "altura-de-muro-planta-baja": null, //altura de muro pb b24
-      "altura-de-muro-planta-alta": null, //altura de muro pa b25
-      //agregado 14/03
-      /* "altura-PB-muro-interno-2": null, //altura de muro pa b81
-      "altura-PA-muro-interno-2": null, //altura de muro pa b82
-      "PA-muro-perimetrales-3": null, //altura de muro pa b83
-      "altura-PA-muro-perimetrales-3": null, //altura de muro pa b83
-      "PB-muro-perimetrales-3": null, //altura de muro pa b83
-      "altura-PB-muro-perimetrales-3": null, //altura de muro pa b83 */
-      //aberturas
-      "puerta-principal-cantidad": null,
-      "puerta-interior": null,
-      "ventana-habitacion": null,
-      "puerta-ventana-habitacion": null,
-      "ventana-bano": null,
-      "puerta-ventana-living": null,
-      "puerta-lavanderia": null,
-      "vidrio-simple-dvh": undefined,
-      //casasip
-      "balcon-con-porcelanato": null,
-      "cantidad-encuentros-PB": null,
-      "cantidad-encuentros-PA": null,
-      "espesor-muro-SIP": "90",
-      "piso-suspendido-sip": "SI", //agregado premium
-    },
-  });
-
+function FormJson3Edit({ data }: FormEtapa1EditProps) {
   const [isSubmitComplete, setIsSubmitComplete] = useState(false);
+  const [informacionGeneral, setInformacionGeneral] = useState(null);
+  const [editing, setEditing] = useState<boolean>(false);
+  const [datos, setDatos] = useState<Datos | null>(null);
+  const [datosOriginales, setDatosOriginales] = useState<any>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
-  const onSubmit = async (data: any) => {
+  const { toast } = useToast();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: data
+      ? {
+          "nombre-completo": data["nombre-completo"],
+          "nombre-obra": data["nombre-obra"],
+          ubicacion: data["ubicacion"],
+          //datos plano municipal
+          "per-lote": data["per-lote"], //agregado premium
+          "frente-lote": data["frente-lote"], //agregado premium
+          "metros-cuadrados-de-planta-baja":
+            data["metros-cuadrados-de-planta-baja"],
+          "metros-cuadrados-de-planta-alta":
+            data["metros-cuadrados-de-planta-alta"],
+          "superficie-p-rgolas-cubiertas-techado":
+            data["superficie-p-rgolas-cubiertas-techado"],
+          "superficie-p-rgolas-semi-cubierta-p-rgola":
+            data["superficie-p-rgolas-semi-cubierta-p-rgola"],
+          "superficie-p-rgolas-semi-cochera-cubierta-p-rgola":
+            data["superficie-p-rgolas-semi-cochera-cubierta-p-rgola"],
+          "sup-alero": data["sup-alero"],
+          //cerramiento
+          "pb-muros-pb-perimetro": data["pb-muros-pb-perimetro"], //perimetrales muro pb b20
+          "pb-muros-pb-interiores-churrasquera-otros":
+            data["pb-muros-pb-interiores-churrasquera-otros"], //interiores muro pb b21
+          "pa-muros-pa-perimetro":
+            data["pb-muros-pb-interiores-churrasquera-otros"], //muros perimetrales pa b22
+          "pa-muros-pa-interiores": data["pa-muros-pa-interiores"], //muros interiores pa b23
+          "altura-de-muro-planta-baja": data["altura-de-muro-planta-baja"], //altura de muro pb b24
+          "altura-de-muro-planta-alta": data["altura-de-muro-planta-alta"], //altura de muro pa b25
+
+          "puerta-principal-cantidad": data["puerta-principal-cantidad"],
+          "puerta-interior": data["puerta-interior"],
+          "ventana-habitacion": data["ventana-habitacion"],
+          "puerta-ventana-habitacion": data["puerta-ventana-habitacion"],
+          "ventana-bano": data["ventana-bano"],
+          "puerta-ventana-living": data["puerta-ventana-living"],
+          "puerta-lavanderia": data["puerta-lavanderia"],
+          "vidrio-simple-dvh": data["vidrio-simple-dvh"],
+          //casasip
+          "balcon-con-porcelanato": data["balcon-con-porcelanato"],
+          "cantidad-encuentros-PB": data["cantidad-encuentros-PB"],
+          "cantidad-encuentros-PA": data["cantidad-encuentros-PA"],
+          "espesor-muro-SIP": data["espesor-muro-SIP"],
+          "piso-suspendido-sip": data["piso-suspendido-sip"],
+        }
+      : {},
+  });
+
+  // Función para manejar el botón de editar
+  const handleEditarClick = () => {
+    setEditing(true);
+  };
+
+  // Función para manejar el botón de guardar
+  const handleGuardarClick = async (data: any) => {
     try {
       setIsSubmitting(true);
-      // Ajustar los valores de los campos que estén undefined a 0
+      const formData = form.getValues(); // Obtener los valores actuales del formulario
       if (data["per-lote"] === undefined) {
         data["per-lote"] = 0;
       }
@@ -192,25 +240,6 @@ export default function ProfileFormPremium() {
       if (data["altura-de-muro-planta-alta"] === null) {
         data["altura-de-muro-planta-alta"] = 0;
       }
-      //agregado 14/03
-      /* if (data["altura-PB-muro-interno-2"] === null) {
-        data["altura-PB-muro-interno-2"] = 0;
-      }
-      if (data["altura-PA-muro-interno-2"] === null) {
-        data["altura-PA-muro-interno-2"] = 0;
-      }
-      if (data["PA-muro-perimetrales-3"] === null) {
-        data["PA-muro-perimetrales-3"] = 0;
-      }
-      if (data["altura-PA-muro-perimetrales-3"] === null) {
-        data["altura-PA-muro-perimetrales-3"] = 0;
-      }
-      if (data["PB-muro-perimetrales-3"] === null) {
-        data["PB-muro-perimetrales-3"] = 0;
-      }
-      if (data["altura-PB-muro-perimetrales-3"] === null) {
-        data["altura-PB-muro-perimetrales-3"] = 0;
-      }*/
       if (data["puerta-principal-cantidad"] === undefined) {
         data["puerta-principal-cantidad"] = 0;
       }
@@ -241,27 +270,31 @@ export default function ProfileFormPremium() {
       if (data["cantidad-encuentros-PA"] === null) {
         data["cantidad-encuentros-PA"] = 0;
       }
-      // Hacer una solicitud a tu API para enviar los datos del formulario
-
-      const postResponse = await axios.post("/api/actualizarExcel3", data);
-
-      // const fileName = postResponse.data.fileName;
-
-      // const getResponse = await axios.get("/api/actualizarExcel", {
-      //   responseType: "blob",
-      // });
-      // const url = window.URL.createObjectURL(new Blob([getResponse.data]));
-      // const link = document.createElement("a");
-      // link.href = url;
-      // link.setAttribute("download", fileName);
-      // document.body.appendChild(link);
-      // link.click();
+      const postResponse = await axios.post("/api/actualizarExcel3", formData); // Enviar los datos del formulario
+      setTimeout(() => {
+        setIsSubmitComplete(true);
+      }, 4000);
+      // Agregar superposición de página bloqueada
+      const overlay = document.createElement("div");
+      overlay.className = "page-overlay";
+      document.body.appendChild(overlay);
+      // Mostrar tarjeta de completado
+      toast({
+        title: "El presupuesto se editó correctamente",
+        description: "La página se recargará en 5 segundos.",
+        duration: 5000,
+        className: "bg-emerald-700 ",
+      });
+      // Esperar 5 segundos antes de recargar la página
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (error) {
       console.log(error);
     } finally {
       setIsSubmitting(false);
-      setIsSubmitComplete(true);
     }
+    setEditing(false);
   };
 
   const onDownload = async () => {
@@ -302,26 +335,54 @@ export default function ProfileFormPremium() {
     }
   };
 
-  return (
-    <>
-      <NewCompNavbar title="Presupuesto Premium" />
+  // useEffect para restaurar datos cuando no está editando
+  useEffect(() => {
+    if (!editing) {
+      setDatos({ ...datosOriginales });
+    }
+  }, [editing, datosOriginales]);
 
+  // Función para manejar cambios en los campos de entrada
+  const handleInputChange = (key: string, value: any) => {
+    setDatos((prevDatos) => {
+      if (prevDatos) {
+        return { ...prevDatos, [key]: value };
+      }
+      return null;
+    });
+  };
+
+  const onSubmit = async (formdata: any) => {
+    try {
+      const postResponse = await axios.post("/api/actualizarJson", formdata);
+      setIsSubmitComplete(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <FormWraper>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
           <div className="gap-4 m-4 grid grid-flow-row-dense grid-cols-2 grid-rows-2">
-         {/*    <FormField
+            <FormField
               control={form.control}
               name="nombre-completo"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nombre Completo</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nombre y Apellido" {...field} />
+                    <Input
+                      placeholder="Nombre y Apellido"
+                      {...field}
+                      disabled={!editing}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
             <FormField
               control={form.control}
               name="nombre-obra"
@@ -329,7 +390,7 @@ export default function ProfileFormPremium() {
                 <FormItem>
                   <FormLabel>Nombre de Obra</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nombre de obra" {...field} />
+                    <Input placeholder="Nombre de obra" {...field} disabled />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -344,6 +405,7 @@ export default function ProfileFormPremium() {
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    disabled={!editing}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -360,7 +422,7 @@ export default function ProfileFormPremium() {
                 </FormItem>
               )}
             />
-        {/*     <FormField
+            <FormField
               control={form.control}
               name="per-lote"
               render={({ field }) => (
@@ -371,13 +433,14 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
-      {/*       <FormField
+            />
+            <FormField
               control={form.control}
               name="frente-lote"
               render={({ field }) => (
@@ -388,12 +451,13 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
             <FormField
               control={form.control}
               name="metros-cuadrados-de-planta-baja"
@@ -405,6 +469,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -422,6 +487,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -439,6 +505,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -458,6 +525,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -477,6 +545,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -494,6 +563,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -511,6 +581,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -528,6 +599,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -545,6 +617,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -562,6 +635,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -579,6 +653,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -596,91 +671,13 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            {/* agregado 14/03 */}
-            {/*      <FormField
-              control={form.control}
-              name="altura-PB-muro-interno-2"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Altura de muro interno PB</FormLabel>
-                  <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="altura-PA-muro-interno-2"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Altura de muro interno PA</FormLabel>
-                  <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="PA-muro-perimetrales-3"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Altura de muro perimetrales PA</FormLabel>
-                  <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="altura-PA-muro-perimetrales-3"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Altura de muro perimetrales PA</FormLabel>
-                  <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="PB-muro-perimetrales-3"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Altura de muro perimetrales PB</FormLabel>
-                  <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="altura-PB-muro-perimetrales-3"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Altura de muro perimetrales PB</FormLabel>
-                  <FormControl>
-                    <Input placeholder="m2" value={field.value ?? ''} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
             <FormField
               control={form.control}
               name="puerta-principal-cantidad"
@@ -692,6 +689,7 @@ export default function ProfileFormPremium() {
                       placeholder="cantidad"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -709,6 +707,7 @@ export default function ProfileFormPremium() {
                       placeholder="cantidad"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -726,6 +725,7 @@ export default function ProfileFormPremium() {
                       placeholder="cantidad"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -743,6 +743,7 @@ export default function ProfileFormPremium() {
                       placeholder="cantidad"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -760,6 +761,7 @@ export default function ProfileFormPremium() {
                       placeholder="cantidad"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -777,6 +779,7 @@ export default function ProfileFormPremium() {
                       placeholder="cantidad"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -794,6 +797,7 @@ export default function ProfileFormPremium() {
                       placeholder="cantidad"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -810,6 +814,7 @@ export default function ProfileFormPremium() {
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
+                      disabled={!editing}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccione" />
@@ -835,6 +840,7 @@ export default function ProfileFormPremium() {
                       placeholder="m2"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -852,6 +858,7 @@ export default function ProfileFormPremium() {
                       placeholder="Vertice"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -869,6 +876,7 @@ export default function ProfileFormPremium() {
                       placeholder="Vertice"
                       value={field.value ?? ""}
                       onChange={field.onChange}
+                      disabled={!editing}
                     />
                   </FormControl>
                   <FormMessage />
@@ -886,6 +894,7 @@ export default function ProfileFormPremium() {
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       className="flex flex-col space-y-1"
+                      disabled={!editing}
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
@@ -916,6 +925,7 @@ export default function ProfileFormPremium() {
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       className="flex flex-col space-y-1"
+                      disabled={!editing}
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
@@ -937,64 +947,49 @@ export default function ProfileFormPremium() {
             />
           </div>
           <div className="flex justify-center pt-5 pb-6 ">
-            {/* <Button
-              type="submit"
-              className="w-[50%]"
-              disabled={isSubmitting || isSubmitComplete}
-              onClick={() => !isSubmitting && onSubmit}
-            >
-              {isSubmitComplete ? "Solicitud Enviada" : "Solicitar Presupuesto"}
-            </Button> */}
-            <Button
-              type="submit"
-              className="w-[50%]"
-              disabled={isSubmitting || isSubmitComplete}
-              onClick={() => !isSubmitting && onSubmit}
-            >
-              {isSubmitting && (
-                <ReloadIcon
-                  className={`mr-2 h-4 w-4 ${
-                    isSubmitting ? "animate-spin" : ""
-                  }`}
-                />
-              )}
-              {isSubmitComplete ? "Solicitud Enviada" : "Solicitar Presupuesto"}
-            </Button>
+            {!isSubmitComplete && (
+              <Button
+                type="button"
+                className="w-[50%]"
+                disabled={isSubmitting}
+                onClick={editing ? handleGuardarClick : handleEditarClick}
+              >
+                {isSubmitting ? (
+                  <ReloadIcon
+                    className={`mr-2 h-4 w-4 ${
+                      isSubmitting ? "animate-spin" : ""
+                    }`}
+                  />
+                ) : editing ? (
+                  "Guardar"
+                ) : (
+                  "Editar"
+                )}
+              </Button>
+            )}
           </div>
         </form>
         <div>
-          {isSubmitComplete && (
-            <Popover>
-              <div className="flex justify-center pb-6 relative">
-                <PopoverTrigger className="rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-[50%]">
-                  Mirar el presupuesto
-                </PopoverTrigger>
-              </div>
-              <PopoverContent className=" h-[70vh] w-[80vw]">
-                <PopoverdataPremium />
-              </PopoverContent>
-            </Popover>
-          )}
-          {isSubmitComplete && (
-            <div className="flex justify-center pb-6 relative">
-              <Button
-                className="w-[50%]"
-                disabled={isDownloading}
-                onClick={onDownload}
-              >
-                {isDownloading && (
-                  <ReloadIcon
-                    className={`mr-2 h-4 w-4 ${
-                      isDownloading ? "animate-spin" : ""
-                    }`}
-                  />
-                )}
-                Descargar Excel VIP
-              </Button>
-            </div>
-          )}
+          <div className="flex justify-center pb-6 relative">
+            <Button
+              className="w-[50%]"
+              disabled={isDownloading}
+              onClick={onDownload}
+            >
+              {isDownloading && (
+                <ReloadIcon
+                  className={`mr-2 h-4 w-4 ${
+                    isDownloading ? "animate-spin" : ""
+                  }`}
+                />
+              )}
+              Descargar Excel VIP
+            </Button>
+          </div>
         </div>
       </Form>
-    </>
+    </FormWraper>
   );
 }
+
+export default FormJson3Edit;
