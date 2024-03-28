@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
                 requestBody: {
                     // Los arrays con strings vacíos son para rellenar espacios que no se llenan en el data del form, es porque google sheets no deja especificar un dato para cada celda espeficica, solo deja agregar un rango desde una celda hasta otra, ej: B2:B65
                     values: [
-                        [data["nombre-completo"]], // B2
+                        [session?.user?.name], // B2
                         [data["nombre-obra"]], // B3
                         [data["ubicacion"]], // B4
                         [""], [""], [""], [""], [""],
